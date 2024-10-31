@@ -1,14 +1,14 @@
 ﻿namespace SalesManagement
 {
-    partial class frmMDIMain : Form
+    partial class frmAccount
     {
         /// <summary>
-        ///  Required designer variable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -23,26 +23,28 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             SuspendLayout();
             // 
-            // frmMDIMain
+            // frmAccount
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1264, 681);
-            IsMdiContainer = true;
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = SystemColors.GradientActiveCaption;
+            ClientSize = new Size(1270, 700);
+            ControlBox = false;
+            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "frmMDIMain";
-            Text = "Form1";
-            Shown += FrmMDIMain_Shown;
+            Name = "frmAccount";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.Manual;
             ResumeLayout(false);
         }
+
         #endregion
     }
 }

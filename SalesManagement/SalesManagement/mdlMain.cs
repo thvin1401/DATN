@@ -1,4 +1,6 @@
-﻿namespace SalesManagement
+﻿using System.Runtime.CompilerServices;
+
+namespace SalesManagement
 {
     public static class mdlMain
     {
@@ -13,7 +15,26 @@
                 if(mdiMain!=null)  
                     frmMDIMain = mdiMain;
 
-            
+            App = new();
+            App.frmSplash.MdiParent = frmMDIMain;
+            App.frmSplash.Show();
+            App.frmSplash.Activate();
+
+            App.frmSplash.lblMessage.Text = "Connecting...";
+
+            clsDBConnectionManager.Connection.Open();
+
+            if(clsDBConnectionManager.Connection.State != System.Data.ConnectionState.Open)
+            {
+                App.frmSplash.lblMessage.Text = "Connection failed!";
+                Application.Exit();
+            }
+
+            var xxx = clsAccountDM.getAccountLoggedIn("vinhth");
+
+            //App.frmSplash.Close();
+
+            //frmMDIMain.Show();
         }
     }
 }

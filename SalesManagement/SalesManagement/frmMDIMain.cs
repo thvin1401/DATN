@@ -6,5 +6,11 @@ namespace SalesManagement
         {
             InitializeComponent();
         }
+
+
+        private void FrmMDIMain_Shown(object sender, EventArgs e)
+        {
+            mdlMain.Main(this);
+        }
     }
 }

@@ -9,5 +9,10 @@
         public bool isenabled { get; set;}
         public DateTime createdatetime { get; set;}
         public DateTime updatedatetime { get; set;}
+
+        public mdlAccount()
+        {
+            id = Guid.NewGuid();
+        }
     }
 }
