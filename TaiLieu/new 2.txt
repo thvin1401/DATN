@@ -1,0 +1,20 @@
+1, lí do chọn chủ để
+- Hiểu được nghiệp vụ quản lí một kho hàng
+- Kĩ năng 
+- Lĩnh vực: quản lí kho hàng đồ trang trí
+- Hỗ trợ cho chính gia đình
+- Tăng hiệu quả quản lí, tính toán, số hóa các tài liệu
+2, Mục tiêu
+- Về mặt kiến thức: 
+	+ Khảo sát ngay tại gia đình
+	+ Tham gia tìm hiểu nghiệp vụ cụ thể để quản lí một chuỗi kho hàng
+	+ Sử dụng Windowsform, postgresSQL, áp dụng kiến trúc client-server để triển khai dự án
+- Nghiệp vụ: 
+	+ Hỗ trợ cho việc quản lí hàng hóa tại gia đình
+	+ Giúp số hóa, giảm công sức theo dõi cập nhật bằng sổ sách, tăng tốc độ và độ chính xác trong quản lí và tính toán, dễ dàng theo dõi các mặt hàng.
+3, Đối tượng và phạm vi nghiên cứu:
+	+ Mô hình: Client - server
+	+ Công cụ: visual studio, pgadmin4, github, msserver2012
+4, Kết quả mong muốn:
+	+ Hiện thực hóa thành công phần mềm từ ý tưởng
+	+ Giúp bố mẹ quản lí tình trạng hàng hóa theo từng nhà cung cấp tại gia đình
