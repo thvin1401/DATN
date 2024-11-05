@@ -18,7 +18,9 @@ client server
 
 - ProductManagement(ID, ProductID, Quantity, UnitPrice, createDatetime, StatusFlag, SalesID, isdeleted, updatedatetime) AutoUpdate (StatusFlag: 1: import, 2: export, 3: pending)
 - Providers(ID, Name, Address, Phone, Email, UpdatedateTime, CreateDateTime)
+
 - UserInfo(ID, Name, Address, Phone, email, RankID, UpdateDatetime, CreateDatetime, IsActive, Point) -> AdminCRUD
+
 - CustomerRank(ID(PK), Name, CreateDatetime, UpdateDatetime, IsActive, Discount) Static
 - Payment(ID, Amount, SalesID, DebtID, PaymentMethod, Paydatetime, PaymentType, createDatetime)
 - SalesManagement(ID, UserInfoID, isdeleted, CreateDatetime, updatedatetime)
