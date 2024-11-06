@@ -18,3 +18,78 @@
 4, Kết quả mong muốn:
 	+ Hiện thực hóa thành công phần mềm từ ý tưởng
 	+ Giúp bố mẹ quản lí tình trạng hàng hóa theo từng nhà cung cấp tại gia đình
+	
+	
+- đăng nhập
+- quản lý thông tin khách hàng: thêm, cập nhât, xóa, tra cứu -> ok
+- quản lý thông tin hàng: cập nhật, xóa, tra cứu -> ok
+- Xuất báo cáo -> ok
+- Quản lý tài khoản: đăng kí, đổi mk, quên mk -> ok
+- quản lý nhập hàng: thêm đơn nhập, hủy, tra cứu -> chuyển xuống tra cứu chung cho bán hàng
+- bán hàng: thanh toán, hủy thanh toán.
+- quản lý bán hàng: tra cứu
+- quản lý công nợ: tra cứu, thêm, hủy
+
+
+
+Hình 2.1. Biểu đồ use case tổng quát
+Hình 2.2: Biểu đồ minh họa UC đăng nhập
+Hình 2.3: Biểu đồ minh họa UC đăng kí tài khoản
+Hình 2.4: Biểu đồ minh họa quy trình hoạt động của UC đăng kí tài khoản
+Hình 2.5: Biểu đồ minh họa UC quên mật khẩu
+Hình 2.6: Biểu đồ minh họa quy trình hoạt động của UC quên mật khẩu
+Hình 2.7: Biểu đồ minh họa UC đổi mật khẩu 
+Hình 2.8: Biểu đồ minh họa quy trình hoạt động của UC đổi mật khẩu
+Hình 2.9: Biểu đồ minh họa UC xuất báo cáo 
+Hình 2.10: Biểu đồ minh họa quy trình hoạt động của UC xuất báo cáo
+Hình 2.11: Biểu đồ minh họa UC xem sản phẩm 
+Hình 2.12: Biểu đồ minh họa quy trình hoạt động của UC tra cứu thông tin sản phẩm
+Hình 2.13: Biểu đồ minh họa UC cập nhật thông tin sản phẩm 
+Hình 2.14: Biểu đồ minh họa quy trình hoạt động của UC cập nhật thông tin sản phẩm
+Hình 2.15: Biểu đồ minh họa UC xóa thông tin sản phẩm 
+Hình 2.16: Biểu đồ minh họa quy trình hoạt động của UC xóa thông tin sản phẩm
+Hình 2.17: Biểu đồ minh họa UC thêm thông tin người dùng
+Hình 2.18: Biểu đồ minh họa quy trình hoạt động của UC thêm thông tin người dùng
+Hình 2.19: Biểu đồ minh họa UC cập nhật thông tin người dùng
+Hình 2.20: Biểu đồ minh họa quy trình hoạt động của UC cập nhật thông tin người dùng
+Hình 2.21: Biểu đồ minh họa UC tra cứu thông tin người dùng
+Hình 2.22: Biểu đồ minh họa quy trình hoạt động của UC tra cứu thông tin người dùng
+Hình 2.23: Biểu đồ minh họa UC xóa thông tin người dùng
+Hình 2.24: Biểu đồ minh họa quy trình hoạt động của UC xóa thông tin người dùng
+Hình 2.25: Biểu đồ minh họa UC thêm đơn nhập hàng
+Hình 2.26: Biểu đồ minh họa quy trình hoạt động của UC thêm đơn nhập hàng.
+Hình 2.27: Biểu đồ minh họa UC hủy đơn nhập hàng
+Hình 2.28: Biểu đồ minh họa quy trình hoạt động của UC hủy đơn nhập hàng.
+Hình 2.29: Biểu đồ minh họa UC thanh toán
+Hình 2.30: Biểu đồ minh họa quy trình hoạt động của UC thanh toán.
+Hình 2.31: Biểu đồ minh họa UC hủy thanh toán
+Hình 2.32: Biểu đồ minh họa quy trình hoạt động của UC hủy thanh toán.
+Hình 2.33: Biểu đồ minh họa UC tra cứu thông tin hóa đơn
+Hình 2.34: Biểu đồ minh họa quy trình hoạt động của UC tra cứu thông tin hóa đơn.
+Hình 2.35: Biểu đồ minh họa UC thêm thông tin công nợ.
+Hình 2.36: Biểu đồ minh họa quy trình hoạt động của UC thêm thông tin công nợ.
+Hình 2.37: Biểu đồ minh họa UC tra cứu thông tin công nợ.
+Hình 2.38: Biểu đồ minh họa quy trình hoạt động của UC tra cứu thông tin công nợ.
+Hình 2.39: Biểu đồ minh họa UC hủy công nợ.
+Hình 2.40: Biểu đồ minh họa quy trình hoạt động của UC hủy công nợ.
+
+Bảng 2.1. Đặc tả chức năng Đăng nhập
+Bảng 2.2. Đặc tả chức năng đăng kí tài khoản
+Bảng 2.3. Đặc tả chức năng quên mật khẩu
+Bảng 2.4. Đặc tả chức năng đổi mật khẩu
+Bảng 2.5. Đặc tả chức năng xuất báo cáo
+Bảng 2.6. Đặc tả chức năng tra cứu thông tin sản phẩm
+Bảng 2.7. Đặc tả chức năng cập nhật thông tin sản phẩm
+Bảng 2.8. Đặc tả chức năng xóa thông tin sản phẩm
+Bảng 2.9. Đặc tả chức năng thêm thông tin khách hàng
+Bảng 2.10. Đặc tả chức năng cập nhật thông tin người dùng
+Bảng 2.11. Đặc tả chức năng tra cứu thông tin người dùng
+Bảng 2.12. Đặc tả chức năng xóa thông tin người dùng
+Bảng 2.13. Đặc tả chức năng thêm đơn nhập hàng
+Bảng 2.14. Đặc tả chức năng hủy đơn nhập hàng
+Bảng 2.15. Đặc tả chức năng thanh toán
+Bảng 2.16. Đặc tả chức năng hủy thanh toán
+Bảng 2.17. Đặc tả chức năng tra cứu thông tin hóa đơn
+Bảng 2.18. Đặc tả chức năng tra cứu thông tin hóa đơn
+Bảng 2.19. Đặc tả chức năng tra cứu thông tin công nợ
+Bảng 2.20. Đặc tả chức năng hủy công nợ

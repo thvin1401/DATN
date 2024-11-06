@@ -4,30 +4,29 @@
 client server
 
 - Chức năng:
-+ Quản lý hàng (nhập/xuất kho)
-+ Thông tin khách hàng (thông tin/rank)
-+ Thông tin nhà cung cấp (thông tin/rank)
++ Quản lý hàng (thông tin, nhập/xuất kho)
++ Thông tin người dùng (thông tin/rank)
 + Quản lí công nợ (thu hồi/thanh toán nợ)
 + Quản lý tài khoản cá nhân
 + Xuất report tổng hợp (tháng/năm/theo nhà cung cấp)
-+ Chạy service ngầm gửi thông báo/mail
 
 
 - Products(ID, Name, Quantity, unitprice, ProviderID, IsDeleted, Categoryid, createDatetime, updatedatetime) -> CRUD
 - Categories(ID, Name, IsDeleted, createdatetime, updatedatetime) -> CRUD
 
-- ProductManagement(ID, ProductID, Quantity, UnitPrice, createDatetime, StatusFlag, SalesID, isdeleted, updatedatetime) AutoUpdate (StatusFlag: 1: import, 2: export, 3: pending)
-- Providers(ID, Name, Address, Phone, Email, UpdatedateTime, CreateDateTime)
+- UserInfo(ID, Name, Address, Phone, email, RankID, UpdateDatetime, CreateDatetime, IsActive, Point, Type) (Type: 1: user, 2: customer, 3: provider) -> AdminCRUD
 
-- UserInfo(ID, Name, Address, Phone, email, RankID, UpdateDatetime, CreateDatetime, IsActive, Point) -> AdminCRUD
-
-- CustomerRank(ID(PK), Name, CreateDatetime, UpdateDatetime, IsActive, Discount) Static
-- Payment(ID, Amount, SalesID, DebtID, PaymentMethod, Paydatetime, PaymentType, createDatetime)
-- SalesManagement(ID, UserInfoID, isdeleted, CreateDatetime, updatedatetime)
-- DebtManagement(ID, UserInfoID, Amount, isfullpaid, LendingDatetime, paiddatetime, createdatetime, updatedatetime)
-- Note(ID, Message, IsDone, IsDeleted, RemindDatetime, Createdatetime, UpdateDatetime)
+- Ranking(ID(PK), Name, CreateDatetime, UpdateDatetime, IsActive, Discount) Static
 - Account(ID(PK), Username (PK), Password, userinfoid, CreateDatetime, UpdateDatetime, IsEnabled) AdminCRUD
 - SystemProperty(Name(PK), Value, Description) Static
+- ProductManagement (ID, ReceiptNumber, ProductID, Quantity, UnitPrice, CreateDateTime, UpdateDatetime)
+
+- Bill(ID, ReceiptNumber, BillType, Amount, discount, payamount, IsDeleted, CreateDateTime, UpdateDateTime) (BillType: 1: import, 2: sales)
+
+- Payment(ID, Amount, ReceiptNumber, DebtID, PaymentMethod, Paydatetime, PaymentType, CreateDatetime) (payment type: cash, card)
+- DebtManagement(ID, UserInfoID, Amount, Interest, Circle, payamount, isfullpaid, ProcessedDatetime, Paiddatetime, Type, createdatetime, updatedatetime) (Type: 1: borrow, 2: lend)
+- Note(ID, Message, IsDone, IsDeleted, RemindDatetime, Createdatetime, UpdateDatetime)
+
 
 -> list hàng hóa được bán ra 
 (ID, số lượng, ngày giờ bán)
