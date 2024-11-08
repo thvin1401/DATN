@@ -12,20 +12,28 @@ client server
 
 
 - Products(ID, Name, Quantity, unitprice, ProviderID, IsDeleted, Categoryid, createDatetime, updatedatetime) -> CRUD
+
 - Categories(ID, Name, IsDeleted, createdatetime, updatedatetime) -> CRUD
 
 - UserInfo(ID, Name, Address, Phone, email, RankID, UpdateDatetime, CreateDatetime, IsActive, Point, Type) (Type: 1: user, 2: customer, 3: provider) -> AdminCRUD
 
 - Ranking(ID(PK), Name, CreateDatetime, UpdateDatetime, IsActive, Discount) Static
-- Account(ID(PK), Username (PK), Password, userinfoid, CreateDatetime, UpdateDatetime, IsEnabled) AdminCRUD
+
+- Account(Username (PK), Password, userinfoid, CreateDatetime, UpdateDatetime, IsEnabled, accounttype) AdminCRUD
+
 - SystemProperty(Name(PK), Value, Description) Static
+
 - ProductManagement (ID, ReceiptNumber, ProductID, Quantity, UnitPrice, CreateDateTime, UpdateDatetime)
 
-- Bill(ID, ReceiptNumber, BillType, Amount, discount, payamount, IsDeleted, CreateDateTime, UpdateDateTime) (BillType: 1: import, 2: sales)
+- Bill(ReceiptNumber(pk), BillType, Amount, discount, payamount, IsDeleted, CreateDateTime, UpdateDateTime) (BillType: 1: import, 2: sales)
 
 - Payment(ID, Amount, ReceiptNumber, DebtID, PaymentMethod, Paydatetime, PaymentType, CreateDatetime) (payment type: cash, card)
+
 - DebtManagement(ID, UserInfoID, Amount, Interest, Circle, payamount, isfullpaid, ProcessedDatetime, Paiddatetime, Type, createdatetime, updatedatetime) (Type: 1: borrow, 2: lend)
+
 - Note(ID, Message, IsDone, IsDeleted, RemindDatetime, Createdatetime, UpdateDatetime)
+
+- accessrole(id, accounttype, functionid, createdatetime, updatedatetime)
 
 
 -> list hàng hóa được bán ra 
