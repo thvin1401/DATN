@@ -2,16 +2,20 @@
 {
     public class clsApplication
     {
-        private frmSplash _frmSplash;
+        public frmSplash frmSplash { get; private set; }
 
-        public frmSplash frmSplash
+        public frmLogin frmLogin { get; private set; }
+
+        public clsApplication()
         {
-            get
+            if(frmSplash is null)
             {
-                if (_frmSplash is null)
-                    _frmSplash = new();
+                frmSplash = new frmSplash();
+            }
 
-                return _frmSplash;
+            if(frmLogin is null)
+            {
+                frmLogin = new frmLogin(); 
             }
         }
 

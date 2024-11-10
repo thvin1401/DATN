@@ -10,12 +10,9 @@
         public Guid rankid { get; set; }
         public bool isactive { get; set; }
         public int point { get; set; }
+        public int type { get; set; }
+        public DateTime birthday { get; set; }
         public DateTime createdatetime { get; set; }
         public DateTime updatedatetime { get; set; }
-
-        public mdlUserInfo()
-        {
-            id = Guid.NewGuid();
-        }
     }
 }

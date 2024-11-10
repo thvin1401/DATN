@@ -15,7 +15,7 @@ client server
 
 - Categories(ID, Name, IsDeleted, createdatetime, updatedatetime) -> CRUD
 
-- UserInfo(ID, Name, Address, Phone, email, RankID, UpdateDatetime, CreateDatetime, IsActive, Point, Type) (Type: 1: user, 2: customer, 3: provider) -> AdminCRUD
+- UserInfo(ID, Name, Address, Phone, email, birthday, RankID, UpdateDatetime, CreateDatetime, IsActive, Point, Type) (Type: 1: user, 2: customer, 3: provider) -> AdminCRUD
 
 - Ranking(ID(PK), Name, CreateDatetime, UpdateDatetime, IsActive, Discount) Static
 
