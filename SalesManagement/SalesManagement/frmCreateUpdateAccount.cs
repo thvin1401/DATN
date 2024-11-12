@@ -1,13 +1,4 @@
 ﻿using SalesManagement.model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SalesManagement
 {
@@ -17,8 +8,11 @@ namespace SalesManagement
         {
             InitializeComponent();
 
-            cmbtype.DataSource = new List<string>() { "Owner", "Manager", "Customer", "Provider"};
+            cmbtype.DataSource = new List<string>() { "Owner", "Manager" };
             cmbtype.DisplayMember = "Name";
+
+            cmbisactive.DataSource = new List<string>() { "Inactive", "Active" };
+            cmbisactive.DisplayMember = "Name";
         }
 
         private bool checkInputData()
@@ -74,10 +68,15 @@ namespace SalesManagement
                 return;
             }
 
+            var initCreateUpdateTime = DateTime.Now;
+
             mdlAccount account = new mdlAccount();
             account.username = txtusername.Text.Trim();
             account.password = txtpassword.Text.Trim();
-            account.isenabled = true;
+            account.isenabled = Convert.ToBoolean(cmbisactive.SelectedIndex);
+            account.accounttype = cmbtype.SelectedIndex;
+            account.createdatetime = initCreateUpdateTime;
+            account.updatedatetime = initCreateUpdateTime;
 
             mdlUserInfo userinfo = new mdlUserInfo();
             userinfo.id = Guid.NewGuid();
@@ -87,15 +86,17 @@ namespace SalesManagement
             userinfo.phone = txtphone.Text.Trim();
             userinfo.birthday = dpkbirthday.Value;
             userinfo.rankid = Guid.NewGuid();
-            userinfo.isactive = true;
-            userinfo.point = Convert.ToInt32(txtpoint.Text);
+            userinfo.isactive = Convert.ToBoolean(cmbisactive.SelectedIndex);
+            userinfo.point = 0;
             userinfo.type = cmbtype.SelectedIndex;
+            userinfo.createdatetime = initCreateUpdateTime;
+            userinfo.updatedatetime = initCreateUpdateTime;
 
             try
             {
                 clsAccountDM.createAccount(account, userinfo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

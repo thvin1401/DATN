@@ -6,6 +6,7 @@
         public string password { get; set;} = string.Empty;
         public Guid userinfoid { get; set;}
         public bool isenabled { get; set;}
+        public int accounttype { get; set;}
         public DateTime createdatetime { get; set;}
         public DateTime updatedatetime { get; set;}
     }

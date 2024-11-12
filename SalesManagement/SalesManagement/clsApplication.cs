@@ -1,10 +1,14 @@
-﻿namespace SalesManagement
+﻿using SalesManagement.model;
+
+namespace SalesManagement
 {
     public class clsApplication
     {
         public frmSplash frmSplash { get; private set; }
 
         public frmLogin frmLogin { get; private set; }
+
+        public List<mdlRanking> ranks { get; private set; }
 
         public clsApplication()
         {
@@ -16,6 +20,11 @@
             if(frmLogin is null)
             {
                 frmLogin = new frmLogin(); 
+            }
+
+            if(ranks is null)
+            {
+                ranks = clsRankingDM.getAllRankingData();
             }
         }
 

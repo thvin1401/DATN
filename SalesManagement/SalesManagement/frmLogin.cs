@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SalesManagement.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,13 +27,13 @@ namespace SalesManagement
 
         private void btnlogin_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtusername.Text) || string.IsNullOrEmpty(txtpassword.Text))
+            if (string.IsNullOrEmpty(txtusername.Text) || string.IsNullOrEmpty(txtpassword.Text))
             {
                 MessageBox.Show("Username or password is empty, please enter", "", MessageBoxButtons.OK);
                 return;
             }
 
-            if(!clsAccountDM.getAccountLoggedIn(txtusername.Text.Trim(), txtpassword.Text.Trim()))
+            if (!clsAccountDM.getAccountLoggedIn(txtusername.Text.Trim(), txtpassword.Text.Trim()))
             {
                 MessageBox.Show("Username or password is not correct, please try again", "", MessageBoxButtons.OK);
                 return;
@@ -49,7 +50,9 @@ namespace SalesManagement
 
         private void btnforgetpw_Click(object sender, EventArgs e)
         {
-
+            frmResetPassword frm = new frmResetPassword();
+            frm.MdiParent = mdlMain.frmMDIMain;
+            frm.Show();
         }
     }
 }

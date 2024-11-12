@@ -270,8 +270,7 @@
             // 
             // frmCreateUpdateUserinfo
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1254, 671);
             Controls.Add(label10);
             Controls.Add(dateTimePicker1);
@@ -294,6 +293,7 @@
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 2, 4, 2);
             MaximizeBox = false;
             MinimizeBox = false;

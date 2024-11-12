@@ -103,8 +103,7 @@
             // 
             // frmLogin
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.None;
             CancelButton = btnexit;
             ClientSize = new Size(342, 148);
             ControlBox = false;
@@ -116,7 +115,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Font = new Font("MS Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             MinimizeBox = false;

@@ -31,7 +31,6 @@
             label1 = new Label();
             txtfullname = new TextBox();
             btnsave = new Button();
-            cmbrank = new ComboBox();
             dpkbirthday = new DateTimePicker();
             label2 = new Label();
             label3 = new Label();
@@ -40,9 +39,7 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            label9 = new Label();
             label10 = new Label();
-            label11 = new Label();
             label12 = new Label();
             txtemail = new TextBox();
             txtusername = new TextBox();
@@ -52,7 +49,6 @@
             cmbisactive = new ComboBox();
             cmbtype = new ComboBox();
             btnback = new Button();
-            txtpoint = new TextBox();
             label13 = new Label();
             txtaddress = new TextBox();
             SuspendLayout();
@@ -86,19 +82,10 @@
             btnsave.UseVisualStyleBackColor = true;
             btnsave.Click += btnsave_Click;
             // 
-            // cmbrank
-            // 
-            cmbrank.Font = new Font("MS Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            cmbrank.FormattingEnabled = true;
-            cmbrank.Location = new Point(914, 328);
-            cmbrank.Name = "cmbrank";
-            cmbrank.Size = new Size(236, 24);
-            cmbrank.TabIndex = 3;
-            // 
             // dpkbirthday
             // 
             dpkbirthday.Font = new Font("MS Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dpkbirthday.Location = new Point(383, 474);
+            dpkbirthday.Location = new Point(914, 127);
             dpkbirthday.Name = "dpkbirthday";
             dpkbirthday.Size = new Size(276, 23);
             dpkbirthday.TabIndex = 4;
@@ -147,7 +134,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(740, 481);
+            label6.Location = new Point(740, 408);
             label6.Name = "label6";
             label6.Size = new Size(43, 16);
             label6.TabIndex = 9;
@@ -157,7 +144,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(740, 127);
+            label7.Location = new Point(740, 199);
             label7.Name = "label7";
             label7.Size = new Size(52, 16);
             label7.TabIndex = 10;
@@ -167,41 +154,21 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(52, 474);
+            label8.Location = new Point(740, 134);
             label8.Name = "label8";
             label8.Size = new Size(79, 16);
             label8.TabIndex = 11;
             label8.Text = "Birthday";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(740, 336);
-            label9.Name = "label9";
-            label9.Size = new Size(43, 16);
-            label9.TabIndex = 12;
-            label9.Text = "Rank";
-            // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label10.Location = new Point(740, 408);
+            label10.Location = new Point(740, 336);
             label10.Name = "label10";
             label10.Size = new Size(88, 16);
             label10.TabIndex = 13;
             label10.Text = "Is active";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label11.Location = new Point(740, 265);
-            label11.Name = "label11";
-            label11.Size = new Size(52, 16);
-            label11.TabIndex = 14;
-            label11.Text = "Point";
             // 
             // label12
             // 
@@ -250,27 +217,27 @@
             // txtphone
             // 
             txtphone.Font = new Font("MS Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtphone.Location = new Point(914, 120);
+            txtphone.Location = new Point(914, 192);
             txtphone.Name = "txtphone";
-            txtphone.Size = new Size(236, 23);
+            txtphone.Size = new Size(276, 23);
             txtphone.TabIndex = 20;
             // 
             // cmbisactive
             // 
             cmbisactive.Font = new Font("MS Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbisactive.FormattingEnabled = true;
-            cmbisactive.Location = new Point(914, 400);
+            cmbisactive.Location = new Point(914, 329);
             cmbisactive.Name = "cmbisactive";
-            cmbisactive.Size = new Size(236, 24);
+            cmbisactive.Size = new Size(132, 24);
             cmbisactive.TabIndex = 21;
             // 
             // cmbtype
             // 
             cmbtype.Font = new Font("MS Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbtype.FormattingEnabled = true;
-            cmbtype.Location = new Point(914, 473);
+            cmbtype.Location = new Point(914, 400);
             cmbtype.Name = "cmbtype";
-            cmbtype.Size = new Size(236, 24);
+            cmbtype.Size = new Size(132, 24);
             cmbtype.TabIndex = 23;
             // 
             // btnback
@@ -283,19 +250,11 @@
             btnback.Text = "Back";
             btnback.UseVisualStyleBackColor = true;
             // 
-            // txtpoint
-            // 
-            txtpoint.Font = new Font("MS Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtpoint.Location = new Point(914, 258);
-            txtpoint.Name = "txtpoint";
-            txtpoint.Size = new Size(236, 23);
-            txtpoint.TabIndex = 25;
-            // 
             // label13
             // 
             label13.AutoSize = true;
             label13.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label13.Location = new Point(740, 199);
+            label13.Location = new Point(740, 265);
             label13.Name = "label13";
             label13.Size = new Size(70, 16);
             label13.TabIndex = 26;
@@ -304,18 +263,17 @@
             // txtaddress
             // 
             txtaddress.Font = new Font("MS Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtaddress.Location = new Point(914, 192);
+            txtaddress.Location = new Point(914, 258);
             txtaddress.Name = "txtaddress";
-            txtaddress.Size = new Size(236, 23);
+            txtaddress.Size = new Size(276, 23);
             txtaddress.TabIndex = 27;
             // 
             // frmCreateUpdateAccount
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1254, 671);
+            ClientSize = new Size(1258, 676);
             Controls.Add(txtaddress);
             Controls.Add(label13);
-            Controls.Add(txtpoint);
             Controls.Add(btnback);
             Controls.Add(cmbtype);
             Controls.Add(cmbisactive);
@@ -325,9 +283,7 @@
             Controls.Add(txtusername);
             Controls.Add(txtemail);
             Controls.Add(label12);
-            Controls.Add(label11);
             Controls.Add(label10);
-            Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -336,11 +292,10 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(dpkbirthday);
-            Controls.Add(cmbrank);
             Controls.Add(btnsave);
             Controls.Add(txtfullname);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmCreateUpdateAccount";
@@ -356,7 +311,6 @@
         private Label label1;
         private TextBox txtfullname;
         private Button btnsave;
-        private ComboBox cmbrank;
         private DateTimePicker dpkbirthday;
         private Label label2;
         private Label label3;
@@ -365,9 +319,7 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private Label label9;
         private Label label10;
-        private Label label11;
         private Label label12;
         private TextBox txtemail;
         private TextBox txtusername;
@@ -377,7 +329,6 @@
         private ComboBox cmbisactive;
         private ComboBox cmbtype;
         private Button btnback;
-        private TextBox txtpoint;
         private Label label13;
         private TextBox txtaddress;
     }

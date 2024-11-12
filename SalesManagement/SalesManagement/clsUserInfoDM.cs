@@ -18,10 +18,12 @@ namespace SalesManagement
             sSQL.AppendLine($"'{userInfo.phone}',");
             sSQL.AppendLine($"'{userInfo.email}',");
             sSQL.AppendLine($"'{Guid.Empty}',");
-            sSQL.AppendLine($"{true},");
-            sSQL.AppendLine($"{0},");
+            sSQL.AppendLine($"{userInfo.isactive},");
+            sSQL.AppendLine($"{userInfo.point},");
+            sSQL.AppendLine($"{userInfo.type},");
             sSQL.AppendLine($"'{userInfo.createdatetime.ToString("yyyy-MM-dd")}',");
-            sSQL.AppendLine($"{userInfo.updatedatetime.ToString("yyyy-MM-dd")})");
+            sSQL.AppendLine($"'{userInfo.updatedatetime.ToString("yyyy-MM-dd")}',");
+            sSQL.AppendLine($"'{userInfo.birthday.ToString("yyyy-MM-dd")}')");
 
             try
             {
