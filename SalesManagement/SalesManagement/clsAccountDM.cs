@@ -15,7 +15,15 @@ namespace SalesManagement
             StringBuilder sSQL = new StringBuilder();
             sSQL.AppendLine($"select * from account where username = '{username}' and password = '{password}' and isenabled = true");
 
-            return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Any();
+            var result = clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString());
+
+            if (result.Any())
+            {
+                mdlMain.App.currentUser = result.First();
+                return true;
+            }
+
+            return false;
         }
 
         public static bool isExistedUsername(string username)

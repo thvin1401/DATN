@@ -1,5 +1,7 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace SalesManagement
 {
@@ -65,6 +67,46 @@ namespace SalesManagement
             password = new string(password.ToCharArray().OrderBy(_ => random.Next()).ToArray());
 
             return password;
+        }
+
+        public static bool IsConnectedToInternet()
+        {
+            try
+            {
+                using (Ping ping = new Ping())
+                {
+                    PingReply reply = ping.Send("www.google.com", 3000);
+                    return reply.Status == IPStatus.Success;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static string GetIpAddress()
+        {
+            try
+            {
+                string hostName = Dns.GetHostName();
+
+                IPAddress[] ipAddresses = Dns.GetHostAddresses(hostName);
+
+                foreach (IPAddress ip in ipAddresses)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
     }
 }

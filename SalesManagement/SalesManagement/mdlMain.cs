@@ -9,6 +9,12 @@ namespace SalesManagement
         public static frmMDIMain frmMDIMain { get; private set; }
         public static clsApplication App { get; private set; }
 
+        public static void updateMDIMainMessage(string message, Color textColor)
+        {
+            frmMDIMain.lblmessage.Text = message;
+            frmMDIMain.lblmessage.ForeColor = textColor;
+        }
+
         public static void Main(frmMDIMain mdiMain)
         {
             if(frmMDIMain == null)
@@ -32,7 +38,6 @@ namespace SalesManagement
                 Application.Exit();
             }
 
-            App.frmLogin.MdiParent = frmMDIMain;
             App.frmLogin.Show();
 
             //App.frmSplash.Close();

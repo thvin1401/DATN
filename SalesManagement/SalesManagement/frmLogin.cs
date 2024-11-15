@@ -18,8 +18,6 @@ namespace SalesManagement
             InitializeComponent();
         }
 
-
-
         private void btnexit_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
@@ -39,9 +37,9 @@ namespace SalesManagement
                 return;
             }
 
-            MessageBox.Show("Logged in", "", MessageBoxButtons.OK);
+            mdlMain.updateMDIMainMessage("Logged in successfully!", Color.LimeGreen);
 
-            frmCreateUpdateAccount frm = new frmCreateUpdateAccount();
+            frmMainMenu frm = new frmMainMenu();
             frm.MdiParent = mdlMain.frmMDIMain;
             frm.Show();
 
