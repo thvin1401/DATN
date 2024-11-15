@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml;
-
-namespace SalesManagement
+﻿namespace SalesManagement
 {
     public partial class frmMainMenu : Form
     {
@@ -68,18 +57,24 @@ namespace SalesManagement
             panel2.Controls.Add(btnavatar);
         }
 
-        private void btnavatar_Click(object sender, EventArgs eventArgs)
+        private void btnavatar_Click(object? sender, EventArgs eventArgs)
         {
-            
+            frmCreateUpdateAccount frm = new frmCreateUpdateAccount();
+            frm.isEdit = true;
+            frm.username = mdlMain.App.currentUser.username;
+            frm.isAvatarClick = true;
+            frm.Show();
+
+            this.Hide();
         }
 
-        private void ClockTimer_Tick(object sender, EventArgs e)
+        private void ClockTimer_Tick(object? sender, EventArgs e)
         {
             lbldate.Text = DateTime.Now.ToString("ddd, dd MMMM yyyy");
             lbltime.Text = DateTime.Now.ToString("HH:mm");
         }
 
-        private void control_Hover(object sender, EventArgs e)
+        private void control_Hover(object? sender, EventArgs e)
         {
             if (sender is Control)
             {
@@ -87,7 +82,7 @@ namespace SalesManagement
             }
         }
 
-        private void control_Leave(object sender, EventArgs e)
+        private void control_Leave(object? sender, EventArgs e)
         {
             if (sender is Control)
             {
@@ -146,7 +141,9 @@ namespace SalesManagement
 
         private void btnlogout_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            mdlMain.App.frmLogin.Show();
+
+            this.Hide();
         }
     }
 }

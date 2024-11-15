@@ -40,39 +40,42 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(32, 24);
             label1.Name = "label1";
-            label1.Size = new Size(79, 16);
+            label1.Size = new Size(87, 21);
             label1.TabIndex = 0;
             label1.Text = "Username";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("MS Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(32, 58);
             label2.Name = "label2";
-            label2.Size = new Size(79, 16);
+            label2.Size = new Size(82, 21);
             label2.TabIndex = 1;
             label2.Text = "Password";
             // 
             // txtusername
             // 
+            txtusername.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txtusername.Location = new Point(142, 24);
             txtusername.Name = "txtusername";
-            txtusername.Size = new Size(163, 19);
+            txtusername.Size = new Size(163, 23);
             txtusername.TabIndex = 2;
             // 
             // txtpassword
             // 
+            txtpassword.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txtpassword.Location = new Point(142, 58);
             txtpassword.Name = "txtpassword";
-            txtpassword.Size = new Size(163, 19);
+            txtpassword.Size = new Size(163, 23);
             txtpassword.TabIndex = 3;
             // 
             // btnlogin
             // 
+            btnlogin.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnlogin.Location = new Point(32, 100);
             btnlogin.Name = "btnlogin";
             btnlogin.Size = new Size(75, 23);
@@ -83,6 +86,7 @@
             // 
             // btnforgetpw
             // 
+            btnforgetpw.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnforgetpw.Location = new Point(113, 100);
             btnforgetpw.Name = "btnforgetpw";
             btnforgetpw.Size = new Size(111, 23);
@@ -93,6 +97,7 @@
             // 
             // btnexit
             // 
+            btnexit.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnexit.Location = new Point(230, 100);
             btnexit.Name = "btnexit";
             btnexit.Size = new Size(75, 23);

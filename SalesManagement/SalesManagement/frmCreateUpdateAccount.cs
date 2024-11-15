@@ -10,6 +10,8 @@ namespace SalesManagement
 
         public Guid userid;
 
+        public bool isAvatarClick = false;
+
         public frmCreateUpdateAccount()
         {
             InitializeComponent();
@@ -48,7 +50,11 @@ namespace SalesManagement
 
                 label4.Visible = false;
                 txtpassword2.Visible = false;
+
+                lbltitle.Text = "Update account screen";
             }
+
+            lbltitle.Text = "Create account screen";
         }
 
         private bool checkInputData()
@@ -150,9 +156,15 @@ namespace SalesManagement
 
         private void btnback_Click(object sender, EventArgs e)
         {
-            frmAccountManagement frm = new frmAccountManagement();
-            frm.Show();
-
+            if (isAvatarClick)
+            {
+                mdlMain.App.frmMainMenu.Show();
+            }
+            else
+            {
+                frmAccountManagement frm = new frmAccountManagement();
+                frm.Show();
+            }
             this.Hide();
         }
     }
