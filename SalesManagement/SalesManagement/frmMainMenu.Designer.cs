@@ -40,6 +40,8 @@
             lbltime = new Label();
             grdheader = new DataGridView();
             grdnote = new DataGridView();
+            btnaccountmanagement = new Button();
+            btnlogout = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grdheader).BeginInit();
@@ -50,6 +52,8 @@
             // 
             panel1.BackColor = Color.LightGray;
             panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(btnlogout);
+            panel1.Controls.Add(btnaccountmanagement);
             panel1.Controls.Add(btnsettings);
             panel1.Controls.Add(btnsearchbilljournal);
             panel1.Controls.Add(btndebtmanagement);
@@ -65,7 +69,7 @@
             // 
             btnsettings.Cursor = Cursors.Hand;
             btnsettings.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnsettings.Location = new Point(44, 385);
+            btnsettings.Location = new Point(44, 450);
             btnsettings.Name = "btnsettings";
             btnsettings.Size = new Size(231, 30);
             btnsettings.TabIndex = 6;
@@ -180,6 +184,30 @@
             grdnote.Size = new Size(859, 446);
             grdnote.TabIndex = 4;
             // 
+            // btnaccountmanagement
+            // 
+            btnaccountmanagement.Cursor = Cursors.Hand;
+            btnaccountmanagement.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnaccountmanagement.Location = new Point(44, 385);
+            btnaccountmanagement.Name = "btnaccountmanagement";
+            btnaccountmanagement.Size = new Size(231, 30);
+            btnaccountmanagement.TabIndex = 7;
+            btnaccountmanagement.Text = "Account Management";
+            btnaccountmanagement.UseVisualStyleBackColor = true;
+            btnaccountmanagement.Click += btnaccountmanagement_Click;
+            // 
+            // btnlogout
+            // 
+            btnlogout.Cursor = Cursors.Hand;
+            btnlogout.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnlogout.Location = new Point(44, 615);
+            btnlogout.Name = "btnlogout";
+            btnlogout.Size = new Size(231, 30);
+            btnlogout.TabIndex = 8;
+            btnlogout.Text = "Log out";
+            btnlogout.UseVisualStyleBackColor = true;
+            btnlogout.Click += btnlogout_Click;
+            // 
             // frmMainMenu
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -219,5 +247,7 @@
         private Button btndebtmanagement;
         private Button btnsearchbilljournal;
         private Button btnsettings;
+        private Button btnaccountmanagement;
+        private Button btnlogout;
     }
 }

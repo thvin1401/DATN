@@ -70,11 +70,7 @@ namespace SalesManagement
 
         private void btnavatar_Click(object sender, EventArgs eventArgs)
         {
-            frmAccountManagement frm = new frmAccountManagement();
-
-            frm.Show();
-
-            this.Hide();
+            
         }
 
         private void ClockTimer_Tick(object sender, EventArgs e)
@@ -137,6 +133,20 @@ namespace SalesManagement
             frm.Show();
 
             this.Hide();
+        }
+
+        private void btnaccountmanagement_Click(object sender, EventArgs e)
+        {
+            frmAccountManagement frm = new frmAccountManagement();
+
+            frm.Show();
+
+            this.Hide();
+        }
+
+        private void btnlogout_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

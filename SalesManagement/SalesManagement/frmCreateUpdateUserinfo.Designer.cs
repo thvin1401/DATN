@@ -48,7 +48,7 @@
             label8 = new Label();
             label9 = new Label();
             dateTimePicker1 = new DateTimePicker();
-            label10 = new Label();
+            lbltitle = new Label();
             SuspendLayout();
             // 
             // label1
@@ -256,23 +256,23 @@
             dateTimePicker1.Size = new Size(200, 19);
             dateTimePicker1.TabIndex = 28;
             // 
-            // label10
+            // lbltitle
             // 
-            label10.BackColor = Color.Blue;
-            label10.Font = new Font("MS Gothic", 15.57F, FontStyle.Bold, GraphicsUnit.Point);
-            label10.ForeColor = Color.Aqua;
-            label10.Location = new Point(44, 24);
-            label10.Name = "label10";
-            label10.Size = new Size(291, 50);
-            label10.TabIndex = 29;
-            label10.Text = "User update screen";
-            label10.TextAlign = ContentAlignment.MiddleCenter;
+            lbltitle.BackColor = Color.Blue;
+            lbltitle.Font = new Font("MS Gothic", 15.57F, FontStyle.Bold, GraphicsUnit.Point);
+            lbltitle.ForeColor = Color.Aqua;
+            lbltitle.Location = new Point(44, 24);
+            lbltitle.Name = "lbltitle";
+            lbltitle.Size = new Size(291, 50);
+            lbltitle.TabIndex = 29;
+            lbltitle.Text = "User update screen";
+            lbltitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmCreateUpdateUserinfo
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1254, 671);
-            Controls.Add(label10);
+            Controls.Add(lbltitle);
             Controls.Add(dateTimePicker1);
             Controls.Add(label9);
             Controls.Add(label8);
@@ -327,6 +327,6 @@
         private Label label8;
         private Label label9;
         private DateTimePicker dateTimePicker1;
-        private Label label10;
+        private Label lbltitle;
     }
 }

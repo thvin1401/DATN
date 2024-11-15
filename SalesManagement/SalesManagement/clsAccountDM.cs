@@ -78,6 +78,28 @@ namespace SalesManagement
             }
         }
 
+        public static void updateAccount(mdlAccount account, mdlUserInfo userInfo)
+        {
+            clsUserInfoDM.updateUser(userInfo);
+
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update account ");
+            sSQL.AppendLine($"set ");
+            sSQL.AppendLine($"isenabled = {account.isenabled}, ");
+            sSQL.AppendLine($"accounttype = {account.accounttype}, ");
+            sSQL.AppendLine($"updatedatetime = '{account.updatedatetime.ToString("yyyy-MM-dd")}' ");
+            sSQL.AppendLine($"where username = '{account.username}'");
+
+            try
+            {
+                clsDBConnectionManager.Connection.Query(sSQL.ToString());
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+            }
+        }
+
         public static bool changePassword(string username, string password)
         {
             StringBuilder sSQL = new StringBuilder();
@@ -112,6 +134,69 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return false;
+            }
+        }
+
+        public static List<dynamic> getAllAccountInfo(int type, int activation, string text)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select username, isenabled, accounttype, ac.createdatetime, ");
+            sSQL.AppendLine("name, phone, email ");
+            sSQL.AppendLine("from account ac ");
+            sSQL.AppendLine("join userinfo us ");
+            sSQL.AppendLine("on ac.userinfoid = us.id ");
+            sSQL.AppendLine($"where accounttype = {type} and isenabled = {Convert.ToBoolean(activation)} ");
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                sSQL.AppendLine($"and (username like '%{text}%' ");
+                sSQL.AppendLine($"or name like '%{text}%' ");
+                sSQL.AppendLine($"or email like '%{text}%')");
+            }
+
+            try
+            {
+                return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<dynamic>();
+            }
+        }
+
+        public static void deactiveOrActivateAccount(string username, bool isActivate)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update account ");
+            sSQL.AppendLine($"set isenabled = {isActivate} ");
+            sSQL.AppendLine($"where username = '{username}' ");
+
+            try
+            {
+                clsDBConnectionManager.Connection.Query(sSQL.ToString());
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+            }
+        }
+
+        public static dynamic getAccountInfoByUsername(string username)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select * from account ac ");
+            sSQL.AppendLine("join userinfo us on ac.userinfoid = us.id ");
+            sSQL.AppendLine($"where username = '{username}' ");
+
+            try
+            {
+                return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).First();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return DBNull.Value;
             }
         }
     }

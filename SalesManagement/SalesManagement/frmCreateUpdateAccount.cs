@@ -4,15 +4,51 @@ namespace SalesManagement
 {
     public partial class frmCreateUpdateAccount : Form
     {
+        public bool isEdit = false;
+
+        public string username = string.Empty;
+
+        public Guid userid;
+
         public frmCreateUpdateAccount()
         {
             InitializeComponent();
+
+            this.MdiParent = mdlMain.frmMDIMain;
 
             cmbtype.DataSource = new List<string>() { "Owner", "Manager" };
             cmbtype.DisplayMember = "Name";
 
             cmbisactive.DataSource = new List<string>() { "Inactive", "Active" };
             cmbisactive.DisplayMember = "Name";
+        }
+
+        private void FrmCreateUpdateAccount_Load(object sender, EventArgs e)
+        {
+            if (isEdit)
+            {
+                var accountInfo = clsController.getAccountInfoByUsername(username);
+
+                if (accountInfo != DBNull.Value)
+                {
+                    txtfullname.Text = accountInfo.name;
+                    txtemail.Text = accountInfo.email;
+                    txtusername.Text = accountInfo.username;
+                    txtpassword.Text = accountInfo.password;
+                    dpkbirthday.Value = Convert.ToDateTime(accountInfo.birthday);
+                    txtphone.Text = accountInfo.phone;
+                    txtaddress.Text = accountInfo.address;
+                    cmbisactive.SelectedIndex = accountInfo.isenabled == false ? 0 : 1;
+                    cmbtype.SelectedIndex = accountInfo.accounttype;
+                    userid = accountInfo.id;
+                }
+
+                txtusername.Enabled = false;
+                txtpassword.Enabled = false;
+
+                label4.Visible = false;
+                txtpassword2.Visible = false;
+            }
         }
 
         private bool checkInputData()
@@ -32,27 +68,27 @@ namespace SalesManagement
                 MessageBox.Show("Please enter username", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (string.IsNullOrEmpty(txtpassword.Text))
+            else if (!isEdit && string.IsNullOrEmpty(txtpassword.Text))
             {
                 MessageBox.Show("Please enter password", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (string.IsNullOrEmpty(txtpassword2.Text))
+            else if (!isEdit && string.IsNullOrEmpty(txtpassword2.Text))
             {
                 MessageBox.Show("Please enter password again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (txtpassword.Text.Trim() != txtpassword2.Text.Trim())
+            else if (!isEdit && txtpassword.Text.Trim() != txtpassword2.Text.Trim())
             {
                 MessageBox.Show("Re-enter password is not correct, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (clsAccountDM.isExistedUsername(txtusername.Text.Trim()))
+            else if (!isEdit && clsAccountDM.isExistedUsername(txtusername.Text.Trim()))
             {
                 MessageBox.Show("Username is existed, please enter another one", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (clsAccountDM.isExistedEmail(txtemail.Text.Trim()))
+            else if (!isEdit && clsAccountDM.isExistedEmail(txtemail.Text.Trim()))
             {
                 MessageBox.Show("Email is used by another account, please enter another one", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -94,13 +130,30 @@ namespace SalesManagement
 
             try
             {
-                clsAccountDM.createAccount(account, userinfo);
+                if (isEdit)
+                {
+                    userinfo.id = userid;
+                    clsController.updateAccount(account, userinfo);
+                    mdlMain.updateMDIMainMessage("Updated successfully!", Color.LimeGreen);
+                    return;
+                }
+                clsController.createAccount(account, userinfo);
+                mdlMain.updateMDIMainMessage("Created successfully!", Color.LimeGreen);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mdlMain.updateMDIMainMessage("Process failed!", Color.Red);
                 return;
             }
+        }
+
+        private void btnback_Click(object sender, EventArgs e)
+        {
+            frmAccountManagement frm = new frmAccountManagement();
+            frm.Show();
+
+            this.Hide();
         }
     }
 }
