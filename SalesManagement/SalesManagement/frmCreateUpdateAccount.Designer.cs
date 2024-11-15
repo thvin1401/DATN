@@ -203,6 +203,7 @@
             txtpassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtpassword.Location = new Point(383, 329);
             txtpassword.Name = "txtpassword";
+            txtpassword.PasswordChar = '●';
             txtpassword.Size = new Size(276, 29);
             txtpassword.TabIndex = 18;
             // 
@@ -211,6 +212,7 @@
             txtpassword2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtpassword2.Location = new Point(383, 401);
             txtpassword2.Name = "txtpassword2";
+            txtpassword2.PasswordChar = '●';
             txtpassword2.Size = new Size(276, 29);
             txtpassword2.TabIndex = 19;
             // 

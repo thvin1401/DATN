@@ -172,7 +172,7 @@ namespace SalesManagement
 
                 btnactivate.Enabled = true;
             }
-            if(listSelectedUsername.Count == 1)
+            if (listSelectedUsername.Count == 1)
             {
                 btnedit.Enabled = true;
             }

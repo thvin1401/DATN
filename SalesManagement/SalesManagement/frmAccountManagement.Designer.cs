@@ -97,6 +97,7 @@
             // 
             txtsearch.Location = new Point(912, 44);
             txtsearch.Name = "txtsearch";
+            txtsearch.PlaceholderText = "Search name, username, email...";
             txtsearch.Size = new Size(206, 23);
             txtsearch.TabIndex = 5;
             // 
