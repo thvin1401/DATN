@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using SalesManagement.model;
-using System.Security.Principal;
 using System.Text;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SalesManagement
 {
@@ -17,40 +15,29 @@ namespace SalesManagement
 
             var result = clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString());
 
-            if (result.Any())
+            if (result.Count() == 1)
             {
                 mdlMain.App.currentUser = result.First();
-                return true;
             }
 
-            return false;
+            return result.Count() == 1;
         }
 
         public static bool isExistedUsername(string username)
         {
             StringBuilder sSQL = new StringBuilder();
-            sSQL.AppendLine($"select * from account where username = '{username}' and isenabled = true");
+            sSQL.AppendLine($"select * from account where username = '{username}' ");
 
-            return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Any();
+            return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Count() > 1;
         }
 
-        public static bool isExistedEmail(string email)
+        public static bool isExistedEmail(string username, string email)
         {
             StringBuilder sSQL = new StringBuilder();
 
-            sSQL.AppendLine($"select id from userinfo where email = '{email}' and isactive = true limit 1");
+            sSQL.AppendLine($"select id from userinfo us join account ac on us.id = ac.userinfoid where email = '{email}' and username != '{username}'");
 
-            var userinfoId = clsDBConnectionManager.Connection.Query<Guid>(sSQL.ToString());
-
-            if (userinfoId.Any())
-            {
-                sSQL = new StringBuilder();
-                sSQL.AppendLine($"select * from account where userinfoid = '{userinfoId.First()}' and isenabled = true");
-
-                return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Any();
-            }
-
-            return false;
+            return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Any();
         }
 
         public static void createAccount(mdlAccount account, mdlUserInfo userInfo)
@@ -68,17 +55,10 @@ namespace SalesManagement
             sSQL.AppendLine($"'{account.createdatetime.ToString("yyyy-MM-dd")}',");
             sSQL.AppendLine($"'{account.updatedatetime.ToString("yyyy-MM-dd")}')");
 
-            try
-            {
-                clsDBConnectionManager.Connection.Query(sSQL.ToString());
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-            }
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
 
-        public static void updateAccount(mdlAccount account, mdlUserInfo userInfo)
+        public static void updateAccount(mdlAccount account, mdlUserInfo userInfo, bool isUpdatePassword)
         {
             clsUserInfoDM.updateUser(userInfo);
 
@@ -88,33 +68,23 @@ namespace SalesManagement
             sSQL.AppendLine($"isenabled = {account.isenabled}, ");
             sSQL.AppendLine($"accounttype = {account.accounttype}, ");
             sSQL.AppendLine($"updatedatetime = '{account.updatedatetime.ToString("yyyy-MM-dd")}' ");
+
+            if (isUpdatePassword)
+            {
+                sSQL.AppendLine($",password = '{account.password}' ");
+            }
+
             sSQL.AppendLine($"where username = '{account.username}'");
 
-            try
-            {
-                clsDBConnectionManager.Connection.Query(sSQL.ToString());
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-            }
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
 
-        public static bool changePassword(string username, string password)
+        public static void changePassword(string username, string password)
         {
             StringBuilder sSQL = new StringBuilder();
             sSQL.AppendLine($"update account set password = '{password}', updatedatetime = '{DateTime.Now.ToString("yyyy-MM-dd")}' where username = '{username}'");
 
-            try
-            {
-                clsDBConnectionManager.Connection.Query(sSQL.ToString());
-                return true;
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-                return false;
-            }
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
 
         public static bool checkEmailUsernameConsistency(string username, string email)
@@ -126,15 +96,7 @@ namespace SalesManagement
             sSQL.AppendLine($"and ac.username = '{username}' and us.email = '{email}' ");
             sSQL.AppendLine("limit 1");
 
-            try
-            {
-                return clsDBConnectionManager.Connection.Query(sSQL.ToString()).Any();
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-                return false;
-            }
+            return clsDBConnectionManager.Connection.Query(sSQL.ToString()).Any();
         }
 
         public static List<dynamic> getAllAccountInfo(int type, int activation, string text)
@@ -154,15 +116,7 @@ namespace SalesManagement
                 sSQL.AppendLine($"or email like '%{text}%')");
             }
 
-            try
-            {
-                return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-                return new List<dynamic>();
-            }
+            return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
         }
 
         public static void deactiveOrActivateAccount(string username, bool isActivate)
@@ -172,14 +126,7 @@ namespace SalesManagement
             sSQL.AppendLine($"set isenabled = {isActivate} ");
             sSQL.AppendLine($"where username = '{username}' ");
 
-            try
-            {
-                clsDBConnectionManager.Connection.Query(sSQL.ToString());
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-            }
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
 
         public static dynamic getAccountInfoByUsername(string username)
@@ -189,15 +136,7 @@ namespace SalesManagement
             sSQL.AppendLine("join userinfo us on ac.userinfoid = us.id ");
             sSQL.AppendLine($"where username = '{username}' ");
 
-            try
-            {
-                return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).First();
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-                return DBNull.Value;
-            }
+            return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).First();
         }
     }
 }

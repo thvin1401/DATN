@@ -31,7 +31,7 @@ namespace SalesManagement
                 return;
             }
 
-            if (!clsAccountDM.getAccountLoggedIn(txtusername.Text.Trim(), txtpassword.Text.Trim()))
+            if (!clsController.getAccountLoggedIn(txtusername.Text.Trim(), txtpassword.Text.Trim()))
             {
                 MessageBox.Show("Username or password is not correct, please try again", "", MessageBoxButtons.OK);
                 return;

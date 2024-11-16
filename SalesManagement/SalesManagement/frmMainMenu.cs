@@ -1,27 +1,16 @@
-﻿namespace SalesManagement
+﻿using System.Windows.Forms;
+
+namespace SalesManagement
 {
     public partial class frmMainMenu : Form
     {
         private System.Windows.Forms.Timer clockTimer;
 
+        private bool isViewAllNote = false;
+
         public frmMainMenu()
         {
             InitializeComponent();
-
-            btnproductmanagement.Enter += control_Hover;
-            btnproductmanagement.Leave += control_Leave;
-
-            btnusermanagement.Enter += control_Hover;
-            btnusermanagement.Leave += control_Leave;
-
-            btndebtmanagement.Enter += control_Hover;
-            btndebtmanagement.Leave += control_Leave;
-
-            btnsearchbilljournal.Enter += control_Hover;
-            btnsearchbilljournal.Leave += control_Leave;
-
-            btnsettings.Enter += control_Hover;
-            btnsettings.Leave += control_Leave;
 
             clockTimer = new System.Windows.Forms.Timer
             {
@@ -37,6 +26,13 @@
             var currentUser = mdlMain.App.currentUser;
             CreateCircularButton(currentUser.username);
             lblaccounttype.Text = currentUser.accounttype == 0 ? "Owner" : "Manager";
+
+            dpkreminddateto.Value = dpkreminddateto.Value.AddDays(7);
+
+            initGrdNote();
+
+            dpkreminddatefrom.ValueChanged += dpkreminddatefrom_ValueChanged;
+            dpkreminddateto.ValueChanged += dpkreminddateto_ValueChanged;
         }
 
         private void CreateCircularButton(string username)
@@ -57,6 +53,140 @@
             panel2.Controls.Add(btnavatar);
         }
 
+        private void initGrdNote()
+        {
+            grdnote.Rows.Clear();
+            grdnote.Columns.Clear();
+
+            grdnote.CellDoubleClick += grdnote_CellDoubleClick;
+            grdnote.CellPainting += grdnote_CellPainting;
+            grdnote.CellClick += grdnote_CellClick;
+
+            var data = clsController.getNotes(dpkreminddatefrom.Value, dpkreminddateto.Value, isViewAllNote);
+
+            grdnote.RowCount = data.Count;
+            grdnote.ColumnCount = 4;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                grdnote[0, i].Value = data[i].id;
+                grdnote[1, i].Value = i + 1;
+                grdnote[2, i].Value = data[i].reminddatetime.ToString("dd/MM/yyyy");
+                grdnote[3, i].Value = data[i].message;
+            }
+
+            DataGridViewButtonColumn btndone = new DataGridViewButtonColumn
+            {
+                Name = "btndone",
+                Text = "O",
+                UseColumnTextForButtonValue = true
+            };
+
+            DataGridViewButtonColumn btndelete = new DataGridViewButtonColumn
+            {
+                Name = "btndelete",
+                Text = "X",
+                UseColumnTextForButtonValue = true
+            };
+
+            grdnote.CellMouseEnter += (s, e) =>
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
+                    if (grdnote.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+                    {
+                        grdnote.Cursor = Cursors.Hand;
+                    }
+                }
+            };
+
+            grdnote.CellMouseLeave += (s, e) =>
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
+                    if (grdnote.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+                    {
+                        grdnote.Cursor = Cursors.Default;
+                    }
+                }
+            };
+
+            grdnote.Columns.Add(btndone);
+            grdnote.Columns.Add(btndelete);
+
+            grdnote.Columns[0].Visible = false;
+
+            grdnote.Columns[1].Width = 36;
+            grdnote.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            grdnote.Columns[2].Width = 70;
+            grdnote.Columns[3].Width = 650;
+            grdnote.Columns["btndone"].Width = 50;
+            grdnote.Columns["btndelete"].Width = 50;
+
+            grdnote.Height = 450;
+
+            grdnote.ClearSelection();
+
+            lblnotecount.Text = "" + data.Count + " reminder(s)";
+            lblnotecount.ForeColor = Color.LimeGreen;
+
+            if (data.Count == 0)
+            {
+                lblnotecount.ForeColor = Color.Red;
+            }
+        }
+
+        private void initGrdNoteAll()
+        {
+            grdnote.Rows.Clear();
+            grdnote.Columns.Clear();
+
+            grdnote.CellDoubleClick -= grdnote_CellDoubleClick;
+            grdnote.CellPainting -= grdnote_CellPainting;
+            grdnote.CellClick -= grdnote_CellClick;
+
+            var data = clsController.getNotes(dpkreminddatefrom.Value, dpkreminddateto.Value, isViewAllNote);
+
+            grdnote.RowCount = data.Count;
+            grdnote.ColumnCount = 5;
+
+            grdnote.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            grdnote.Columns[3].DefaultCellStyle.ForeColor = Color.LimeGreen;
+            grdnote.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            grdnote.Columns[4].DefaultCellStyle.ForeColor = Color.Red;
+            grdnote.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                grdnote[0, i].Value = i + 1;
+                grdnote[1, i].Value = data[i].reminddatetime.ToString("dd/MM/yyyy");
+                grdnote[2, i].Value = data[i].message;
+                grdnote[3, i].Value = data[i].isdone ? "Done" : "";
+                grdnote[4, i].Value = data[i].isdeleted ? "Delete" : "";
+            }
+
+            grdnote.Columns[0].Width = 36;
+            grdnote.Columns[1].Width = 70;
+            grdnote.Columns[2].Width = 650;
+            grdnote.Columns[3].Width = 50;
+            grdnote.Columns[4].Width = 50;
+
+            grdnote.Height = 450;
+
+            grdnote.ClearSelection();
+
+            lblnotecount.Text = "" + data.Count + " reminder(s)";
+            lblnotecount.ForeColor = Color.LimeGreen;
+
+            if (data.Count == 0)
+            {
+                lblnotecount.ForeColor = Color.Red;
+            }
+        }
+
         private void btnavatar_Click(object? sender, EventArgs eventArgs)
         {
             frmCreateUpdateAccount frm = new frmCreateUpdateAccount();
@@ -72,22 +202,6 @@
         {
             lbldate.Text = DateTime.Now.ToString("ddd, dd MMMM yyyy");
             lbltime.Text = DateTime.Now.ToString("HH:mm");
-        }
-
-        private void control_Hover(object? sender, EventArgs e)
-        {
-            if (sender is Control)
-            {
-                ((Control)sender).BackColor = Color.LightSkyBlue;
-            }
-        }
-
-        private void control_Leave(object? sender, EventArgs e)
-        {
-            if (sender is Control)
-            {
-                ((Control)sender).BackColor = Color.LightGray;
-            }
         }
 
         private void btnproductmanagement_Click(object sender, EventArgs e)
@@ -144,6 +258,98 @@
             mdlMain.App.frmLogin.Show();
 
             this.Hide();
+        }
+
+        private void btngetallnote_Click(object sender, EventArgs e)
+        {
+            isViewAllNote = !isViewAllNote;
+
+            if (isViewAllNote)
+            {
+                lblallnote.ForeColor = Color.LimeGreen;
+                initGrdNoteAll();
+            }
+            else
+            {
+                lblallnote.ForeColor = SystemColors.ControlText;
+                initGrdNote();
+            }
+        }
+
+        private void dpkreminddateto_ValueChanged(object? sender, EventArgs e)
+        {
+            initGrdNote();
+        }
+
+        private void dpkreminddatefrom_ValueChanged(object? sender, EventArgs e)
+        {
+            initGrdNote();
+        }
+
+        private void grdnote_CellPainting(object? sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 &&
+            (grdnote.Columns[e.ColumnIndex].Name == "btndone" || grdnote.Columns[e.ColumnIndex].Name == "btndelete") && e.RowIndex >= 0)
+            {
+                // Suppress the default cell painting
+                e.Handled = true;
+
+                // Paint the background
+                e.PaintBackground(e.ClipBounds, true);
+
+                Color textColor = (grdnote.Columns[e.ColumnIndex].Name == "btndone") ? Color.LimeGreen : Color.Red;
+
+                // Draw the button without borders
+                TextRenderer.DrawText(
+                    e.Graphics,
+                    e.FormattedValue?.ToString(), // Get the button text
+                    e.CellStyle.Font,
+                    e.CellBounds,
+                    textColor,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
+                );
+            }
+        }
+
+        private void grdnote_CellClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            // Check if the click is on a valid row
+            if (e.RowIndex >= 0)
+            {
+                // Get the name of the clicked column
+                string columnName = grdnote.Columns[e.ColumnIndex].Name;
+                string id = grdnote[0, e.RowIndex].Value.ToString();
+
+                if (columnName == "btndone")
+                {
+                    if (clsController.markNoteDone(id))
+                    {
+                        mdlMain.updateMDIMainMessage("Note done!", Color.LimeGreen);
+                        initGrdNote();
+                        return;
+                    }
+                    mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
+                }
+                else if (columnName == "btndelete")
+                {
+                    if (clsController.markNoteDeleted(id))
+                    {
+                        mdlMain.updateMDIMainMessage("Note deleted!", Color.LimeGreen);
+                        initGrdNote();
+                        return;
+                    }
+                    mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
+                }
+            }
+        }
+
+        private void grdnote_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // Retrieve the ID from the hidden column
+                string id = grdnote.Rows[e.RowIndex].Cells[0].Value.ToString();
+            }
         }
     }
 }

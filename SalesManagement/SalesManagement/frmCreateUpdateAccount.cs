@@ -37,6 +37,7 @@ namespace SalesManagement
                     txtemail.Text = accountInfo.email;
                     txtusername.Text = accountInfo.username;
                     txtpassword.Text = accountInfo.password;
+                    txtpassword2.Text = accountInfo.password;
                     dpkbirthday.Value = Convert.ToDateTime(accountInfo.birthday);
                     txtphone.Text = accountInfo.phone;
                     txtaddress.Text = accountInfo.address;
@@ -46,11 +47,15 @@ namespace SalesManagement
                 }
 
                 txtusername.Enabled = false;
-                txtpassword.Enabled = false;
 
-                label4.Visible = false;
-                txtpassword2.Visible = false;
+                if (!isAvatarClick)
+                {
+                    txtpassword.Enabled = false;
 
+                    label4.Visible = false;
+                    txtpassword2.Visible = false;
+                }
+                
                 lbltitle.Text = "Update account screen";
             }
 
@@ -74,27 +79,27 @@ namespace SalesManagement
                 MessageBox.Show("Please enter username", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (!isEdit && string.IsNullOrEmpty(txtpassword.Text))
+            else if ((isAvatarClick || !isEdit) && string.IsNullOrEmpty(txtpassword.Text))
             {
                 MessageBox.Show("Please enter password", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (!isEdit && string.IsNullOrEmpty(txtpassword2.Text))
+            else if ((isAvatarClick || !isEdit) && string.IsNullOrEmpty(txtpassword2.Text))
             {
                 MessageBox.Show("Please enter password again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (!isEdit && txtpassword.Text.Trim() != txtpassword2.Text.Trim())
+            else if ((isAvatarClick || !isEdit) && txtpassword.Text.Trim() != txtpassword2.Text.Trim())
             {
                 MessageBox.Show("Re-enter password is not correct, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (!isEdit && clsAccountDM.isExistedUsername(txtusername.Text.Trim()))
+            else if (clsAccountDM.isExistedUsername(txtusername.Text.Trim()))
             {
                 MessageBox.Show("Username is existed, please enter another one", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (!isEdit && clsAccountDM.isExistedEmail(txtemail.Text.Trim()))
+            else if (clsAccountDM.isExistedEmail(txtemail.Text.Trim(), txtusername.Text.Trim()))
             {
                 MessageBox.Show("Email is used by another account, please enter another one", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -139,7 +144,16 @@ namespace SalesManagement
                 if (isEdit)
                 {
                     userinfo.id = userid;
-                    clsController.updateAccount(account, userinfo);
+
+                    if (isAvatarClick)
+                    {
+                        clsController.updateAccount(account, userinfo, true);
+                    }
+                    else
+                    {
+                        clsController.updateAccount(account, userinfo, false);
+                    }
+                    
                     mdlMain.updateMDIMainMessage("Updated successfully!", Color.LimeGreen);
                     return;
                 }

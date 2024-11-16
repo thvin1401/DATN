@@ -26,7 +26,7 @@ namespace SalesManagement
             var body = "Your new password is";
             var content = clsUtility.GenerateRandomPassword();
 
-            if (clsAccountDM.changePassword(txtusername.Text.Trim(), content) && clsUtility.sendMail(mail, subject, body, content))
+            if (clsController.changePassword(txtusername.Text.Trim(), content) && clsUtility.sendMail(mail, subject, body, content))
             {
                 lblGuide.Text = "Mail sent successfully";
                 lblGuide.ForeColor = Color.Red;
@@ -66,12 +66,12 @@ namespace SalesManagement
                 MessageBox.Show("Username is not existed", "", MessageBoxButtons.OK);
                 return false;
             }
-            if (!clsAccountDM.isExistedEmail(email))
+            if (!clsAccountDM.isExistedEmail(username, email))
             {
                 MessageBox.Show("Email is not existed", "", MessageBoxButtons.OK);
                 return false;
             }
-            if (!clsAccountDM.checkEmailUsernameConsistency(username, email))
+            if (!clsController.checkEmailUsernameConsistency(username, email))
             {
                 MessageBox.Show("Input email was used by another account, please try again", "", MessageBoxButtons.OK);
                 return false;

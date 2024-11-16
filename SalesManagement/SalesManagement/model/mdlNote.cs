@@ -1,6 +1,6 @@
 ﻿namespace SalesManagement.model
 {
-    internal class mdlNote
+    public class mdlNote
     {
         public Guid id { get; set; }
         public string message { get; set; } = string.Empty;

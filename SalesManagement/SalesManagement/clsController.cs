@@ -1,16 +1,23 @@
 ﻿using SalesManagement.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SalesManagement
 {
     public static class clsController
     {
         public static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(clsController));
+
+        public static bool getAccountLoggedIn(string username, string password)
+        {
+            try
+            {
+                return clsAccountDM.getAccountLoggedIn(username, password);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+                return false;
+            }
+        }
 
         public static List<dynamic> getAllAccountInfo(int type, int activation, string text)
         {
@@ -67,15 +74,88 @@ namespace SalesManagement
             }
         }
 
-        public static void updateAccount(mdlAccount account, mdlUserInfo userInfo)
+        public static void updateAccount(mdlAccount account, mdlUserInfo userInfo, bool isUpdatePassword)
         {
             try
             {
-                clsAccountDM.updateAccount(account, userInfo);
+                clsAccountDM.updateAccount(account, userInfo, isUpdatePassword);
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message, ex);
+            }
+        }
+
+        public static bool checkEmailUsernameConsistency(string username, string email)
+        {
+            try
+            {
+                return clsAccountDM.checkEmailUsernameConsistency(username, email);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+                return false;
+            }
+        }
+
+        public static bool changePassword(string username, string password)
+        {
+            try
+            {
+                clsAccountDM.changePassword(username, password);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+                return false;
+            }
+        }
+
+        // note
+
+        public static List<mdlNote> getNotes(DateTime remindDateFrom, DateTime remindDateTo, bool getAll)
+        {
+            try
+            {
+                return clsNoteDM.getNotes(remindDateFrom, remindDateTo, getAll);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                return new List<mdlNote>();
+            }
+        }
+
+        public static bool markNoteDone(string id)
+        {
+            try
+            {
+                clsNoteDM.markNoteDone(id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                return false;
+            }
+        }
+
+        public static bool markNoteDeleted(string id)
+        {
+            try
+            {
+                clsNoteDM.markNoteDeleted(id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                return false;
             }
         }
     }
