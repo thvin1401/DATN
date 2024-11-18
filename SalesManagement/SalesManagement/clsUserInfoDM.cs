@@ -25,14 +25,7 @@ namespace SalesManagement
             sSQL.AppendLine($"'{userInfo.updatedatetime.ToString("yyyy-MM-dd")}',");
             sSQL.AppendLine($"'{userInfo.birthday.ToString("yyyy-MM-dd")}')");
 
-            try
-            {
-                clsDBConnectionManager.Connection.Query(sSQL.ToString());
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-            }
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
 
         public static void updateUser(mdlUserInfo userInfo)
@@ -50,14 +43,28 @@ namespace SalesManagement
             sSQL.AppendLine($"birthday = '{userInfo.birthday.ToString("yyyy-MM-dd")}' ");
             sSQL.AppendLine($"where id = '{userInfo.id}' ");
 
-            try
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
+
+        public static List<mdlUserInfo> getAllUsers(string? name = null, int? type = null)
+        {
+            StringBuilder sSQL = new StringBuilder();
+
+            sSQL.AppendLine("select * from userinfo where isactive = true ");
+
+            if(string.IsNullOrEmpty(name))
             {
-                clsDBConnectionManager.Connection.Query(sSQL.ToString());
+                sSQL.AppendLine($"and name like '%{name}%' ");
             }
-            catch (Exception ex)
+
+            if(type != null)
             {
-                logger.Error(ex.Message);
+                sSQL.AppendLine($"and type = {type} ");
             }
+
+            sSQL.AppendLine("order by name, type");
+
+            return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).ToList();
         }
     }
 }

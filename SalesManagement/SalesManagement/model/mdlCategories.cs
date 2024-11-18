@@ -1,6 +1,6 @@
 ﻿namespace SalesManagement.model
 {
-    internal class mdlCategories
+    public class mdlCategories
     {
         public Guid id { get; set; }
         public string name { get; set; } = string.Empty;

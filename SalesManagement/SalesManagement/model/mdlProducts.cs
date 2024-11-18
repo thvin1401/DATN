@@ -9,6 +9,8 @@
         public Guid providerid { get; set; }
         public bool isdeleted { get; set; }
         public Guid categoryid { get; set; }
+        public int weight { get; set; }
+        public DateTime importdatetime { get; set; }
         public DateTime createdatetime { get; set; }
         public DateTime updatedatetime { get; set; }
     }

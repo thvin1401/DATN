@@ -25,5 +25,11 @@ namespace SalesManagement
 
             this.Hide();
         }
+
+        private void btnadd_Click(object sender, EventArgs e)
+        {
+            frmCreateUpdateProduct frm = new frmCreateUpdateProduct();
+            frm.ShowDialog(this);
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace SalesManagement
 
         public static void createAccount(mdlAccount account, mdlUserInfo userInfo)
         {
-            clsUserInfoDM.createUser(userInfo);
+            clsController.createUser(userInfo);
 
             StringBuilder sSQL = new StringBuilder();
             sSQL.AppendLine("insert into account");
@@ -60,7 +60,7 @@ namespace SalesManagement
 
         public static void updateAccount(mdlAccount account, mdlUserInfo userInfo, bool isUpdatePassword)
         {
-            clsUserInfoDM.updateUser(userInfo);
+            clsController.updateUser(userInfo);
 
             StringBuilder sSQL = new StringBuilder();
             sSQL.AppendLine("update account ");

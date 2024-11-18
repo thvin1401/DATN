@@ -58,7 +58,6 @@ namespace SalesManagement
             grdnote.Rows.Clear();
             grdnote.Columns.Clear();
 
-            grdnote.CellDoubleClick += grdnote_CellDoubleClick;
             grdnote.CellPainting += grdnote_CellPainting;
             grdnote.CellClick += grdnote_CellClick;
 
@@ -142,37 +141,39 @@ namespace SalesManagement
             grdnote.Rows.Clear();
             grdnote.Columns.Clear();
 
-            grdnote.CellDoubleClick -= grdnote_CellDoubleClick;
             grdnote.CellPainting -= grdnote_CellPainting;
             grdnote.CellClick -= grdnote_CellClick;
 
             var data = clsController.getNotes(dpkreminddatefrom.Value, dpkreminddateto.Value, isViewAllNote);
 
             grdnote.RowCount = data.Count;
-            grdnote.ColumnCount = 5;
+            grdnote.ColumnCount = 6;
 
-            grdnote.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grdnote.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            grdnote.Columns[3].DefaultCellStyle.ForeColor = Color.LimeGreen;
-            grdnote.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            grdnote.Columns[4].DefaultCellStyle.ForeColor = Color.Red;
+            grdnote.Columns[4].DefaultCellStyle.ForeColor = Color.LimeGreen;
             grdnote.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            grdnote.Columns[5].DefaultCellStyle.ForeColor = Color.Red;
+            grdnote.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             for (int i = 0; i < data.Count; i++)
             {
-                grdnote[0, i].Value = i + 1;
-                grdnote[1, i].Value = data[i].reminddatetime.ToString("dd/MM/yyyy");
-                grdnote[2, i].Value = data[i].message;
-                grdnote[3, i].Value = data[i].isdone ? "Done" : "";
-                grdnote[4, i].Value = data[i].isdeleted ? "Delete" : "";
+                grdnote[0, i].Value = data[i].id;
+                grdnote[1, i].Value = i + 1;
+                grdnote[2, i].Value = data[i].reminddatetime.ToString("dd/MM/yyyy");
+                grdnote[3, i].Value = data[i].message;
+                grdnote[4, i].Value = data[i].isdone ? "Done" : "";
+                grdnote[5, i].Value = data[i].isdeleted ? "Delete" : "";
             }
 
-            grdnote.Columns[0].Width = 36;
-            grdnote.Columns[1].Width = 70;
-            grdnote.Columns[2].Width = 650;
-            grdnote.Columns[3].Width = 50;
+            grdnote.Columns[0].Visible = false;
+
+            grdnote.Columns[1].Width = 36;
+            grdnote.Columns[2].Width = 70;
+            grdnote.Columns[3].Width = 650;
             grdnote.Columns[4].Width = 50;
+            grdnote.Columns[5].Width = 50;
 
             grdnote.Height = 450;
 
@@ -347,9 +348,23 @@ namespace SalesManagement
         {
             if (e.RowIndex >= 0)
             {
-                // Retrieve the ID from the hidden column
-                string id = grdnote.Rows[e.RowIndex].Cells[0].Value.ToString();
+                frmCreateUpdateNotes frm = new frmCreateUpdateNotes();
+                frm.isEdit = true;
+                frm.noteId = grdnote.Rows[e.RowIndex].Cells[0].Value.ToString();
+                frm.ShowDialog(this);
+
+                isViewAllNote = false;
+                initGrdNote();
             }
+        }
+
+        private void btnaddnotes_Click(object? sender, EventArgs e)
+        {
+            frmCreateUpdateNotes frm = new frmCreateUpdateNotes();
+            frm.ShowDialog(this);
+
+            isViewAllNote = false;
+            initGrdNote();
         }
     }
 }

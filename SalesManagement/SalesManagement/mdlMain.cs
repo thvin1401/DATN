@@ -44,5 +44,10 @@ namespace SalesManagement
 
             //frmMDIMain.Show();
         }
+
+        public static void log(string message, Exception ex)
+        {
+            logger.Error(message, ex);
+        }
     }
 }

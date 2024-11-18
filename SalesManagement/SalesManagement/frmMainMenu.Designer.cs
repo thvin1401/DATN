@@ -48,6 +48,7 @@
             label1 = new Label();
             label2 = new Label();
             lblallnote = new Label();
+            btnaddnotes = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grdnote).BeginInit();
@@ -210,6 +211,7 @@
             grdnote.RowTemplate.Height = 25;
             grdnote.Size = new Size(859, 450);
             grdnote.TabIndex = 4;
+            grdnote.CellDoubleClick += grdnote_CellDoubleClick;
             // 
             // lblnotecount
             // 
@@ -271,10 +273,25 @@
             lblallnote.TabIndex = 12;
             lblallnote.Text = "All";
             // 
+            // btnaddnotes
+            // 
+            btnaddnotes.Cursor = Cursors.Hand;
+            btnaddnotes.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
+            btnaddnotes.ForeColor = SystemColors.Highlight;
+            btnaddnotes.Location = new Point(446, 137);
+            btnaddnotes.Margin = new Padding(0);
+            btnaddnotes.Name = "btnaddnotes";
+            btnaddnotes.Size = new Size(57, 51);
+            btnaddnotes.TabIndex = 13;
+            btnaddnotes.Text = "+";
+            btnaddnotes.TextAlign = ContentAlignment.MiddleCenter;
+            btnaddnotes.Click += btnaddnotes_Click;
+            // 
             // frmMainMenu
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1258, 676);
+            Controls.Add(btnaddnotes);
             Controls.Add(lblallnote);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -324,5 +341,6 @@
         private Label label1;
         private Label label2;
         private Label lblallnote;
+        private Label btnaddnotes;
     }
 }

@@ -1,4 +1,6 @@
-﻿using SalesManagement.model;
+﻿using Dapper;
+using SalesManagement.model;
+using System.Text;
 
 namespace SalesManagement
 {
@@ -155,6 +157,220 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message, ex);
 
+                return false;
+            }
+        }
+
+        public static bool createNote(mdlNote note)
+        {
+            try
+            {
+                clsNoteDM.createNote(note);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                return false;
+            }
+        }
+
+        public static bool updateNote(mdlNote note)
+        {
+            try
+            {
+                clsNoteDM.updateNote(note);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                return false;
+            }
+        }
+
+        public static mdlNote? getNoteEdit(string id)
+        {
+            try
+            {
+                var data = clsNoteDM.getNoteEdit(id);
+
+                if (data.Any())
+                {
+                    return data.First();
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                return null;
+            }
+        }
+
+        // currency exchange
+        public static List<mdlCurrencyExchange> getAllCurrencyExchange()
+        {
+            try
+            {
+                return clsCurrencyExchangeDM.getAllCurrencyExchange();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                return new List<mdlCurrencyExchange>();
+            }
+        }
+
+        // ranking
+        public static List<mdlRanking> getAllRankingData()
+        {
+            try
+            {
+                return clsRankingDM.getAllRankingData();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlRanking>();
+            }
+        }
+
+        // userinfos
+        public static List<mdlUserInfo> getProviders()
+        {
+            try
+            {
+                return clsUserInfoDM.getAllUsers(type: 3);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlUserInfo>();
+            }
+        }
+
+        public static bool createUser(mdlUserInfo userInfo)
+        {
+            try
+            {
+                clsUserInfoDM.createUser(userInfo);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool updateUser(mdlUserInfo userInfo)
+        {
+            try
+            {
+                clsUserInfoDM.updateUser(userInfo);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        // category
+        public static List<mdlCategories> getAllCategories()
+        {
+            try
+            {
+                return clsCategoryDM.getAllCategories();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlCategories>();
+            }
+        }
+
+        public static bool createNewCategory(mdlCategories category)
+        {
+            try
+            {
+                clsCategoryDM.createNewCategory(category);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        // product
+        public static List<mdlProducts> getAllProducts(DateTime importFrom, DateTime importTo, string name, bool isdeleted)
+        {
+            try
+            {
+                var data = clsProductsDM.getAllProducts(importFrom, importTo, name, isdeleted);
+
+                if (data.Any())
+                    return data;
+
+                return new List<mdlProducts>();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlProducts>();
+            }
+        }
+
+        public static mdlProducts getProductEdit(string id)
+        {
+            try
+            {
+                var data = clsProductsDM.getProductEdit(id);
+
+                if (data.Any())
+                    return data.First();
+
+                return new mdlProducts();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new mdlProducts();
+            }
+        }
+
+        public static bool createNewProduct(mdlProducts product)
+        {
+            try
+            {
+                clsProductsDM.createNewProduct(product);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool updateProduct(mdlProducts product)
+        {
+            try
+            {
+                clsProductsDM.updateProduct(product);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
                 return false;
             }
         }

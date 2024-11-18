@@ -29,23 +29,160 @@
         private void InitializeComponent()
         {
             btnback = new Button();
+            lbltitle = new Label();
+            grdheader = new DataGridView();
+            grddata = new DataGridView();
+            dpkarriveddatefrom = new DateTimePicker();
+            dpkarriveddateto = new DateTimePicker();
+            btnsearch = new Button();
+            txtsearch = new TextBox();
+            label2 = new Label();
+            label3 = new Label();
+            btnadd = new Button();
+            btnimport = new Button();
+            btnviewdeleteditems = new Button();
+            ((System.ComponentModel.ISupportInitialize)grdheader).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grddata).BeginInit();
             SuspendLayout();
             // 
             // btnback
             // 
-            btnback.Location = new Point(1122, 615);
+            btnback.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnback.Location = new Point(1150, 623);
             btnback.Name = "btnback";
-            btnback.Size = new Size(75, 23);
+            btnback.Size = new Size(75, 30);
             btnback.TabIndex = 0;
             btnback.Text = "Back";
             btnback.UseVisualStyleBackColor = true;
             btnback.Click += btnback_Click;
+            // 
+            // lbltitle
+            // 
+            lbltitle.BackColor = Color.Blue;
+            lbltitle.Font = new Font("Segoe UI", 15.57F, FontStyle.Bold, GraphicsUnit.Point);
+            lbltitle.ForeColor = Color.Aqua;
+            lbltitle.Location = new Point(31, 26);
+            lbltitle.Name = "lbltitle";
+            lbltitle.Size = new Size(322, 50);
+            lbltitle.TabIndex = 30;
+            lbltitle.Text = "Product management screen";
+            lbltitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // grdheader
+            // 
+            grdheader.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            grdheader.Location = new Point(31, 98);
+            grdheader.Name = "grdheader";
+            grdheader.RowTemplate.Height = 25;
+            grdheader.Size = new Size(1194, 30);
+            grdheader.TabIndex = 31;
+            // 
+            // grddata
+            // 
+            grddata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            grddata.Location = new Point(31, 125);
+            grddata.Name = "grddata";
+            grddata.RowTemplate.Height = 25;
+            grddata.Size = new Size(1194, 480);
+            grddata.TabIndex = 32;
+            // 
+            // dpkarriveddatefrom
+            // 
+            dpkarriveddatefrom.Location = new Point(498, 53);
+            dpkarriveddatefrom.Name = "dpkarriveddatefrom";
+            dpkarriveddatefrom.Size = new Size(200, 23);
+            dpkarriveddatefrom.TabIndex = 33;
+            // 
+            // dpkarriveddateto
+            // 
+            dpkarriveddateto.Location = new Point(735, 53);
+            dpkarriveddateto.Name = "dpkarriveddateto";
+            dpkarriveddateto.Size = new Size(200, 23);
+            dpkarriveddateto.TabIndex = 34;
+            // 
+            // btnsearch
+            // 
+            btnsearch.Location = new Point(1150, 53);
+            btnsearch.Name = "btnsearch";
+            btnsearch.Size = new Size(75, 23);
+            btnsearch.TabIndex = 35;
+            btnsearch.Text = "Search";
+            btnsearch.UseVisualStyleBackColor = true;
+            // 
+            // txtsearch
+            // 
+            txtsearch.Location = new Point(941, 53);
+            txtsearch.Name = "txtsearch";
+            txtsearch.PlaceholderText = "Search name";
+            txtsearch.Size = new Size(203, 23);
+            txtsearch.TabIndex = 36;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(376, 59);
+            label2.Name = "label2";
+            label2.Size = new Size(116, 15);
+            label2.TabIndex = 38;
+            label2.Text = "Arrived date - From :";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(704, 59);
+            label3.Name = "label3";
+            label3.Size = new Size(25, 15);
+            label3.TabIndex = 39;
+            label3.Text = "To :";
+            // 
+            // btnadd
+            // 
+            btnadd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnadd.Location = new Point(810, 623);
+            btnadd.Name = "btnadd";
+            btnadd.Size = new Size(75, 30);
+            btnadd.TabIndex = 40;
+            btnadd.Text = "Add";
+            btnadd.UseVisualStyleBackColor = true;
+            btnadd.Click += btnadd_Click;
+            // 
+            // btnimport
+            // 
+            btnimport.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnimport.Location = new Point(911, 623);
+            btnimport.Name = "btnimport";
+            btnimport.Size = new Size(75, 30);
+            btnimport.TabIndex = 41;
+            btnimport.Text = "Import";
+            btnimport.UseVisualStyleBackColor = true;
+            // 
+            // btnviewdeleteditems
+            // 
+            btnviewdeleteditems.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnviewdeleteditems.Location = new Point(1010, 623);
+            btnviewdeleteditems.Name = "btnviewdeleteditems";
+            btnviewdeleteditems.Size = new Size(113, 30);
+            btnviewdeleteditems.TabIndex = 42;
+            btnviewdeleteditems.Text = "Deleted Items";
+            btnviewdeleteditems.UseVisualStyleBackColor = true;
             // 
             // frmProductManagement
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1258, 676);
+            Controls.Add(btnviewdeleteditems);
+            Controls.Add(btnimport);
+            Controls.Add(btnadd);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(txtsearch);
+            Controls.Add(btnsearch);
+            Controls.Add(dpkarriveddateto);
+            Controls.Add(dpkarriveddatefrom);
+            Controls.Add(grddata);
+            Controls.Add(grdheader);
+            Controls.Add(lbltitle);
             Controls.Add(btnback);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
@@ -54,11 +191,26 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
             Text = "frmProductManagement";
+            ((System.ComponentModel.ISupportInitialize)grdheader).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grddata).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button btnback;
+        private Label lbltitle;
+        private DataGridView grdheader;
+        private DataGridView grddata;
+        private DateTimePicker dpkarriveddatefrom;
+        private DateTimePicker dpkarriveddateto;
+        private Button btnsearch;
+        private TextBox txtsearch;
+        private Label label2;
+        private Label label3;
+        private Button btnadd;
+        private Button btnimport;
+        private Button btnviewdeleteditems;
     }
 }

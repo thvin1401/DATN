@@ -12,6 +12,8 @@ namespace SalesManagement
 
         public List<mdlRanking> ranks { get; private set; }
 
+        public List<mdlCurrencyExchange> currencyExchange { get; private set; }
+
         public mdlAccount currentUser;
 
         public clsApplication()
@@ -35,12 +37,17 @@ namespace SalesManagement
 
             if(ranks is null)
             {
-                ranks = clsRankingDM.getAllRankingData();
+                ranks = clsController.getAllRankingData();
             }
 
             if(currentUser is null)
             {
                 currentUser = new mdlAccount();
+            }
+
+            if(currencyExchange is null)
+            {
+                currencyExchange = clsController.getAllCurrencyExchange();
             }
         }
 
