@@ -62,6 +62,7 @@
             grdheader.AllowUserToDeleteRows = false;
             grdheader.AllowUserToResizeColumns = false;
             grdheader.AllowUserToResizeRows = false;
+            grdheader.BackgroundColor = SystemColors.Control;
             grdheader.BorderStyle = BorderStyle.Fixed3D;
             grdheader.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grdheader.ColumnHeadersVisible = false;
@@ -80,6 +81,7 @@
             grddata.AllowUserToDeleteRows = false;
             grddata.AllowUserToResizeColumns = false;
             grddata.AllowUserToResizeRows = false;
+            grddata.BackgroundColor = SystemColors.Control;
             grddata.BorderStyle = BorderStyle.Fixed3D;
             grddata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grddata.ColumnHeadersVisible = false;

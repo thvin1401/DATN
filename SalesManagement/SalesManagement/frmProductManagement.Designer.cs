@@ -41,6 +41,8 @@
             btnadd = new Button();
             btnimport = new Button();
             btnviewdeleteditems = new Button();
+            lbldeletedstatus = new Label();
+            btnexcelreport = new Button();
             ((System.ComponentModel.ISupportInitialize)grdheader).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grddata).BeginInit();
             SuspendLayout();
@@ -70,21 +72,43 @@
             // 
             // grdheader
             // 
+            grdheader.AllowUserToAddRows = false;
+            grdheader.AllowUserToDeleteRows = false;
+            grdheader.AllowUserToResizeColumns = false;
+            grdheader.AllowUserToResizeRows = false;
+            grdheader.BackgroundColor = SystemColors.Control;
+            grdheader.BorderStyle = BorderStyle.Fixed3D;
             grdheader.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            grdheader.ColumnHeadersVisible = false;
             grdheader.Location = new Point(31, 98);
+            grdheader.Margin = new Padding(0);
             grdheader.Name = "grdheader";
+            grdheader.ReadOnly = true;
+            grdheader.RowHeadersVisible = false;
             grdheader.RowTemplate.Height = 25;
             grdheader.Size = new Size(1194, 30);
             grdheader.TabIndex = 31;
             // 
             // grddata
             // 
+            grddata.AllowUserToAddRows = false;
+            grddata.AllowUserToDeleteRows = false;
+            grddata.AllowUserToResizeColumns = false;
+            grddata.AllowUserToResizeRows = false;
+            grddata.BackgroundColor = SystemColors.Control;
+            grddata.BorderStyle = BorderStyle.Fixed3D;
             grddata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            grddata.Location = new Point(31, 125);
+            grddata.ColumnHeadersVisible = false;
+            grddata.Location = new Point(31, 123);
             grddata.Name = "grddata";
+            grddata.ReadOnly = true;
+            grddata.RowHeadersVisible = false;
             grddata.RowTemplate.Height = 25;
             grddata.Size = new Size(1194, 480);
             grddata.TabIndex = 32;
+            grddata.CellClick += grddata_CellClick;
+            grddata.CellDoubleClick += grddata_CellDoubleClick;
+            grddata.CellPainting += grddata_CellPainting;
             // 
             // dpkarriveddatefrom
             // 
@@ -92,6 +116,7 @@
             dpkarriveddatefrom.Name = "dpkarriveddatefrom";
             dpkarriveddatefrom.Size = new Size(200, 23);
             dpkarriveddatefrom.TabIndex = 33;
+            dpkarriveddatefrom.ValueChanged += dpkarriveddatefrom_ValueChanged;
             // 
             // dpkarriveddateto
             // 
@@ -99,6 +124,7 @@
             dpkarriveddateto.Name = "dpkarriveddateto";
             dpkarriveddateto.Size = new Size(200, 23);
             dpkarriveddateto.TabIndex = 34;
+            dpkarriveddateto.ValueChanged += dpkarriveddateto_ValueChanged;
             // 
             // btnsearch
             // 
@@ -108,6 +134,7 @@
             btnsearch.TabIndex = 35;
             btnsearch.Text = "Search";
             btnsearch.UseVisualStyleBackColor = true;
+            btnsearch.Click += btnsearch_Click;
             // 
             // txtsearch
             // 
@@ -138,7 +165,7 @@
             // btnadd
             // 
             btnadd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnadd.Location = new Point(810, 623);
+            btnadd.Location = new Point(763, 623);
             btnadd.Name = "btnadd";
             btnadd.Size = new Size(75, 30);
             btnadd.TabIndex = 40;
@@ -149,7 +176,7 @@
             // btnimport
             // 
             btnimport.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnimport.Location = new Point(911, 623);
+            btnimport.Location = new Point(872, 623);
             btnimport.Name = "btnimport";
             btnimport.Size = new Size(75, 30);
             btnimport.TabIndex = 41;
@@ -159,18 +186,42 @@
             // btnviewdeleteditems
             // 
             btnviewdeleteditems.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnviewdeleteditems.Location = new Point(1010, 623);
+            btnviewdeleteditems.Location = new Point(981, 623);
             btnviewdeleteditems.Name = "btnviewdeleteditems";
             btnviewdeleteditems.Size = new Size(113, 30);
             btnviewdeleteditems.TabIndex = 42;
             btnviewdeleteditems.Text = "Deleted Items";
             btnviewdeleteditems.UseVisualStyleBackColor = true;
+            btnviewdeleteditems.Click += btnviewdeleteditems_Click;
+            // 
+            // lbldeletedstatus
+            // 
+            lbldeletedstatus.BorderStyle = BorderStyle.Fixed3D;
+            lbldeletedstatus.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbldeletedstatus.Location = new Point(1091, 624);
+            lbldeletedstatus.Name = "lbldeletedstatus";
+            lbldeletedstatus.Size = new Size(31, 28);
+            lbldeletedstatus.TabIndex = 43;
+            lbldeletedstatus.Text = "D";
+            lbldeletedstatus.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnexcelreport
+            // 
+            btnexcelreport.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnexcelreport.Location = new Point(31, 623);
+            btnexcelreport.Name = "btnexcelreport";
+            btnexcelreport.Size = new Size(117, 30);
+            btnexcelreport.TabIndex = 44;
+            btnexcelreport.Text = "Excel Report";
+            btnexcelreport.UseVisualStyleBackColor = true;
             // 
             // frmProductManagement
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1258, 676);
+            Controls.Add(btnexcelreport);
+            Controls.Add(lbldeletedstatus);
             Controls.Add(btnviewdeleteditems);
             Controls.Add(btnimport);
             Controls.Add(btnadd);
@@ -191,6 +242,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
             Text = "frmProductManagement";
+            Load += frmProductManagement_Load;
             ((System.ComponentModel.ISupportInitialize)grdheader).EndInit();
             ((System.ComponentModel.ISupportInitialize)grddata).EndInit();
             ResumeLayout(false);
@@ -212,5 +264,7 @@
         private Button btnadd;
         private Button btnimport;
         private Button btnviewdeleteditems;
+        private Label lbldeletedstatus;
+        private Button btnexcelreport;
     }
 }

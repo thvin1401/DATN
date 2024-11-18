@@ -311,7 +311,7 @@ namespace SalesManagement
         }
 
         // product
-        public static List<mdlProducts> getAllProducts(DateTime importFrom, DateTime importTo, string name, bool isdeleted)
+        public static List<dynamic> getAllProducts(DateTime importFrom, DateTime importTo, string name, bool isdeleted)
         {
             try
             {
@@ -320,12 +320,12 @@ namespace SalesManagement
                 if (data.Any())
                     return data;
 
-                return new List<mdlProducts>();
+                return new List<dynamic>();
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message);
-                return new List<mdlProducts>();
+                return new List<dynamic>();
             }
         }
 
@@ -366,6 +366,20 @@ namespace SalesManagement
             try
             {
                 clsProductsDM.updateProduct(product);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool deleteAndRevertProduct(string id, bool isDeleted)
+        {
+            try
+            {
+                clsProductsDM.deleteAndRevertProduct(id, isDeleted);
                 return true;
             }
             catch (Exception ex)

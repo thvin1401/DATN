@@ -98,7 +98,7 @@
             dpkimporttime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             dpkimporttime.Location = new Point(174, 375);
             dpkimporttime.Name = "dpkimporttime";
-            dpkimporttime.Size = new Size(200, 29);
+            dpkimporttime.Size = new Size(271, 29);
             dpkimporttime.TabIndex = 4;
             // 
             // label2

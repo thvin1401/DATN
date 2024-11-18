@@ -160,14 +160,15 @@ namespace SalesManagement
 
                 if (isEdit)
                 {
+                    product.id = Guid.Parse(productId);
                     clsController.updateProduct(product);
                     mdlMain.updateMDIMainMessage("Update sucessfully", Color.LimeGreen);
-
-                    clearControl();
-                    this.Hide();
                 }
-                clsController.createNewProduct(product);
-                mdlMain.updateMDIMainMessage("Create sucessfully", Color.LimeGreen);
+                else
+                {
+                    clsController.createNewProduct(product);
+                    mdlMain.updateMDIMainMessage("Create sucessfully", Color.LimeGreen);
+                }
 
                 clearControl();
                 this.Hide();
@@ -195,13 +196,13 @@ namespace SalesManagement
 
                 if (initWeight != Convert.ToInt32(txtweight.Text))
                 {
-                    weightUSDPrice = Convert.ToInt32(txtweight.Text) * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate;
+                    weightUSDPrice = Convert.ToInt32(txtweight.Text) * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate * 10;
 
                     initWeight = Convert.ToInt32(txtweight.Text);
                 }
 
                 double unitPrice = Convert.ToDouble(txtunitprice.Text.Trim());
-                
+
                 double exchangeRate = mdlMain.App.currencyExchange[cmbcurrencytype.SelectedIndex].exchangerate;
 
                 txtunitprice.Text = (unitPrice + weightUSDPrice / exchangeRate).ToString("N0", CultureInfo.CurrentCulture);

@@ -17,12 +17,12 @@ namespace SalesManagement
             {
                 if(remindDateFrom == remindDateTo)
                 {
-                    sSQL.AppendLine($"select * from note where reminddatetime <= '{remindDateTo.ToString("yyyy-MM-dd")}' ");
+                    sSQL.AppendLine($"select * from note where reminddatetime <= '{remindDateTo.ToString("yyyy-MM-dd HH:mm:ss")}' ");
                 }
                 else
                 {
-                    sSQL.AppendLine($"select * from note where reminddatetime >= '{remindDateFrom.ToString("yyyy-MM-dd")}' ");
-                    sSQL.AppendLine($"and reminddatetime <= '{remindDateTo.ToString("yyyy-MM-dd")}' ");
+                    sSQL.AppendLine($"select * from note where reminddatetime >= '{remindDateFrom.ToString("yyyy-MM-dd HH:mm:ss")}' ");
+                    sSQL.AppendLine($"and reminddatetime <= '{remindDateTo.ToString("yyyy-MM-dd HH:mm:ss")}' ");
                 }
 
                 sSQL.AppendLine("and isdone = false and isdeleted = false ");

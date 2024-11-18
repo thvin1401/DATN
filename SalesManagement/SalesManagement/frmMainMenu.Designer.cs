@@ -201,6 +201,7 @@
             grdnote.AllowUserToAddRows = false;
             grdnote.AllowUserToDeleteRows = false;
             grdnote.AllowUserToResizeRows = false;
+            grdnote.BackgroundColor = SystemColors.Control;
             grdnote.BorderStyle = BorderStyle.Fixed3D;
             grdnote.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             grdnote.ColumnHeadersVisible = false;
