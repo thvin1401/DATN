@@ -49,6 +49,7 @@
             label2 = new Label();
             lblallnote = new Label();
             btnaddnotes = new Label();
+            btnadjustment = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grdnote).BeginInit();
@@ -58,6 +59,7 @@
             // 
             panel1.BackColor = Color.LightGray;
             panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(btnadjustment);
             panel1.Controls.Add(btnlogout);
             panel1.Controls.Add(btnaccountmanagement);
             panel1.Controls.Add(btnsettings);
@@ -87,7 +89,7 @@
             // 
             btnaccountmanagement.Cursor = Cursors.Hand;
             btnaccountmanagement.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnaccountmanagement.Location = new Point(44, 385);
+            btnaccountmanagement.Location = new Point(44, 440);
             btnaccountmanagement.Name = "btnaccountmanagement";
             btnaccountmanagement.Size = new Size(231, 30);
             btnaccountmanagement.TabIndex = 7;
@@ -99,7 +101,7 @@
             // 
             btnsettings.Cursor = Cursors.Hand;
             btnsettings.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnsettings.Location = new Point(44, 450);
+            btnsettings.Location = new Point(44, 505);
             btnsettings.Name = "btnsettings";
             btnsettings.Size = new Size(231, 30);
             btnsettings.TabIndex = 6;
@@ -111,7 +113,7 @@
             // 
             btnsearchbilljournal.Cursor = Cursors.Hand;
             btnsearchbilljournal.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnsearchbilljournal.Location = new Point(44, 320);
+            btnsearchbilljournal.Location = new Point(44, 375);
             btnsearchbilljournal.Name = "btnsearchbilljournal";
             btnsearchbilljournal.Size = new Size(231, 30);
             btnsearchbilljournal.TabIndex = 5;
@@ -123,7 +125,7 @@
             // 
             btndebtmanagement.Cursor = Cursors.Hand;
             btndebtmanagement.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btndebtmanagement.Location = new Point(44, 255);
+            btndebtmanagement.Location = new Point(44, 310);
             btndebtmanagement.Name = "btndebtmanagement";
             btndebtmanagement.Size = new Size(231, 30);
             btndebtmanagement.TabIndex = 4;
@@ -135,7 +137,7 @@
             // 
             btnusermanagement.Cursor = Cursors.Hand;
             btnusermanagement.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnusermanagement.Location = new Point(44, 190);
+            btnusermanagement.Location = new Point(44, 245);
             btnusermanagement.Name = "btnusermanagement";
             btnusermanagement.Size = new Size(231, 30);
             btnusermanagement.TabIndex = 3;
@@ -147,7 +149,7 @@
             // 
             btnproductmanagement.Cursor = Cursors.Hand;
             btnproductmanagement.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnproductmanagement.Location = new Point(44, 125);
+            btnproductmanagement.Location = new Point(44, 180);
             btnproductmanagement.Name = "btnproductmanagement";
             btnproductmanagement.Size = new Size(231, 30);
             btnproductmanagement.TabIndex = 2;
@@ -288,6 +290,18 @@
             btnaddnotes.TextAlign = ContentAlignment.MiddleCenter;
             btnaddnotes.Click += btnaddnotes_Click;
             // 
+            // btnadjustment
+            // 
+            btnadjustment.Cursor = Cursors.Hand;
+            btnadjustment.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnadjustment.Location = new Point(44, 115);
+            btnadjustment.Name = "btnadjustment";
+            btnadjustment.Size = new Size(231, 30);
+            btnadjustment.TabIndex = 9;
+            btnadjustment.Text = "Adjustment";
+            btnadjustment.UseVisualStyleBackColor = true;
+            btnadjustment.Click += btnadjustment_Click;
+            // 
             // frmMainMenu
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -343,5 +357,6 @@
         private Label label2;
         private Label lblallnote;
         private Label btnaddnotes;
+        private Button btnadjustment;
     }
 }

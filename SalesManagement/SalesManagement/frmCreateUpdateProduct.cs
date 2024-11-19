@@ -1,5 +1,4 @@
 ﻿using SalesManagement.model;
-using System.Collections.Immutable;
 using System.Globalization;
 
 namespace SalesManagement
@@ -149,7 +148,7 @@ namespace SalesManagement
                 product.id = Guid.NewGuid();
                 product.name = txtname.Text.Trim();
                 product.quantity = Convert.ToInt32(txtquantity.Text.Trim().Replace(".", "").Replace(",", ""));
-                product.unitprice = Convert.ToDouble(txtunitprice.Text.Trim().Replace(".", "").Replace(",", ""));
+                product.unitprice = Convert.ToDouble(txtunitpricevnd.Text.Trim().Replace(".", "").Replace(",", ""));
                 product.providerid = ckbisnewprovider.Checked ? providernewguid : Guid.Parse(((ComboBoxItem)cmbprovider.SelectedItem).Value.ToString());
                 product.isdeleted = ckbisdeleted.Checked;
                 product.categoryid = ckbnewcategory.Checked ? categorynewguid : Guid.Parse(((ComboBoxItem)cmbcategory.SelectedItem).Value.ToString());

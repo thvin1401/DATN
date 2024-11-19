@@ -1,4 +1,6 @@
-﻿namespace SalesManagement
+﻿using System.Globalization;
+
+namespace SalesManagement
 {
     public partial class frmProductManagement : Form
     {
@@ -75,11 +77,11 @@
                     grddata[0, i].Value = data[i].id;
                     grddata[1, i].Value = i + 1;
                     grddata[2, i].Value = data[i].name;
-                    grddata[3, i].Value = data[i].quantity;
-                    grddata[4, i].Value = data[i].unitprice;
+                    grddata[3, i].Value = data[i].quantity.ToString("N0", CultureInfo.CurrentCulture);
+                    grddata[4, i].Value = data[i].unitprice.ToString("N0", CultureInfo.CurrentCulture);
                     grddata[5, i].Value = data[i].provider;
                     grddata[6, i].Value = data[i].category;
-                    grddata[7, i].Value = data[i].weight;
+                    grddata[7, i].Value = data[i].weight.ToString("N0", CultureInfo.CurrentCulture);
                     grddata[8, i].Value = data[i].importdatetime.ToString("dd/MM/yyyy");
                 }
 

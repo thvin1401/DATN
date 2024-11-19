@@ -28,12 +28,12 @@ namespace SalesManagement
 
             if(importFrom == importTo)
             {
-                sSQL.AppendLine($"and importdatetime <= '{importTo.ToString("yyyy-MM-dd HH:mm:ss")}' ");
+                sSQL.AppendLine($"and importdatetime <= '{importTo.ToString("yyyy-MM-dd 23:59:59")}' ");
             }
             else
             {
-                sSQL.AppendLine($"and importdatetime >= '{importFrom.ToString("yyyy-MM-dd HH:mm:ss")}' ");
-                sSQL.AppendLine($"and importdatetime <= '{importTo.ToString("yyyy-MM-dd HH:mm:ss")}' ");
+                sSQL.AppendLine($"and importdatetime >= '{importFrom.ToString("yyyy-MM-dd")}' ");
+                sSQL.AppendLine($"and importdatetime <= '{importTo.ToString("yyyy-MM-dd 23:59:59")}' ");
             }
             if (!string.IsNullOrEmpty(name))
             {
@@ -43,6 +43,14 @@ namespace SalesManagement
             sSQL.AppendLine("order by importdatetime desc, pd.createdatetime desc");
 
             return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
+        }
+
+        public static List<mdlProducts> getAllProductsForSales()
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine($"select * from products where isdeleted = false and quantity > 0 ");
+
+            return clsDBConnectionManager.Connection.Query<mdlProducts>(sSQL.ToString()).ToList();
         }
 
         public static List<mdlProducts> getProductEdit(string id)

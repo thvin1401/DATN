@@ -329,6 +329,24 @@ namespace SalesManagement
             }
         }
 
+        public static List<mdlProducts> getAllProductsForSales()
+        {
+            try
+            {
+                var data = clsProductsDM.getAllProductsForSales();
+
+                if (data.Any())
+                    return data;
+
+                return new List<mdlProducts>();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlProducts>();
+            }
+        }
+
         public static mdlProducts getProductEdit(string id)
         {
             try

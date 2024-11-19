@@ -80,29 +80,27 @@ namespace SalesManagement
                 if (clsController.updateNote(note))
                 {
                     mdlMain.updateMDIMainMessage("Update successfully!", Color.LimeGreen);
-
-                    clearForm();
-
-                    this.Hide();
                 }
                 else
                 {
                     mdlMain.updateMDIMainMessage("Update failed!", Color.Red);
                 }
             }
-
-            if (clsController.createNote(note))
-            {
-                mdlMain.updateMDIMainMessage("Create successfully!", Color.LimeGreen);
-
-                clearForm();
-
-                this.Hide();
-            }
             else
             {
-                mdlMain.updateMDIMainMessage("Create failed!", Color.Red);
+                if (clsController.createNote(note))
+                {
+                    mdlMain.updateMDIMainMessage("Create successfully!", Color.LimeGreen);
+                }
+                else
+                {
+                    mdlMain.updateMDIMainMessage("Create failed!", Color.Red);
+                }
             }
+
+            clearForm();
+
+            this.Hide();
         }
 
         private void btnback_Click(object sender, EventArgs e)

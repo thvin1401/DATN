@@ -8,6 +8,8 @@ namespace SalesManagement
 
         private bool isViewAllNote = false;
 
+        private bool isEventAssigned = false;
+
         public frmMainMenu()
         {
             InitializeComponent();
@@ -58,8 +60,13 @@ namespace SalesManagement
             grdnote.Rows.Clear();
             grdnote.Columns.Clear();
 
-            grdnote.CellPainting += grdnote_CellPainting;
-            grdnote.CellClick += grdnote_CellClick;
+            if (!isEventAssigned)
+            {
+                grdnote.CellPainting += grdnote_CellPainting;
+                grdnote.CellClick += grdnote_CellClick;
+
+                isEventAssigned = true;
+            }
 
             var data = clsController.getNotes(dpkreminddatefrom.Value, dpkreminddateto.Value, isViewAllNote);
 
@@ -141,8 +148,13 @@ namespace SalesManagement
             grdnote.Rows.Clear();
             grdnote.Columns.Clear();
 
-            grdnote.CellPainting -= grdnote_CellPainting;
-            grdnote.CellClick -= grdnote_CellClick;
+            if (isEventAssigned)
+            {
+                grdnote.CellPainting -= grdnote_CellPainting;
+                grdnote.CellClick -= grdnote_CellClick;
+
+                isEventAssigned = false;
+            }
 
             var data = clsController.getNotes(dpkreminddatefrom.Value, dpkreminddateto.Value, isViewAllNote);
 
@@ -365,6 +377,14 @@ namespace SalesManagement
 
             isViewAllNote = false;
             initGrdNote();
+        }
+
+        private void btnadjustment_Click(object sender, EventArgs e)
+        {
+            frmAdjustment frm = new frmAdjustment();
+            frm.Show();
+
+            this.Hide();
         }
     }
 }
