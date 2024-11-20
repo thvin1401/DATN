@@ -46,6 +46,19 @@ namespace SalesManagement
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
 
+        public static void updateUserPointAndRank(mdlUserInfo userInfo)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update userinfo ");
+            sSQL.AppendLine("set ");
+            sSQL.AppendLine($"point = {userInfo.point}, ");
+            sSQL.AppendLine($"rankid = '{userInfo.rankid.ToString()}', ");
+            sSQL.AppendLine($"updatedatetime = '{userInfo.updatedatetime.ToString("yyyy-MM-dd")}' ");
+            sSQL.AppendLine($"where id = '{userInfo.id}' ");
+
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
+
         public static List<mdlUserInfo> getAllUsers(string? name = null, int? type = null)
         {
             StringBuilder sSQL = new StringBuilder();

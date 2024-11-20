@@ -97,6 +97,7 @@
             // 
             // txtsearch
             // 
+            txtsearch.BorderStyle = BorderStyle.FixedSingle;
             txtsearch.Location = new Point(912, 44);
             txtsearch.Name = "txtsearch";
             txtsearch.PlaceholderText = "Search name, username, email...";

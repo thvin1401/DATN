@@ -69,6 +69,7 @@
             // 
             // txtname
             // 
+            txtname.BorderStyle = BorderStyle.FixedSingle;
             txtname.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtname.Location = new Point(174, 98);
             txtname.Name = "txtname";
@@ -177,6 +178,7 @@
             // 
             // txtquantity
             // 
+            txtquantity.BorderStyle = BorderStyle.FixedSingle;
             txtquantity.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtquantity.Location = new Point(174, 147);
             txtquantity.Name = "txtquantity";
@@ -185,6 +187,7 @@
             // 
             // txtunitpricevnd
             // 
+            txtunitpricevnd.BorderStyle = BorderStyle.FixedSingle;
             txtunitpricevnd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtunitpricevnd.Location = new Point(382, 205);
             txtunitpricevnd.Name = "txtunitpricevnd";
@@ -193,6 +196,7 @@
             // 
             // txtnewprovidername
             // 
+            txtnewprovidername.BorderStyle = BorderStyle.FixedSingle;
             txtnewprovidername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtnewprovidername.Location = new Point(382, 260);
             txtnewprovidername.Name = "txtnewprovidername";
@@ -243,6 +247,7 @@
             // 
             // txtunitprice
             // 
+            txtunitprice.BorderStyle = BorderStyle.FixedSingle;
             txtunitprice.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtunitprice.Location = new Point(174, 205);
             txtunitprice.Name = "txtunitprice";
@@ -273,6 +278,7 @@
             // 
             // txtnewcategoryname
             // 
+            txtnewcategoryname.BorderStyle = BorderStyle.FixedSingle;
             txtnewcategoryname.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtnewcategoryname.Location = new Point(382, 320);
             txtnewcategoryname.Name = "txtnewcategoryname";
@@ -291,6 +297,7 @@
             // 
             // txtweight
             // 
+            txtweight.BorderStyle = BorderStyle.FixedSingle;
             txtweight.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtweight.Location = new Point(382, 147);
             txtweight.Name = "txtweight";

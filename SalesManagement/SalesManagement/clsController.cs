@@ -241,11 +241,11 @@ namespace SalesManagement
         }
 
         // userinfos
-        public static List<mdlUserInfo> getProviders()
+        public static List<mdlUserInfo> getUserByNameAndType(string? name = null, int? type = null)
         {
             try
             {
-                return clsUserInfoDM.getAllUsers(type: 3);
+                return clsUserInfoDM.getAllUsers(name, type);
             }
             catch (Exception ex)
             {
@@ -273,6 +273,20 @@ namespace SalesManagement
             try
             {
                 clsUserInfoDM.updateUser(userInfo);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool updateUserPointAndRank(mdlUserInfo userInfo)
+        {
+            try
+            {
+                clsUserInfoDM.updateUserPointAndRank(userInfo);
                 return true;
             }
             catch (Exception ex)
@@ -398,6 +412,69 @@ namespace SalesManagement
             try
             {
                 clsProductsDM.deleteAndRevertProduct(id, isDeleted);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        // bill
+        public static int getNewReceiptNumber()
+        {
+            try
+            {
+                return clsBillDM.getNewReceiptNumber();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return 0;
+            }
+        }
+
+        public static bool insertBill(mdlBill bill)
+        {
+            try
+            {
+                clsBillDM.insertBill(bill);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        // product management
+        public static bool insertData(List<mdlProductManagement> listOrder)
+        {
+            try
+            {
+                foreach(var order in listOrder)
+                {
+                    clsProductManagementDM.insertData(order);
+                }
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        // payment
+        public static bool insertPaymentData(mdlPayment payment)
+        {
+            try
+            {
+                clsPaymentDM.insertPaymentData(payment);
+
                 return true;
             }
             catch (Exception ex)

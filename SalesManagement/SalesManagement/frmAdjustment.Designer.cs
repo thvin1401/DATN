@@ -34,7 +34,7 @@
             grdproduct = new DataGridView();
             lbltitle = new Label();
             txtcashamount = new TextBox();
-            txtotherspayamount = new TextBox();
+            txtbankingpayamount = new TextBox();
             cmbpaymentmethod = new ComboBox();
             btnadjustment = new Button();
             txttotalprice = new TextBox();
@@ -75,7 +75,6 @@
             cmbuserinfoname = new ComboBox();
             btnsearch = new Button();
             label12 = new Label();
-            txtsearch = new TextBox();
             btncanceltrans = new Button();
             btnclear = new Button();
             ((System.ComponentModel.ISupportInitialize)grdsales).BeginInit();
@@ -176,19 +175,23 @@
             // 
             // txtcashamount
             // 
+            txtcashamount.BorderStyle = BorderStyle.FixedSingle;
             txtcashamount.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtcashamount.Location = new Point(120, 63);
             txtcashamount.Name = "txtcashamount";
             txtcashamount.Size = new Size(340, 29);
             txtcashamount.TabIndex = 17;
+            txtcashamount.TextChanged += txtcashamount_TextChanged;
             // 
-            // txtotherspayamount
+            // txtbankingpayamount
             // 
-            txtotherspayamount.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtotherspayamount.Location = new Point(120, 16);
-            txtotherspayamount.Name = "txtotherspayamount";
-            txtotherspayamount.Size = new Size(340, 29);
-            txtotherspayamount.TabIndex = 18;
+            txtbankingpayamount.BorderStyle = BorderStyle.FixedSingle;
+            txtbankingpayamount.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtbankingpayamount.Location = new Point(120, 16);
+            txtbankingpayamount.Name = "txtbankingpayamount";
+            txtbankingpayamount.Size = new Size(340, 29);
+            txtbankingpayamount.TabIndex = 18;
+            txtbankingpayamount.TextChanged += txtbankingpayamount_TextChanged;
             // 
             // cmbpaymentmethod
             // 
@@ -199,6 +202,7 @@
             cmbpaymentmethod.Name = "cmbpaymentmethod";
             cmbpaymentmethod.Size = new Size(121, 29);
             cmbpaymentmethod.TabIndex = 19;
+            cmbpaymentmethod.SelectedIndexChanged += cmbpaymentmethod_SelectedIndexChanged;
             // 
             // btnadjustment
             // 
@@ -215,9 +219,12 @@
             // 
             // txttotalprice
             // 
+            txttotalprice.BackColor = SystemColors.Window;
+            txttotalprice.BorderStyle = BorderStyle.FixedSingle;
             txttotalprice.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txttotalprice.Location = new Point(120, 111);
             txttotalprice.Name = "txttotalprice";
+            txttotalprice.ReadOnly = true;
             txttotalprice.Size = new Size(340, 29);
             txttotalprice.TabIndex = 21;
             // 
@@ -227,9 +234,9 @@
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(22, 19);
             label1.Name = "label1";
-            label1.Size = new Size(57, 21);
+            label1.Size = new Size(66, 21);
             label1.TabIndex = 22;
-            label1.Text = "Others";
+            label1.Text = "Banking";
             // 
             // label2
             // 
@@ -253,9 +260,12 @@
             // 
             // txtchange
             // 
+            txtchange.BackColor = SystemColors.Window;
+            txtchange.BorderStyle = BorderStyle.FixedSingle;
             txtchange.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtchange.Location = new Point(120, 159);
             txtchange.Name = "txtchange";
+            txtchange.ReadOnly = true;
             txtchange.Size = new Size(340, 29);
             txtchange.TabIndex = 25;
             // 
@@ -347,6 +357,7 @@
             // 
             // txtreceiptnumber
             // 
+            txtreceiptnumber.BorderStyle = BorderStyle.FixedSingle;
             txtreceiptnumber.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtreceiptnumber.Location = new Point(517, 47);
             txtreceiptnumber.Name = "txtreceiptnumber";
@@ -357,7 +368,7 @@
             // 
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(txtotherspayamount);
+            panel1.Controls.Add(txtbankingpayamount);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(btnadjustment);
             panel1.Controls.Add(cmbpaymenttype);
@@ -402,7 +413,6 @@
             panel2.Controls.Add(cmbuserinfoname);
             panel2.Controls.Add(btnsearch);
             panel2.Controls.Add(label12);
-            panel2.Controls.Add(txtsearch);
             panel2.Location = new Point(23, 372);
             panel2.Name = "panel2";
             panel2.Size = new Size(712, 210);
@@ -410,8 +420,11 @@
             // 
             // txttype
             // 
+            txttype.BackColor = SystemColors.Window;
+            txttype.BorderStyle = BorderStyle.FixedSingle;
             txttype.Location = new Point(368, 159);
             txttype.Name = "txttype";
+            txttype.ReadOnly = true;
             txttype.Size = new Size(200, 23);
             txttype.TabIndex = 58;
             // 
@@ -454,8 +467,11 @@
             // 
             // txtrank
             // 
+            txtrank.BackColor = SystemColors.Window;
+            txtrank.BorderStyle = BorderStyle.FixedSingle;
             txtrank.Location = new Point(368, 86);
             txtrank.Name = "txtrank";
+            txtrank.ReadOnly = true;
             txtrank.Size = new Size(156, 23);
             txtrank.TabIndex = 52;
             // 
@@ -479,36 +495,51 @@
             // 
             // txtpoint
             // 
+            txtpoint.BackColor = SystemColors.Window;
+            txtpoint.BorderStyle = BorderStyle.FixedSingle;
             txtpoint.Location = new Point(368, 53);
             txtpoint.Name = "txtpoint";
+            txtpoint.ReadOnly = true;
             txtpoint.Size = new Size(100, 23);
             txtpoint.TabIndex = 49;
             // 
             // txtemail
             // 
+            txtemail.BackColor = SystemColors.Window;
+            txtemail.BorderStyle = BorderStyle.FixedSingle;
             txtemail.Location = new Point(77, 159);
             txtemail.Name = "txtemail";
+            txtemail.ReadOnly = true;
             txtemail.Size = new Size(175, 23);
             txtemail.TabIndex = 48;
             // 
             // txtphone
             // 
+            txtphone.BackColor = SystemColors.Window;
+            txtphone.BorderStyle = BorderStyle.FixedSingle;
             txtphone.Location = new Point(77, 121);
             txtphone.Name = "txtphone";
+            txtphone.ReadOnly = true;
             txtphone.Size = new Size(175, 23);
             txtphone.TabIndex = 47;
             // 
             // txtaddress
             // 
+            txtaddress.BackColor = SystemColors.Window;
+            txtaddress.BorderStyle = BorderStyle.FixedSingle;
             txtaddress.Location = new Point(77, 86);
             txtaddress.Name = "txtaddress";
+            txtaddress.ReadOnly = true;
             txtaddress.Size = new Size(175, 23);
             txtaddress.TabIndex = 46;
             // 
             // txtfullname
             // 
+            txtfullname.BackColor = SystemColors.Window;
+            txtfullname.BorderStyle = BorderStyle.FixedSingle;
             txtfullname.Location = new Point(77, 53);
             txtfullname.Name = "txtfullname";
+            txtfullname.ReadOnly = true;
             txtfullname.Size = new Size(175, 23);
             txtfullname.TabIndex = 45;
             // 
@@ -563,8 +594,9 @@
             cmbuserinfoname.FormattingEnabled = true;
             cmbuserinfoname.Location = new Point(193, 12);
             cmbuserinfoname.Name = "cmbuserinfoname";
-            cmbuserinfoname.Size = new Size(234, 23);
+            cmbuserinfoname.Size = new Size(425, 23);
             cmbuserinfoname.TabIndex = 39;
+            cmbuserinfoname.SelectedIndexChanged += cmbuserinfoname_SelectedIndexChanged;
             // 
             // btnsearch
             // 
@@ -586,14 +618,6 @@
             label12.Text = "Customer info";
             label12.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // txtsearch
-            // 
-            txtsearch.Location = new Point(433, 12);
-            txtsearch.Name = "txtsearch";
-            txtsearch.PlaceholderText = "Search name, email, phone..";
-            txtsearch.Size = new Size(185, 23);
-            txtsearch.TabIndex = 0;
-            // 
             // btncanceltrans
             // 
             btncanceltrans.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -613,6 +637,7 @@
             btnclear.TabIndex = 39;
             btnclear.Text = "Clear";
             btnclear.UseVisualStyleBackColor = true;
+            btnclear.Click += btnclear_Click;
             // 
             // frmAdjustment
             // 
@@ -636,6 +661,7 @@
             Name = "frmAdjustment";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
+            Load += frmAdjustment_Load;
             ((System.ComponentModel.ISupportInitialize)grdsales).EndInit();
             ((System.ComponentModel.ISupportInitialize)grdheader).EndInit();
             ((System.ComponentModel.ISupportInitialize)grdproduct).EndInit();
@@ -655,7 +681,7 @@
         private DataGridView grdproduct;
         private Label lbltitle;
         private TextBox txtcashamount;
-        private TextBox txtotherspayamount;
+        private TextBox txtbankingpayamount;
         private ComboBox cmbpaymentmethod;
         private Button btnadjustment;
         private TextBox txttotalprice;
@@ -676,7 +702,6 @@
         private Panel panel1;
         private Panel panel2;
         private Label label12;
-        private TextBox txtsearch;
         private Button btnsearch;
         private ComboBox cmbuserinfoname;
         private TextBox txtpoint;

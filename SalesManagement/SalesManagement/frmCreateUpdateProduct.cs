@@ -29,7 +29,7 @@ namespace SalesManagement
                 cmbcurrencytype.Items.Add(item.name);
             }
 
-            providerList = clsController.getProviders();
+            providerList = clsController.getUserByNameAndType(type: 3);
 
             if (providerList.Count != 0)
             {

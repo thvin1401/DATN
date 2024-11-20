@@ -39,6 +39,7 @@
             txtdiscount = new TextBox();
             btnok = new Button();
             btnrevert = new Button();
+            lblremaining = new Label();
             SuspendLayout();
             // 
             // lbltitle
@@ -106,7 +107,7 @@
             txtquantity.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtquantity.Location = new Point(143, 159);
             txtquantity.Name = "txtquantity";
-            txtquantity.Size = new Size(100, 29);
+            txtquantity.Size = new Size(138, 29);
             txtquantity.TabIndex = 23;
             txtquantity.KeyPress += txtnumeric_KeyPress;
             // 
@@ -150,11 +151,21 @@
             btnrevert.UseVisualStyleBackColor = true;
             btnrevert.Click += btnrevert_Click;
             // 
+            // lblremaining
+            // 
+            lblremaining.AutoSize = true;
+            lblremaining.Location = new Point(318, 168);
+            lblremaining.Name = "lblremaining";
+            lblremaining.Size = new Size(82, 15);
+            lblremaining.TabIndex = 28;
+            lblremaining.Text = "Remaining: 15";
+            // 
             // frmEditOrderDetails
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(426, 392);
             ControlBox = false;
+            Controls.Add(lblremaining);
             Controls.Add(btnrevert);
             Controls.Add(btnok);
             Controls.Add(txtdiscount);
@@ -189,5 +200,6 @@
         private TextBox txtdiscount;
         private Button btnok;
         private Button btnrevert;
+        private Label lblremaining;
     }
 }

@@ -8,16 +8,19 @@ namespace SalesManagement
 
         public int quantity;
 
+        public int maxQuantity;
+
         public double unitprice;
 
         public double discount;
 
-        public frmEditOrderDetails(string? name, int quantity, double unitprice, double discount)
+        public frmEditOrderDetails(string? name, int quantity, int maxQuantity, double unitprice, double discount)
         {
             InitializeComponent();
 
             this.name = name == null ? string.Empty : name;
             this.quantity = quantity;
+            this.maxQuantity = maxQuantity;
             this.unitprice = unitprice;
             this.discount = discount;
         }
@@ -68,6 +71,11 @@ namespace SalesManagement
                 MessageBox.Show("Discount cannot be empty", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
+            if(Convert.ToInt32(txtquantity.Text) > maxQuantity)
+            {
+                MessageBox.Show("Quantity cannot be greater than the remaining", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
 
             return true;
         }
@@ -83,6 +91,10 @@ namespace SalesManagement
             txtname.Enabled = false;
 
             txtquantity.Text = quantity.ToString("N0", CultureInfo.CurrentCulture);
+
+            lblremaining.Text = "Remaining : " + maxQuantity;
+            lblremaining.ForeColor = Color.LimeGreen;
+
             txtunitprice.Text = unitprice.ToString("N0", CultureInfo.CurrentCulture);
             txtdiscount.Text = discount.ToString("N0", CultureInfo.CurrentCulture);
         }

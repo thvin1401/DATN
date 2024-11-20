@@ -64,6 +64,7 @@
             // 
             // textBox1
             // 
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.Location = new Point(310, 135);
             textBox1.Margin = new Padding(4, 2, 4, 2);
@@ -73,6 +74,7 @@
             // 
             // textBox2
             // 
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
             textBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox2.Location = new Point(310, 210);
             textBox2.Margin = new Padding(4, 2, 4, 2);
@@ -82,6 +84,7 @@
             // 
             // textBox3
             // 
+            textBox3.BorderStyle = BorderStyle.FixedSingle;
             textBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox3.Location = new Point(310, 280);
             textBox3.Margin = new Padding(4, 2, 4, 2);
@@ -91,6 +94,7 @@
             // 
             // textBox4
             // 
+            textBox4.BorderStyle = BorderStyle.FixedSingle;
             textBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox4.Location = new Point(310, 368);
             textBox4.Margin = new Padding(4, 2, 4, 2);
@@ -100,6 +104,7 @@
             // 
             // textBox6
             // 
+            textBox6.BorderStyle = BorderStyle.FixedSingle;
             textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox6.Location = new Point(870, 135);
             textBox6.Margin = new Padding(4, 2, 4, 2);

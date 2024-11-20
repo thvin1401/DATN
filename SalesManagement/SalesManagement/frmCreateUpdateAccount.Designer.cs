@@ -65,6 +65,7 @@
             // 
             // txtfullname
             // 
+            txtfullname.BorderStyle = BorderStyle.FixedSingle;
             txtfullname.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtfullname.Location = new Point(383, 127);
             txtfullname.Name = "txtfullname";
@@ -184,6 +185,7 @@
             // 
             // txtemail
             // 
+            txtemail.BorderStyle = BorderStyle.FixedSingle;
             txtemail.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtemail.Location = new Point(383, 192);
             txtemail.Name = "txtemail";
@@ -192,6 +194,7 @@
             // 
             // txtusername
             // 
+            txtusername.BorderStyle = BorderStyle.FixedSingle;
             txtusername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtusername.Location = new Point(383, 258);
             txtusername.Name = "txtusername";
@@ -200,6 +203,7 @@
             // 
             // txtpassword
             // 
+            txtpassword.BorderStyle = BorderStyle.FixedSingle;
             txtpassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtpassword.Location = new Point(383, 329);
             txtpassword.Name = "txtpassword";
@@ -209,6 +213,7 @@
             // 
             // txtpassword2
             // 
+            txtpassword2.BorderStyle = BorderStyle.FixedSingle;
             txtpassword2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtpassword2.Location = new Point(383, 401);
             txtpassword2.Name = "txtpassword2";
@@ -218,6 +223,7 @@
             // 
             // txtphone
             // 
+            txtphone.BorderStyle = BorderStyle.FixedSingle;
             txtphone.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtphone.Location = new Point(914, 192);
             txtphone.Name = "txtphone";
@@ -267,6 +273,7 @@
             // 
             // txtaddress
             // 
+            txtaddress.BorderStyle = BorderStyle.FixedSingle;
             txtaddress.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtaddress.Location = new Point(914, 258);
             txtaddress.Name = "txtaddress";

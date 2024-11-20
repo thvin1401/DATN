@@ -42,6 +42,7 @@
             // 
             // txtmessage
             // 
+            txtmessage.BorderStyle = BorderStyle.FixedSingle;
             txtmessage.Location = new Point(123, 182);
             txtmessage.Name = "txtmessage";
             txtmessage.Size = new Size(200, 23);
