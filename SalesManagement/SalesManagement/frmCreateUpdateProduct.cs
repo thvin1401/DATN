@@ -170,7 +170,7 @@ namespace SalesManagement
                 }
 
                 clearControl();
-                this.Hide();
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -301,7 +301,7 @@ namespace SalesManagement
         {
             clearControl();
 
-            this.Hide();
+            this.Close();
         }
 
         private void txtweight_Leave(object sender, EventArgs e)

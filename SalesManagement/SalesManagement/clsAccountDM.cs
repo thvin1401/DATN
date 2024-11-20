@@ -28,7 +28,7 @@ namespace SalesManagement
             StringBuilder sSQL = new StringBuilder();
             sSQL.AppendLine($"select * from account where username = '{username}' ");
 
-            return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Count() > 1;
+            return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Count() == 1;
         }
 
         public static bool isExistedEmail(string username, string email)

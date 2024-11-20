@@ -94,7 +94,7 @@ namespace SalesManagement
                 MessageBox.Show("Re-enter password is not correct, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            else if (clsAccountDM.isExistedUsername(txtusername.Text.Trim()))
+            else if (!isEdit && clsAccountDM.isExistedUsername(txtusername.Text.Trim()))
             {
                 MessageBox.Show("Username is existed, please enter another one", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;

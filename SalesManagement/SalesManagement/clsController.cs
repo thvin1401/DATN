@@ -483,5 +483,19 @@ namespace SalesManagement
                 return false;
             }
         }
+
+        // debt management
+        public static List<dynamic> getAllDebtInfo(DateTime processedTimeFrom, DateTime processedTimeTo, int status, int receiptnumber)
+        {
+            try
+            {
+                return clsDebtManagementDM.getAllDebtInfo(processedTimeFrom, processedTimeTo, status, receiptnumber);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<dynamic>();
+            }
+        }
     }
 }

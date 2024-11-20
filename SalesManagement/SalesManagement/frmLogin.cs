@@ -49,8 +49,7 @@ namespace SalesManagement
         private void btnforgetpw_Click(object sender, EventArgs e)
         {
             frmResetPassword frm = new frmResetPassword();
-            frm.MdiParent = mdlMain.frmMDIMain;
-            frm.Show();
+            frm.ShowDialog(this);
         }
     }
 }

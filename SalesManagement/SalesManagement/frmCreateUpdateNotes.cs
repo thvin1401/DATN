@@ -37,7 +37,7 @@ namespace SalesManagement
 
                     clearForm();
 
-                    this.Hide();
+                    this.Close();
                 }
                 else
                 {
@@ -100,14 +100,14 @@ namespace SalesManagement
 
             clearForm();
 
-            this.Hide();
+            this.Close();
         }
 
         private void btnback_Click(object sender, EventArgs e)
         {
             clearForm();
 
-            this.Hide();
+            this.Close();
         }
 
         private void clearForm()
