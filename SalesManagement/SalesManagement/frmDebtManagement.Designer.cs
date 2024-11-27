@@ -37,21 +37,26 @@
             btnexcelreport = new Button();
             dpkprocessedtimefrom = new DateTimePicker();
             dpkprocessedtimeto = new DateTimePicker();
-            cmbstatus = new ComboBox();
             txtreceiptnumber = new TextBox();
             btnsearch = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            grdheader1 = new DataGridView();
+            grdoverviewdata = new DataGridView();
+            lbltype = new Label();
             ((System.ComponentModel.ISupportInitialize)grdheader).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grddata).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grdheader1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grdoverviewdata).BeginInit();
             SuspendLayout();
             // 
             // btnback
             // 
-            btnback.Location = new Point(1152, 621);
+            btnback.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnback.Location = new Point(437, 621);
             btnback.Name = "btnback";
-            btnback.Size = new Size(75, 23);
+            btnback.Size = new Size(75, 30);
             btnback.TabIndex = 0;
             btnback.Text = "Back";
             btnback.UseVisualStyleBackColor = true;
@@ -79,13 +84,13 @@
             grdheader.BorderStyle = BorderStyle.Fixed3D;
             grdheader.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grdheader.ColumnHeadersVisible = false;
-            grdheader.Location = new Point(27, 87);
+            grdheader.Location = new Point(561, 87);
             grdheader.Margin = new Padding(0);
             grdheader.Name = "grdheader";
             grdheader.ReadOnly = true;
             grdheader.RowHeadersVisible = false;
             grdheader.RowTemplate.Height = 25;
-            grdheader.Size = new Size(1200, 30);
+            grdheader.Size = new Size(666, 30);
             grdheader.TabIndex = 33;
             // 
             // grddata
@@ -98,13 +103,13 @@
             grddata.BorderStyle = BorderStyle.Fixed3D;
             grddata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grddata.ColumnHeadersVisible = false;
-            grddata.Location = new Point(27, 115);
+            grddata.Location = new Point(561, 115);
             grddata.Margin = new Padding(0);
             grddata.Name = "grddata";
             grddata.ReadOnly = true;
             grddata.RowHeadersVisible = false;
             grddata.RowTemplate.Height = 25;
-            grddata.Size = new Size(1200, 475);
+            grddata.Size = new Size(666, 536);
             grddata.TabIndex = 34;
             grddata.CellClick += grddata_CellClick;
             grddata.CellDoubleClick += grddata_CellDoubleClick;
@@ -112,9 +117,10 @@
             // 
             // btnadd
             // 
-            btnadd.Location = new Point(956, 621);
+            btnadd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnadd.Location = new Point(182, 621);
             btnadd.Name = "btnadd";
-            btnadd.Size = new Size(75, 23);
+            btnadd.Size = new Size(75, 30);
             btnadd.TabIndex = 35;
             btnadd.Text = "Add";
             btnadd.UseVisualStyleBackColor = true;
@@ -122,9 +128,10 @@
             // 
             // btnpay
             // 
-            btnpay.Location = new Point(1055, 621);
+            btnpay.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnpay.Location = new Point(312, 621);
             btnpay.Name = "btnpay";
-            btnpay.Size = new Size(75, 23);
+            btnpay.Size = new Size(75, 30);
             btnpay.TabIndex = 36;
             btnpay.Text = "Pay";
             btnpay.UseVisualStyleBackColor = true;
@@ -132,9 +139,10 @@
             // 
             // btnexcelreport
             // 
+            btnexcelreport.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnexcelreport.Location = new Point(27, 621);
             btnexcelreport.Name = "btnexcelreport";
-            btnexcelreport.Size = new Size(83, 23);
+            btnexcelreport.Size = new Size(103, 30);
             btnexcelreport.TabIndex = 37;
             btnexcelreport.Text = "Excel report";
             btnexcelreport.UseVisualStyleBackColor = true;
@@ -143,33 +151,23 @@
             // 
             dpkprocessedtimefrom.Location = new Point(410, 49);
             dpkprocessedtimefrom.Name = "dpkprocessedtimefrom";
-            dpkprocessedtimefrom.Size = new Size(145, 23);
+            dpkprocessedtimefrom.Size = new Size(208, 23);
             dpkprocessedtimefrom.TabIndex = 39;
             // 
             // dpkprocessedtimeto
             // 
-            dpkprocessedtimeto.Location = new Point(595, 49);
+            dpkprocessedtimeto.Location = new Point(678, 49);
             dpkprocessedtimeto.Name = "dpkprocessedtimeto";
-            dpkprocessedtimeto.Size = new Size(145, 23);
+            dpkprocessedtimeto.Size = new Size(206, 23);
             dpkprocessedtimeto.TabIndex = 40;
-            // 
-            // cmbstatus
-            // 
-            cmbstatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbstatus.FormattingEnabled = true;
-            cmbstatus.Location = new Point(843, 50);
-            cmbstatus.Name = "cmbstatus";
-            cmbstatus.Size = new Size(121, 23);
-            cmbstatus.TabIndex = 41;
-            cmbstatus.SelectedIndexChanged += cmbstatus_SelectedIndexChanged;
             // 
             // txtreceiptnumber
             // 
             txtreceiptnumber.BorderStyle = BorderStyle.FixedSingle;
-            txtreceiptnumber.Location = new Point(986, 50);
+            txtreceiptnumber.Location = new Point(1012, 50);
             txtreceiptnumber.Name = "txtreceiptnumber";
             txtreceiptnumber.PlaceholderText = "Receipt number";
-            txtreceiptnumber.Size = new Size(160, 23);
+            txtreceiptnumber.Size = new Size(134, 23);
             txtreceiptnumber.TabIndex = 42;
             // 
             // btnsearch
@@ -193,7 +191,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(561, 55);
+            label2.Location = new Point(644, 52);
             label2.Name = "label2";
             label2.Size = new Size(28, 15);
             label2.TabIndex = 45;
@@ -202,23 +200,76 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(789, 55);
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(900, 50);
             label3.Name = "label3";
-            label3.Size = new Size(48, 15);
+            label3.Size = new Size(53, 21);
             label3.TabIndex = 46;
-            label3.Text = "Status : ";
+            label3.Text = "Type : ";
+            // 
+            // grdheader1
+            // 
+            grdheader1.AllowUserToAddRows = false;
+            grdheader1.AllowUserToDeleteRows = false;
+            grdheader1.AllowUserToResizeColumns = false;
+            grdheader1.AllowUserToResizeRows = false;
+            grdheader1.BackgroundColor = SystemColors.Control;
+            grdheader1.BorderStyle = BorderStyle.Fixed3D;
+            grdheader1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            grdheader1.ColumnHeadersVisible = false;
+            grdheader1.Location = new Point(27, 87);
+            grdheader1.Margin = new Padding(0);
+            grdheader1.Name = "grdheader1";
+            grdheader1.ReadOnly = true;
+            grdheader1.RowHeadersVisible = false;
+            grdheader1.RowTemplate.Height = 25;
+            grdheader1.Size = new Size(528, 30);
+            grdheader1.TabIndex = 47;
+            // 
+            // grdoverviewdata
+            // 
+            grdoverviewdata.AllowUserToAddRows = false;
+            grdoverviewdata.AllowUserToDeleteRows = false;
+            grdoverviewdata.AllowUserToResizeColumns = false;
+            grdoverviewdata.AllowUserToResizeRows = false;
+            grdoverviewdata.BackgroundColor = SystemColors.Control;
+            grdoverviewdata.BorderStyle = BorderStyle.Fixed3D;
+            grdoverviewdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            grdoverviewdata.ColumnHeadersVisible = false;
+            grdoverviewdata.Location = new Point(27, 115);
+            grdoverviewdata.Margin = new Padding(0);
+            grdoverviewdata.Name = "grdoverviewdata";
+            grdoverviewdata.ReadOnly = true;
+            grdoverviewdata.RowHeadersVisible = false;
+            grdoverviewdata.RowTemplate.Height = 25;
+            grdoverviewdata.Size = new Size(528, 484);
+            grdoverviewdata.TabIndex = 48;
+            grdoverviewdata.CellDoubleClick += grdoverviewdata_CellDoubleClick;
+            // 
+            // lbltype
+            // 
+            lbltype.AutoSize = true;
+            lbltype.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbltype.ForeColor = Color.LimeGreen;
+            lbltype.Location = new Point(950, 52);
+            lbltype.Name = "lbltype";
+            lbltype.Size = new Size(47, 21);
+            lbltype.TabIndex = 49;
+            lbltype.Text = "Lend";
             // 
             // frmDebtManagement
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1258, 676);
+            Controls.Add(lbltype);
+            Controls.Add(grdoverviewdata);
+            Controls.Add(grdheader1);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnsearch);
             Controls.Add(txtreceiptnumber);
-            Controls.Add(cmbstatus);
             Controls.Add(dpkprocessedtimeto);
             Controls.Add(dpkprocessedtimefrom);
             Controls.Add(btnexcelreport);
@@ -236,6 +287,8 @@
             Text = "frmDebtManagement";
             ((System.ComponentModel.ISupportInitialize)grdheader).EndInit();
             ((System.ComponentModel.ISupportInitialize)grddata).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grdheader1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grdoverviewdata).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -251,11 +304,13 @@
         private Button btnexcelreport;
         private DateTimePicker dpkprocessedtimefrom;
         private DateTimePicker dpkprocessedtimeto;
-        private ComboBox cmbstatus;
         private TextBox txtreceiptnumber;
         private Button btnsearch;
         private Label label1;
         private Label label2;
         private Label label3;
+        private DataGridView grdheader1;
+        private DataGridView grdoverviewdata;
+        private Label lbltype;
     }
 }

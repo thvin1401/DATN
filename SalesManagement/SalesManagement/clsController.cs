@@ -499,11 +499,24 @@ namespace SalesManagement
         }
 
         // debt management
-        public static List<dynamic> getAllDebtInfo(DateTime processedTimeFrom, DateTime processedTimeTo, int status, int receiptnumber)
+        public static List<dynamic> getAllDebtInfo(DateTime processedTimeFrom, DateTime processedTimeTo, int receiptnumber, int type, Guid userinfoID)
         {
             try
             {
-                return clsDebtManagementDM.getAllDebtInfo(processedTimeFrom, processedTimeTo, status, receiptnumber);
+                return clsDebtManagementDM.getAllDebtInfo(processedTimeFrom, processedTimeTo, receiptnumber, type, userinfoID);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<dynamic>();
+            }
+        }
+
+        public static List<dynamic> getListDebtOverview()
+        {
+            try
+            {
+                return clsDebtManagementDM.getListDebtOverview();
             }
             catch (Exception ex)
             {

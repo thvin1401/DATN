@@ -1,7 +1,13 @@
-﻿namespace SalesManagement
+﻿using System.Globalization;
+
+namespace SalesManagement
 {
     public partial class frmDebtManagement : Form
     {
+        private Guid selectedUserID = Guid.Empty;
+
+        private int debtType = 0;
+
         public frmDebtManagement()
         {
             InitializeComponent();
@@ -10,17 +16,11 @@
 
             dpkprocessedtimefrom.Value = DateTime.Now.AddMonths(-1);
 
-            cmbstatus.Items.Clear();
-            cmbstatus.Items.Add("Unpaid");
-            cmbstatus.Items.Add("Partly paid");
-            cmbstatus.Items.Add("Full paid");
-            cmbstatus.Items.Add("Deleted");
-
-            cmbstatus.SelectedIndex = 0;
+            lbltype.Visible = false;
 
             initGrdHeader();
 
-            initGrdData();
+            initGrdOverviewData();
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -35,38 +35,113 @@
             grdheader.Rows.Clear();
 
             grdheader.RowCount = 1;
-            grdheader.ColumnCount = 12;
+            grdheader.ColumnCount = 10;
 
             grdheader[0, 0].Value = "#";
-            grdheader[1, 0].Value = "Actor";
-            grdheader[2, 0].Value = "Receipt number";
-            grdheader[3, 0].Value = "Amount";
-            grdheader[4, 0].Value = "Interest";
-            grdheader[5, 0].Value = "Circle";
-            grdheader[6, 0].Value = "Type";
-            grdheader[7, 0].Value = "Processed Time";
-            grdheader[8, 0].Value = "Pay amount";
-            grdheader[9, 0].Value = "Paid Time";
-            grdheader[10, 0].Value = "Status";
-            grdheader[11, 0].Value = "";
+            grdheader[1, 0].Value = "Total Amount";
+            grdheader[2, 0].Value = "Paid Amount";
+            grdheader[3, 0].Value = "I";
+            grdheader[4, 0].Value = "C";
+            grdheader[5, 0].Value = "Processed Time";
+            grdheader[6, 0].Value = "Paid Before";
+            grdheader[7, 0].Value = "Paid Time";
+            grdheader[8, 0].Value = "Status";
+            grdheader[9, 0].Value = "";
 
 
-            grdheader.Columns[0].Width = 47;
-            grdheader.Columns[1].Width = 300;
-            grdheader.Columns[2].Width = 100;
-            grdheader.Columns[3].Width = 150;
-            grdheader.Columns[4].Width = 50;
-            grdheader.Columns[5].Width = 50;
-            grdheader.Columns[6].Width = 50;
-            grdheader.Columns[7].Width = 100;
-            grdheader.Columns[8].Width = 150;
-            grdheader.Columns[9].Width = 100;
-            grdheader.Columns[10].Width = 50;
-            grdheader.Columns[11].Width = 50;
+            grdheader.Columns[0].Width = 33;
+            grdheader.Columns[1].Width = 115;
+            grdheader.Columns[2].Width = 115;
+            grdheader.Columns[3].Width = 30;
+            grdheader.Columns[4].Width = 30;
+            grdheader.Columns[5].Width = 80;
+            grdheader.Columns[6].Width = 80;
+            grdheader.Columns[7].Width = 80;
+            grdheader.Columns[8].Width = 50;
+            grdheader.Columns[9].Width = 50;
 
             grdheader.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             grdheader.ClearSelection();
+
+
+            grdheader1.Rows.Clear();
+            grdheader1.RowCount = 1;
+            grdheader1.ColumnCount = 5;
+
+            grdheader1[0, 0].Value = "#";
+            grdheader1[1, 0].Value = "Actor";
+            grdheader1[2, 0].Value = "Type";
+            grdheader1[3, 0].Value = "Paid Amount";
+            grdheader1[4, 0].Value = "Paid Amount";
+
+            grdheader1.Columns[0].Width = 35;
+            grdheader1.Columns[1].Width = 200;
+            grdheader1.Columns[2].Width = 40;
+            grdheader1.Columns[3].Width = 125;
+            grdheader1.Columns[4].Width = 125;
+
+            grdheader1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            grdheader1.ClearSelection();
+        }
+
+        private void initGrdOverviewData()
+        {
+            grdoverviewdata.Rows.Clear();
+            grdoverviewdata.Columns.Clear();
+
+            var data = clsController.getListDebtOverview();
+
+            if (data.Count > 0)
+            {
+                grdoverviewdata.RowCount = data.Count;
+                grdoverviewdata.ColumnCount = 6;
+
+                for (int i = 0; i < data.Count; i++)
+                {
+                    grdoverviewdata[0, i].Value = data[i].id;
+                    grdoverviewdata[1, i].Value = i + 1;
+                    grdoverviewdata[2, i].Value = data[i].name;
+
+                    switch (data[i].type)
+                    {
+                        case 0:
+                            {
+                                grdoverviewdata[3, i].Value = "LEND";
+                                grdoverviewdata[3, i].Style.ForeColor = Color.LimeGreen;
+                                break;
+                            }
+                        case 1:
+                            {
+                                grdoverviewdata[3, i].Value = "LOAN";
+                                grdoverviewdata[3, i].Style.ForeColor = Color.Red;
+                                break;
+                            }
+                        default:
+                            {
+                                grdoverviewdata[3, i].Value = "";
+                                break;
+                            }
+                    }
+
+                    grdoverviewdata[4, i].Value = data[i].totalamount.ToString("N0", CultureInfo.CurrentCulture);
+                    grdoverviewdata[5, i].Value = data[i].paidamount.ToString("N0", CultureInfo.CurrentCulture);
+                }
+
+                grdoverviewdata.Columns[0].Visible = false;
+
+                grdoverviewdata.Columns[1].Width = 35;
+                grdoverviewdata.Columns[2].Width = 200;
+                grdoverviewdata.Columns[3].Width = 40;
+                grdoverviewdata.Columns[4].Width = 125;
+                grdoverviewdata.Columns[5].Width = 125;
+
+                grdoverviewdata.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                grdoverviewdata.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                grdoverviewdata.ClearSelection();
+            }
         }
 
         private void initGrdData()
@@ -76,140 +151,106 @@
 
             int receiptNumber = string.IsNullOrEmpty(txtreceiptnumber.Text.Trim()) ? 0 : Convert.ToInt32(txtreceiptnumber.Text.Trim());
 
-            var data = clsController.getAllDebtInfo(dpkprocessedtimefrom.Value, dpkprocessedtimeto.Value, cmbstatus.SelectedIndex, receiptNumber);
+            var data = clsController.getAllDebtInfo(dpkprocessedtimefrom.Value, dpkprocessedtimeto.Value, receiptNumber, debtType, selectedUserID);
 
             if (data.Count > 0)
             {
                 grddata.RowCount = data.Count;
-                grddata.ColumnCount = 12;
+                grddata.ColumnCount = 10;
 
                 for (int i = 0; i < data.Count; i++)
                 {
                     grddata[0, i].Value = data[i].id;
                     grddata[1, i].Value = i + 1;
-                    grddata[2, i].Value = data[i].name;
-                    grddata[3, i].Value = data[i].receiptnumber;
-                    grddata[4, i].Value = data[i].amount;
-                    grddata[5, i].Value = data[i].interest;
-                    grddata[6, i].Value = data[i].circle;
-                    grddata[7, i].Value = data[i].type == 0 ? "Lend" : "Loan";
-
-                    if (data[i].type == 0)
-                    {
-                        grddata[7, i].Style.ForeColor = Color.LimeGreen;
-                    }
-                    else
-                    {
-                        grddata[7, i].Style.ForeColor = Color.Red;
-                    }
-
-                    grddata[8, i].Value = data[i].processeddatetime.ToString("dd/MM/yyyy");
-                    grddata[9, i].Value = data[i].payamount;
-
-                    if (data[i].paiddatetime != null)
-                    {
-                        grddata[10, i].Value = data[i].paiddatetime.ToString("dd/MM/yyyy");
-                    }
-                    grddata[10, i].Value = "";
+                    grddata[2, i].Value = data[i].payamount.ToString("N0", CultureInfo.CurrentCulture);
+                    grddata[3, i].Value = data[i].paidamount.ToString("N0", CultureInfo.CurrentCulture);
+                    grddata[4, i].Value = data[i].interest;
+                    grddata[5, i].Value = data[i].circle;
+                    grddata[6, i].Value = data[i].processeddatetime.ToString("dd/MM/yyyy");
+                    grddata[7, i].Value = data[i].paidbeforetime.ToString("dd/MM/yyyy");
+                    grddata[8, i].Value = data[i].paiddatetime == null ? "" : data[i].paiddatetime.ToString("dd/MM/yyyy");
 
                     switch (data[i].status)
                     {
                         case 0:
                             {
-                                grddata[11, i].Value = "Unpaid";
-                                grddata[11, i].Style.ForeColor = Color.Red;
+                                grddata[9, i].Value = "Unpaid";
+                                grddata[9, i].Style.ForeColor = Color.Red;
                                 break;
                             }
                         case 1:
                             {
-                                grddata[11, i].Value = "Partly";
-                                grddata[11, i].Style.ForeColor = Color.Blue;
+                                grddata[9, i].Value = "Partly";
+                                grddata[9, i].Style.ForeColor = Color.Blue;
                                 break;
                             }
                         case 2:
                             {
-                                grddata[11, i].Value = "Paid";
-                                grddata[11, i].Style.ForeColor = Color.LimeGreen;
+                                grddata[9, i].Value = "Paid";
+                                grddata[9, i].Style.ForeColor = Color.LimeGreen;
                                 break;
                             }
                         case 3:
                             {
-                                grddata[11, i].Value = "Deleted";
-                                grddata[11, i].Style.ForeColor = Color.Red;
+                                grddata[9, i].Value = "Deleted";
+                                grddata[9, i].Style.ForeColor = Color.Red;
                                 break;
                             }
                         default:
                             {
-                                grddata[11, i].Value = "";
+                                grddata[9, i].Value = "";
                                 break;
                             }
                     }
                 }
+
                 grddata.Columns[0].Visible = false;
 
-                grddata.Columns[1].Width = 47;
+                grddata.Columns[1].Width = 33;
                 grddata.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                grddata.Columns[2].Width = 300;
-                grddata.Columns[3].Width = 100;
-                grddata.Columns[4].Width = 150;
-                grddata.Columns[5].Width = 50;
-                grddata.Columns[6].Width = 50;
+                grddata.Columns[2].Width = 115;
+                grddata.Columns[3].Width = 115;
+                grddata.Columns[4].Width = 30;
+                grddata.Columns[5].Width = 30;
+                grddata.Columns[6].Width = 80;
+                grddata.Columns[7].Width = 80;
+                grddata.Columns[8].Width = 80;
 
-                grddata.Columns[7].Width = 50;
-                grddata.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                grddata.Columns[9].Width = 50;
+                grddata.Columns[9].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                grddata.Columns[8].Width = 100;
-                grddata.Columns[9].Width = 150;
-                grddata.Columns[10].Width = 100;
-
-                grddata.Columns[11].Width = 50;
-                grddata.Columns[11].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                if (cmbstatus.SelectedIndex == 3)
+                DataGridViewButtonColumn btndelete = new DataGridViewButtonColumn
                 {
-                    DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn
-                    {
-                        Width = 50,
-                        Name = "Blank column"
-                    };
+                    Name = "btndelete",
+                    Text = "X",
+                    Width = 50,
+                    UseColumnTextForButtonValue = true
+                };
 
-                    grddata.Columns.Add(column);
-                }
-                else
+                grddata.CellMouseEnter += (s, e) =>
                 {
-                    DataGridViewButtonColumn btndelete = new DataGridViewButtonColumn
+                    if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                     {
-                        Name = "btndelete",
-                        Text = "X",
-                        Width = 50,
-                        UseColumnTextForButtonValue = true
-                    };
-
-                    grddata.CellMouseEnter += (s, e) =>
-                    {
-                        if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                        if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
                         {
-                            if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
-                            {
-                                grddata.Cursor = Cursors.Hand;
-                            }
+                            grddata.Cursor = Cursors.Hand;
                         }
-                    };
+                    }
+                };
 
-                    grddata.CellMouseLeave += (s, e) =>
+                grddata.CellMouseLeave += (s, e) =>
+                {
+                    if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                     {
-                        if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                        if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
                         {
-                            if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
-                            {
-                                grddata.Cursor = Cursors.Default;
-                            }
+                            grddata.Cursor = Cursors.Default;
                         }
-                    };
+                    }
+                };
 
-                    grddata.Columns.Add(btndelete);
-                }
+                grddata.Columns.Add(btndelete);
 
                 grddata.ClearSelection();
             }
@@ -273,23 +314,46 @@
             }
         }
 
-        private void cmbstatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            initGrdData();
-        }
-
         private void btnadd_Click(object sender, EventArgs e)
         {
             frmCreateDebt frm = new frmCreateDebt();
             frm.ShowDialog(this);
-
-            initGrdData();
         }
 
         private void btnpay_Click(object sender, EventArgs e)
         {
             frmPayDebt frm = new frmPayDebt();
             frm.ShowDialog(this);
+        }
+
+        private void grdoverviewdata_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                string? id = grdoverviewdata[0, e.RowIndex].Value.ToString();
+
+                if(grdoverviewdata[3, e.RowIndex].Value.ToString() == "LEND")
+                {
+                    debtType = 0;
+                    lbltype.Visible = true;
+                    lbltype.Text = "LEND";
+                    lbltype.ForeColor = Color.LimeGreen;
+                }
+
+                if(grdoverviewdata[3, e.RowIndex].Value.ToString() == "LOAN")
+                {
+                    debtType = 1;
+                    lbltype.Visible = true;
+                    lbltype.Text = "LOAN";
+                    lbltype.ForeColor = Color.Red;
+                }
+
+                if (id != null)
+                {
+                    selectedUserID = Guid.Parse(id);
+                    initGrdData();
+                }
+            }
         }
     }
 }
