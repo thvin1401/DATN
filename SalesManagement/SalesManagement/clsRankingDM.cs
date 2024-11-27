@@ -32,7 +32,7 @@ namespace SalesManagement
         public static List<mdlRanking> getAllRankingData()
         {
             StringBuilder sSQL = new StringBuilder();
-            sSQL.AppendLine("select * from ranking where isactive = true");
+            sSQL.AppendLine("select * from ranking where isactive = true order by achivepoint");
 
             try
             {

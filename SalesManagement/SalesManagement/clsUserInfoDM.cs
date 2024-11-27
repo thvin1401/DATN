@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using SalesManagement.model;
 using System.Text;
+using System.Xml.Linq;
 
 namespace SalesManagement
 {
@@ -17,7 +18,7 @@ namespace SalesManagement
             sSQL.AppendLine($"'{userInfo.address}',");
             sSQL.AppendLine($"'{userInfo.phone}',");
             sSQL.AppendLine($"'{userInfo.email}',");
-            sSQL.AppendLine($"'{Guid.Empty}',");
+            sSQL.AppendLine($"'{userInfo.rankid}',");
             sSQL.AppendLine($"{userInfo.isactive},");
             sSQL.AppendLine($"{userInfo.point},");
             sSQL.AppendLine($"{userInfo.type},");
@@ -78,6 +79,15 @@ namespace SalesManagement
             sSQL.AppendLine("order by name, type");
 
             return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).ToList();
+        }
+
+        public static bool checkExistEmail(string email)
+        {
+            StringBuilder sSQL = new StringBuilder();
+
+            sSQL.AppendLine($"select * from userinfo where email = '{email}' ");
+
+            return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).Any();
         }
     }
 }

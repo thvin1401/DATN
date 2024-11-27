@@ -57,7 +57,7 @@
             txttype = new TextBox();
             label21 = new Label();
             label20 = new Label();
-            button2 = new Button();
+            btncreateuser = new Button();
             dpkbirthday = new DateTimePicker();
             txtrank = new TextBox();
             label19 = new Label();
@@ -73,7 +73,6 @@
             label14 = new Label();
             label13 = new Label();
             cmbuserinfoname = new ComboBox();
-            btnsearch = new Button();
             label12 = new Label();
             btncanceltrans = new Button();
             btnclear = new Button();
@@ -397,7 +396,7 @@
             panel2.Controls.Add(txttype);
             panel2.Controls.Add(label21);
             panel2.Controls.Add(label20);
-            panel2.Controls.Add(button2);
+            panel2.Controls.Add(btncreateuser);
             panel2.Controls.Add(dpkbirthday);
             panel2.Controls.Add(txtrank);
             panel2.Controls.Add(label19);
@@ -413,7 +412,6 @@
             panel2.Controls.Add(label14);
             panel2.Controls.Add(label13);
             panel2.Controls.Add(cmbuserinfoname);
-            panel2.Controls.Add(btnsearch);
             panel2.Controls.Add(label12);
             panel2.Location = new Point(23, 372);
             panel2.Name = "panel2";
@@ -449,16 +447,17 @@
             label20.TabIndex = 56;
             label20.Text = "Is new ?";
             // 
-            // button2
+            // btncreateuser
             // 
-            button2.BackColor = Color.OrangeRed;
-            button2.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.Location = new Point(597, 86);
-            button2.Name = "button2";
-            button2.Size = new Size(102, 96);
-            button2.TabIndex = 55;
-            button2.Text = "Add";
-            button2.UseVisualStyleBackColor = false;
+            btncreateuser.BackColor = Color.OrangeRed;
+            btncreateuser.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            btncreateuser.Location = new Point(597, 86);
+            btncreateuser.Name = "btncreateuser";
+            btncreateuser.Size = new Size(102, 96);
+            btncreateuser.TabIndex = 55;
+            btncreateuser.Text = "Add";
+            btncreateuser.UseVisualStyleBackColor = false;
+            btncreateuser.Click += btncreateuser_Click;
             // 
             // dpkbirthday
             // 
@@ -596,18 +595,9 @@
             cmbuserinfoname.FormattingEnabled = true;
             cmbuserinfoname.Location = new Point(193, 12);
             cmbuserinfoname.Name = "cmbuserinfoname";
-            cmbuserinfoname.Size = new Size(425, 23);
+            cmbuserinfoname.Size = new Size(506, 23);
             cmbuserinfoname.TabIndex = 39;
             cmbuserinfoname.SelectedIndexChanged += cmbuserinfoname_SelectedIndexChanged;
-            // 
-            // btnsearch
-            // 
-            btnsearch.Location = new Point(624, 11);
-            btnsearch.Name = "btnsearch";
-            btnsearch.Size = new Size(75, 24);
-            btnsearch.TabIndex = 38;
-            btnsearch.Text = "Search";
-            btnsearch.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
@@ -704,7 +694,6 @@
         private Panel panel1;
         private Panel panel2;
         private Label label12;
-        private Button btnsearch;
         private ComboBox cmbuserinfoname;
         private TextBox txtpoint;
         private TextBox txtemail;
@@ -721,7 +710,7 @@
         private TextBox txtrank;
         private DateTimePicker dpkbirthday;
         private Label label20;
-        private Button button2;
+        private Button btncreateuser;
         private TextBox txttype;
         private Label label21;
         private Button btncanceltrans;

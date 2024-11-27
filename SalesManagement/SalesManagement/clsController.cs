@@ -255,6 +255,19 @@ namespace SalesManagement
             }
         }
 
+        public static bool checkExistEmail(string email)
+        {
+            try
+            {
+                return clsUserInfoDM.checkExistEmail(email);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
         public static bool createUser(mdlUserInfo userInfo)
         {
             try

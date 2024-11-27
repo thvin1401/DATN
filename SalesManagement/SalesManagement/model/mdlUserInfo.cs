@@ -10,6 +10,7 @@
         public Guid rankid { get; set; }
         public bool isactive { get; set; }
         public int point { get; set; }
+        // 0: owner, 1: manager, 2: customer, 3: provider, 4: debt owner
         public int type { get; set; }
         public DateTime birthday { get; set; }
         public DateTime createdatetime { get; set; }

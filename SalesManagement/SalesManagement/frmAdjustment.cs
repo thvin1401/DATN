@@ -50,7 +50,7 @@ namespace SalesManagement
             foreach (var item in listUserInfo)
             {
                 ComboBoxItem cmbItem = new ComboBoxItem();
-                cmbItem.Name = item.name + " - " + item.phone + " - " + item.address;
+                cmbItem.Name = item.name + " - " + item.phone + " - " + item.birthday.ToString("dd/MM/yyyy") + " - " + item.address;
                 cmbItem.Value = item.id.ToString();
                 cmbuserinfoname.Items.Add(cmbItem);
             }
@@ -344,7 +344,7 @@ namespace SalesManagement
         {
             if (selectedUser != null)
             {
-                int awardedPoint = (int)((listOrders.Sum(x => x.unitprice) - listOrders.Sum(x => x.discount))/clsConfig.amountPerPoint);
+                int awardedPoint = (int)((listOrders.Sum(x => x.unitprice) - listOrders.Sum(x => x.discount)) / clsConfig.amountPerPoint);
                 selectedUser.point += awardedPoint;
                 selectedUser.rankid = mdlMain.App.ranks.OrderByDescending(x => x.achivepoint).First(x => x.achivepoint <= selectedUser.point).id;
                 selectedUser.updatedatetime = DateTime.Now;
@@ -618,7 +618,7 @@ namespace SalesManagement
                     txtemail.Text = selectedUser.email;
                     txtpoint.Text = selectedUser.point.ToString();
                     dpkbirthday.Value = selectedUser.birthday;
-                    txtrank.Text = rank == null ? "" : rank.ToString();
+                    txtrank.Text = rank == null ? "" : rank.name;
                     switch (selectedUser.type)
                     {
                         case 0:
@@ -688,6 +688,14 @@ namespace SalesManagement
         {
             var bankingAmount = string.IsNullOrEmpty(txtbankingpayamount.Text) ? 0 : Convert.ToDouble(txtbankingpayamount.Text.Replace(".", "").Replace(",", ""));
             txtbankingpayamount.Text = bankingAmount.ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void btncreateuser_Click(object sender, EventArgs e)
+        {
+            frmCreateUpdateUserinfo frm = new frmCreateUpdateUserinfo();
+            frm.ShowDialog(this);
+
+            initCmbUserinfo();
         }
     }
 }
