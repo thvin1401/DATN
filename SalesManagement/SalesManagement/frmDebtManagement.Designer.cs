@@ -153,11 +153,13 @@
             // 
             // cmbstatus
             // 
+            cmbstatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbstatus.FormattingEnabled = true;
             cmbstatus.Location = new Point(843, 50);
             cmbstatus.Name = "cmbstatus";
             cmbstatus.Size = new Size(121, 23);
             cmbstatus.TabIndex = 41;
+            cmbstatus.SelectedIndexChanged += cmbstatus_SelectedIndexChanged;
             // 
             // txtreceiptnumber
             // 

@@ -408,7 +408,7 @@ namespace SalesManagement
             }
         }
 
-        public static bool deleteAndRevertProduct(string id, bool isDeleted)
+        public static bool deleteAndRevertProduct(string? id, bool isDeleted)
         {
             try
             {
@@ -504,6 +504,20 @@ namespace SalesManagement
             try
             {
                 clsDebtManagementDM.insertDebtDetail(debt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public static bool deleteDebtInfo(string? id)
+        {
+            try
+            {
+                clsDebtManagementDM.deleteDebtInfo(id);
                 return true;
             }
             catch (Exception ex)

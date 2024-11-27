@@ -202,7 +202,7 @@ namespace SalesManagement
             {
                 // Get the name of the clicked column
                 string columnName = grddata.Columns[e.ColumnIndex].Name;
-                string id = grddata[0, e.RowIndex].Value.ToString();
+                string? id = grddata[0, e.RowIndex].Value.ToString();
 
                 if (columnName == "btnrevert")
                 {

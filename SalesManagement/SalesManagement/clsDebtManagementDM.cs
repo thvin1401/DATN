@@ -27,7 +27,7 @@ namespace SalesManagement
             sSQL.AppendLine("dm.paiddatetime, ");
             sSQL.AppendLine("dm.type ");
             sSQL.AppendLine("from debtmanager dm ");
-            sSQL.AppendLine("join bill b where dm.receiptnumber = b.receiptnumber ");
+            sSQL.AppendLine("join bill b on dm.receiptnumber = b.receiptnumber ");
             sSQL.AppendLine("join userinfo us on b.userinfoid = us.id ");
             sSQL.AppendLine($"where dm.status = {status} ");
 
@@ -71,7 +71,18 @@ namespace SalesManagement
 
             sSQL.AppendLine($"{debt.type}, ");
             sSQL.AppendLine($"'{debt.createdatetime}', ");
-            sSQL.AppendLine($"'{debt.updatedatetime}')");
+            sSQL.AppendLine($"'{debt.updatedatetime}') ");
+
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
+
+        public static void deleteDebtInfo(string? id)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update debtmanager ");
+            sSQL.AppendLine("set ");
+            sSQL.AppendLine("status = 3 ");
+            sSQL.AppendLine($"where id = '{id}' ");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }

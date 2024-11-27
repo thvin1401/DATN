@@ -10,6 +10,14 @@
 
             dpkprocessedtimefrom.Value = DateTime.Now.AddMonths(-1);
 
+            cmbstatus.Items.Clear();
+            cmbstatus.Items.Add("Unpaid");
+            cmbstatus.Items.Add("Partly paid");
+            cmbstatus.Items.Add("Full paid");
+            cmbstatus.Items.Add("Deleted");
+
+            cmbstatus.SelectedIndex = 0;
+
             initGrdHeader();
 
             initGrdData();
@@ -42,7 +50,7 @@
             grdheader[10, 0].Value = "Status";
             grdheader[11, 0].Value = "";
 
-            
+
             grdheader.Columns[0].Width = 47;
             grdheader.Columns[1].Width = 300;
             grdheader.Columns[2].Width = 100;
@@ -66,16 +74,16 @@
             grddata.Rows.Clear();
             grddata.Columns.Clear();
 
-            int receiptNumber = string.IsNullOrEmpty(txtreceiptnumber.Text.Trim())? 0 : Convert.ToInt32(txtreceiptnumber.Text.Trim());
+            int receiptNumber = string.IsNullOrEmpty(txtreceiptnumber.Text.Trim()) ? 0 : Convert.ToInt32(txtreceiptnumber.Text.Trim());
 
             var data = clsController.getAllDebtInfo(dpkprocessedtimefrom.Value, dpkprocessedtimeto.Value, cmbstatus.SelectedIndex, receiptNumber);
 
-            if(data.Count > 0)
+            if (data.Count > 0)
             {
                 grddata.RowCount = data.Count;
                 grddata.ColumnCount = 12;
 
-                for(int i = 0; i < data.Count; i++)
+                for (int i = 0; i < data.Count; i++)
                 {
                     grddata[0, i].Value = data[i].id;
                     grddata[1, i].Value = i + 1;
@@ -86,7 +94,7 @@
                     grddata[6, i].Value = data[i].circle;
                     grddata[7, i].Value = data[i].type == 0 ? "Lend" : "Borrow";
 
-                    if(data[i].type == 0)
+                    if (data[i].type == 0)
                     {
                         grddata[7, i].Style.ForeColor = Color.LimeGreen;
                     }
@@ -97,20 +105,25 @@
 
                     grddata[8, i].Value = data[i].processeddatetime.ToString("dd/MM/yyyy");
                     grddata[9, i].Value = data[i].payamount;
-                    grddata[10, i].Value = data[i].paiddatetime.ToString("dd/MM/yyyy");
+
+                    if(data[i].paiddatetime != null)
+                    {
+                        grddata[10, i].Value = data[i].paiddatetime.ToString("dd/MM/yyyy");
+                    }
+                    grddata[10, i].Value = "";
 
                     switch (data[i].status)
                     {
                         case 0:
                             {
                                 grddata[11, i].Value = "Unpaid";
-                                grddata[11, i].Style.ForeColor = Color.DarkGreen;
+                                grddata[11, i].Style.ForeColor = Color.Red;
                                 break;
                             }
                         case 1:
                             {
-                                grddata[11, i].Value = "Partly pay";
-                                grddata[11, i].Style.ForeColor = Color.Green;
+                                grddata[11, i].Value = "Partly";
+                                grddata[11, i].Style.ForeColor = Color.Blue;
                                 break;
                             }
                         case 2:
@@ -132,51 +145,71 @@
                             }
                     }
                 }
-                grdheader.Columns[0].Visible = false;
+                grddata.Columns[0].Visible = false;
 
-                grdheader.Columns[1].Width = 47;
-                grdheader.Columns[2].Width = 300;
-                grdheader.Columns[3].Width = 100;
-                grdheader.Columns[4].Width = 150;
-                grdheader.Columns[5].Width = 50;
-                grdheader.Columns[6].Width = 50;
-                grdheader.Columns[7].Width = 50;
-                grdheader.Columns[8].Width = 100;
-                grdheader.Columns[9].Width = 150;
-                grdheader.Columns[10].Width = 100;
-                grdheader.Columns[11].Width = 50;
+                grddata.Columns[1].Width = 47;
+                grddata.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                DataGridViewButtonColumn btndelete = new DataGridViewButtonColumn
+                grddata.Columns[2].Width = 300;
+                grddata.Columns[3].Width = 100;
+                grddata.Columns[4].Width = 150;
+                grddata.Columns[5].Width = 50;
+                grddata.Columns[6].Width = 50;
+
+                grddata.Columns[7].Width = 50;
+                grddata.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                grddata.Columns[8].Width = 100;
+                grddata.Columns[9].Width = 150;
+                grddata.Columns[10].Width = 100;
+
+                grddata.Columns[11].Width = 50;
+                grddata.Columns[11].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                if(cmbstatus.SelectedIndex == 3)
                 {
-                    Name = "btndelete",
-                    Text = "X",
-                    Width = 50,
-                    UseColumnTextForButtonValue = true
-                };
-
-                grddata.CellMouseEnter += (s, e) =>
-                {
-                    if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                    DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn
                     {
-                        if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
-                        {
-                            grddata.Cursor = Cursors.Hand;
-                        }
-                    }
-                };
+                        Width = 50,
+                        Name = "Blank column"
+                    };
 
-                grddata.CellMouseLeave += (s, e) =>
+                    grddata.Columns.Add(column);
+                }
+                else
                 {
-                    if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                    DataGridViewButtonColumn btndelete = new DataGridViewButtonColumn
                     {
-                        if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
-                        {
-                            grddata.Cursor = Cursors.Default;
-                        }
-                    }
-                };
+                        Name = "btndelete",
+                        Text = "X",
+                        Width = 50,
+                        UseColumnTextForButtonValue = true
+                    };
 
-                grddata.Columns.Add(btndelete);
+                    grddata.CellMouseEnter += (s, e) =>
+                    {
+                        if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                        {
+                            if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+                            {
+                                grddata.Cursor = Cursors.Hand;
+                            }
+                        }
+                    };
+
+                    grddata.CellMouseLeave += (s, e) =>
+                    {
+                        if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                        {
+                            if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+                            {
+                                grddata.Cursor = Cursors.Default;
+                            }
+                        }
+                    };
+
+                    grddata.Columns.Add(btndelete);
+                }
 
                 grddata.ClearSelection();
             }
@@ -212,15 +245,20 @@
             {
                 // Get the name of the clicked column
                 string columnName = grddata.Columns[e.ColumnIndex].Name;
-                string id = grddata[0, e.RowIndex].Value.ToString();
+                string? id = grddata[0, e.RowIndex].Value.ToString();
 
                 if (columnName == "btndelete")
                 {
-                    if (true)
+                    DialogResult result = MessageBox.Show("Do you want to delete? this action cannot be undone", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
                     {
-                        mdlMain.updateMDIMainMessage("Note deleted!", Color.LimeGreen);
-                        
-                        return;
+                        if (clsController.deleteDebtInfo(id))
+                        {
+                            mdlMain.updateMDIMainMessage("Note deleted!", Color.LimeGreen);
+                            initGrdData();
+                            return;
+                        }
                     }
                     mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
                 }
@@ -233,6 +271,11 @@
             {
                 return;
             }
+        }
+
+        private void cmbstatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            initGrdData();
         }
     }
 }
