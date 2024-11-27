@@ -37,13 +37,13 @@ namespace SalesManagement
             sSQL.AppendLine("insert into bill ");
             sSQL.AppendLine("values( ");
             sSQL.AppendLine($"{bill.receiptnumber}, ");
-            sSQL.AppendLine($"{bill.billtype}, ");
             sSQL.AppendLine($"{bill.amount}, ");
             sSQL.AppendLine($"{bill.discount}, ");
             sSQL.AppendLine($"{bill.payamount}, ");
             sSQL.AppendLine($"{bill.isdeleted}, ");
             sSQL.AppendLine($"'{bill.createdatetime}', ");
-            sSQL.AppendLine($"'{bill.updatedatetime}')");
+            sSQL.AppendLine($"'{bill.updatedatetime}', ");
+            sSQL.AppendLine($"'{bill.userinfoid}')");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }

@@ -182,6 +182,7 @@
             txtcashamount.Size = new Size(340, 29);
             txtcashamount.TabIndex = 17;
             txtcashamount.TextChanged += txtcashamount_TextChanged;
+            txtcashamount.Leave += txtcashamount_Leave;
             // 
             // txtbankingpayamount
             // 
@@ -192,6 +193,7 @@
             txtbankingpayamount.Size = new Size(340, 29);
             txtbankingpayamount.TabIndex = 18;
             txtbankingpayamount.TextChanged += txtbankingpayamount_TextChanged;
+            txtbankingpayamount.Leave += txtbankingpayamount_Leave;
             // 
             // cmbpaymentmethod
             // 

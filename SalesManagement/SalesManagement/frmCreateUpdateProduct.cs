@@ -154,7 +154,7 @@ namespace SalesManagement
                 product.categoryid = ckbnewcategory.Checked ? categorynewguid : Guid.Parse(((ComboBoxItem)cmbcategory.SelectedItem).Value.ToString());
                 product.createdatetime = creationTime;
                 product.updatedatetime = creationTime;
-                product.importdatetime = creationTime;
+                product.importdatetime = dpkimporttime.Value;
                 product.weight = Convert.ToInt32(txtweight.Text.Trim());
 
                 if (isEdit)

@@ -25,11 +25,11 @@ client server
 
 - ProductManagement (ID, ReceiptNumber, ProductID, Quantity, UnitPrice, CreateDateTime, UpdateDatetime)
 
-- Bill(ReceiptNumber(pk), BillType, Amount, discount, payamount, IsDeleted, CreateDateTime, UpdateDateTime) (BillType: 1: import, 2: sales)
+- Bill(ReceiptNumber(pk), UserInfoID, Amount, discount, payamount, IsDeleted, CreateDateTime, UpdateDateTime)
 
-- Payment(ID, Amount, ReceiptNumber, DebtID, PaymentMethod, Paydatetime, PaymentType, CreateDatetime) (payment type: cash, card)
+- Payment(ID, Amount, UserInfoID, ReceiptNumber, DebtID, PaymentMethod, Paydatetime, CreateDatetime) (payment type: cash, card)
 
-- DebtManagement(ID, UserInfoID, Amount, Interest, Circle, payamount, isfullpaid, ProcessedDatetime, Paiddatetime, Type, createdatetime, updatedatetime) (Type: 1: borrow, 2: lend)
+- DebtManagement(ID, ReceiptNumber, Interest, Circle, status, ProcessedDatetime, Paiddatetime, Type, createdatetime, updatedatetime) (Type: 1: borrow, 2: lend)
 
 - Note(ID, Message, IsDone, IsDeleted, RemindDatetime, Createdatetime, UpdateDatetime)
 

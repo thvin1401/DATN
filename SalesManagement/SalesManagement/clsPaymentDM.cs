@@ -14,12 +14,10 @@ namespace SalesManagement
             sSQL.AppendLine($"'{payment.id}', ");
             sSQL.AppendLine($"{payment.receiptnumber}, ");
             sSQL.AppendLine($"{payment.amount}, ");
-            sSQL.AppendLine($"'{payment.debtid}', ");
+            sSQL.AppendLine($"'{payment.userinfoid}', ");
             sSQL.AppendLine($"{payment.paymentmethod}, ");
             sSQL.AppendLine($"'{payment.paydatetime}', ");
-            sSQL.AppendLine($"{payment.paymenttype}, ");
-            sSQL.AppendLine($"'{payment.createdatetime}', ");
-            sSQL.AppendLine($"'{payment.updatedatetime}') ");
+            sSQL.AppendLine($"'{payment.createdatetime}') ");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }

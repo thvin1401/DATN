@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SalesManagement
 {
@@ -17,17 +18,17 @@ namespace SalesManagement
             sSQL.AppendLine("dm.id, ");
             sSQL.AppendLine("us.name, ");
             sSQL.AppendLine("dm.receiptnumber, ");
-            sSQL.AppendLine("dm.amount, ");
+            sSQL.AppendLine("b.amount, ");
             sSQL.AppendLine("dm.interest, ");
             sSQL.AppendLine("dm.circle, ");
-            sSQL.AppendLine("dm.payamount, ");
+            sSQL.AppendLine("b.payamount, ");
             sSQL.AppendLine("dm.status, ");
             sSQL.AppendLine("dm.processeddatetime, ");
             sSQL.AppendLine("dm.paiddatetime, ");
             sSQL.AppendLine("dm.type ");
             sSQL.AppendLine("from debtmanager dm ");
-            sSQL.AppendLine("join userinfo us on dm.userinfoid = us.id ");
             sSQL.AppendLine("join bill b where dm.receiptnumber = b.receiptnumber ");
+            sSQL.AppendLine("join userinfo us on b.userinfoid = us.id ");
             sSQL.AppendLine($"where dm.status = {status} ");
 
             if(processedTimeFrom == processedTimeTo)
@@ -45,6 +46,34 @@ namespace SalesManagement
             }
 
             return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
+        }
+
+        public static void insertDebtDetail(mdlDebtManagement debt)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("insert into debtmanager ");
+            sSQL.AppendLine("values( ");
+            sSQL.AppendLine($"'{debt.id}', ");
+            sSQL.AppendLine($"{debt.receiptnumber}, ");
+            sSQL.AppendLine($"{debt.interest}, ");
+            sSQL.AppendLine($"{debt.circle}, ");
+            sSQL.AppendLine($"{debt.status}, ");
+            sSQL.AppendLine($"'{debt.processeddatetime}', ");
+
+            if(debt.status == 3)
+            {
+                sSQL.AppendLine($"'{debt.paiddatetime}', ");
+            }
+            else
+            {
+                sSQL.AppendLine($"null, ");
+            }
+
+            sSQL.AppendLine($"{debt.type}, ");
+            sSQL.AppendLine($"'{debt.createdatetime}', ");
+            sSQL.AppendLine($"'{debt.updatedatetime}')");
+
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
     }
 }

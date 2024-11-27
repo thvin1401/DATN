@@ -21,7 +21,7 @@ namespace SalesManagement
 
             this.MdiParent = mdlMain.frmMDIMain;
 
-            listSalesProduct = clsController.getAllProductsForSales();
+            listSalesProduct = new List<mdlProducts>();
 
             listUserInfo = new List<mdlUserInfo>();
 
@@ -96,6 +96,8 @@ namespace SalesManagement
 
             // grd product
             grdproduct.Rows.Clear();
+
+            listSalesProduct = clsController.getAllProductsForSales();
 
             if (listSalesProduct.Count > 0)
             {
@@ -197,7 +199,9 @@ namespace SalesManagement
             cmbuserinfoname.SelectedIndex = 0;
             cmbpaymentmethod.SelectedIndex = 0;
             initGrdSales();
+            initGrd();
             txtreceiptnumber.Clear();
+            listOrders = new List<mdlProductManagement>();
         }
 
         private void btnadjustment_Click(object sender, EventArgs e)
@@ -225,11 +229,20 @@ namespace SalesManagement
 
                     if (isDebt)
                     {
+                        var paidStatus = 0;
 
+                        if (Convert.ToDouble(txtcashamount.Text.Replace(".", "").Replace(",", "")) != 0 ||
+                            Convert.ToDouble(txtbankingpayamount.Text.Replace(".", "").Replace(",", "")) != 0)
+                        {
+                            createPaymentInfo(receiptNumber, selectedUser.id);
+                            paidStatus = 1;
+                        }
+
+                        createDebtInfo(receiptNumber, paidStatus);
                     }
                     else
                     {
-                        createPaymentInfo(receiptNumber, Guid.NewGuid());
+                        createPaymentInfo(receiptNumber, selectedUser.id);
                     }
 
                     updateUserPointAndRank();
@@ -253,10 +266,10 @@ namespace SalesManagement
 
             mdlBill billInfo = new mdlBill();
             billInfo.receiptnumber = clsController.getNewReceiptNumber();
-            billInfo.billtype = 0;
             billInfo.amount = listOrders.Sum(x => x.unitprice);
             billInfo.discount = listOrders.Sum(x => x.discount);
             billInfo.payamount = listOrders.Sum(x => x.unitprice) - listOrders.Sum(x => x.discount);
+            billInfo.userinfoid = selectedUser == null ? Guid.NewGuid() : selectedUser.id;
             billInfo.isdeleted = false;
             billInfo.createdatetime = creationTime;
             billInfo.updatedatetime = creationTime;
@@ -284,7 +297,7 @@ namespace SalesManagement
             clsController.insertData(listOrders);
         }
 
-        private void createPaymentInfo(int receiptNumber, Guid debtId)
+        private void createPaymentInfo(int receiptNumber, Guid userinfoId)
         {
             mdlPayment paymentInfo;
 
@@ -297,12 +310,10 @@ namespace SalesManagement
                     id = Guid.NewGuid(),
                     receiptnumber = receiptNumber,
                     amount = Convert.ToDouble(txtcashamount.Text.Replace(".", "").Replace(",", "")),
-                    debtid = debtId,
+                    userinfoid = userinfoId,
                     paymentmethod = cmbpaymentmethod.SelectedIndex,
-                    paymenttype = 0,
                     paydatetime = creationTime,
-                    createdatetime = creationTime,
-                    updatedatetime = creationTime
+                    createdatetime = creationTime
                 };
 
                 clsController.insertPaymentData(paymentInfo);
@@ -318,12 +329,10 @@ namespace SalesManagement
                         id = Guid.NewGuid(),
                         receiptnumber = receiptNumber,
                         amount = amount,
-                        debtid = debtId,
+                        userinfoid = userinfoId,
                         paymentmethod = i,
-                        paymenttype = 0,
                         paydatetime = creationTime,
-                        createdatetime = creationTime,
-                        updatedatetime = creationTime
+                        createdatetime = creationTime
                     };
 
                     clsController.insertPaymentData(paymentInfo);
@@ -363,6 +372,23 @@ namespace SalesManagement
                     listOrders.Add(item);
                 }
             }
+        }
+
+        private void createDebtInfo(int receiptNumber, int paidStatus)
+        {
+            var creationTime = DateTime.Now;
+
+            mdlDebtManagement debt = new mdlDebtManagement();
+            debt.id = Guid.NewGuid();
+            debt.receiptnumber = receiptNumber;
+            debt.interest = 0;
+            debt.circle = 0;
+            debt.status = paidStatus;
+            debt.processeddatetime = creationTime;
+            debt.type = 0;
+            debt.createdatetime = creationTime;
+            debt.updatedatetime = creationTime;
+            clsController.insertDebtDetail(debt);
         }
 
         private void grdsales_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -485,9 +511,13 @@ namespace SalesManagement
 
                 if (frm.DialogResult == DialogResult.OK)
                 {
-                    grdsales[3, e.RowIndex].Value = frm.quantity;
-                    grdsales[4, e.RowIndex].Value = frm.unitprice;
-                    grdsales[5, e.RowIndex].Value = frm.discount;
+                    quantity = frm.quantity;
+                    unitprice = frm.unitprice;
+                    discount = frm.discount;
+
+                    grdsales[3, e.RowIndex].Value = quantity;
+                    grdsales[4, e.RowIndex].Value = unitprice.ToString("N0", CultureInfo.CurrentCulture);
+                    grdsales[5, e.RowIndex].Value = discount.ToString("N0", CultureInfo.CurrentCulture);
                 }
             }
         }
@@ -645,6 +675,18 @@ namespace SalesManagement
         private void btnclear_Click(object sender, EventArgs e)
         {
             clearControls();
+        }
+
+        private void txtcashamount_Leave(object sender, EventArgs e)
+        {
+            var cashAmount = string.IsNullOrEmpty(txtcashamount.Text) ? 0 : Convert.ToDouble(txtcashamount.Text.Replace(".", "").Replace(",", ""));
+            txtcashamount.Text = cashAmount.ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void txtbankingpayamount_Leave(object sender, EventArgs e)
+        {
+            var bankingAmount = string.IsNullOrEmpty(txtbankingpayamount.Text) ? 0 : Convert.ToDouble(txtbankingpayamount.Text.Replace(".", "").Replace(",", ""));
+            txtbankingpayamount.Text = bankingAmount.ToString("N0", CultureInfo.CurrentCulture);
         }
     }
 }

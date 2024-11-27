@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using SalesManagement.model;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SalesManagement
 {
@@ -495,6 +496,20 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return new List<dynamic>();
+            }
+        }
+
+        public static bool insertDebtDetail(mdlDebtManagement debt)
+        {
+            try
+            {
+                clsDebtManagementDM.insertDebtDetail(debt);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
             }
         }
     }
