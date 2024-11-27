@@ -71,7 +71,8 @@ namespace SalesManagement
 
             sSQL.AppendLine($"{debt.type}, ");
             sSQL.AppendLine($"'{debt.createdatetime}', ");
-            sSQL.AppendLine($"'{debt.updatedatetime}') ");
+            sSQL.AppendLine($"'{debt.updatedatetime}', ");
+            sSQL.AppendLine($"'{debt.paidbeforetime}') ");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }

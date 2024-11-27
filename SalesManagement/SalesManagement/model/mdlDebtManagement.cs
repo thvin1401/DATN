@@ -15,5 +15,6 @@
         public DateTime paiddatetime { get; set; }
         public DateTime createdatetime { get; set; }
         public DateTime updatedatetime { get; set; }
+        public DateTime paidbeforetime { get; set; }
     }
 }

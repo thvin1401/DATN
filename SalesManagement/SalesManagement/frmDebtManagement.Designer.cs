@@ -118,6 +118,7 @@
             btnadd.TabIndex = 35;
             btnadd.Text = "Add";
             btnadd.UseVisualStyleBackColor = true;
+            btnadd.Click += btnadd_Click;
             // 
             // btnpay
             // 
@@ -127,6 +128,7 @@
             btnpay.TabIndex = 36;
             btnpay.Text = "Pay";
             btnpay.UseVisualStyleBackColor = true;
+            btnpay.Click += btnpay_Click;
             // 
             // btnexcelreport
             // 

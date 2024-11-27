@@ -92,7 +92,7 @@
                     grddata[4, i].Value = data[i].amount;
                     grddata[5, i].Value = data[i].interest;
                     grddata[6, i].Value = data[i].circle;
-                    grddata[7, i].Value = data[i].type == 0 ? "Lend" : "Borrow";
+                    grddata[7, i].Value = data[i].type == 0 ? "Lend" : "Loan";
 
                     if (data[i].type == 0)
                     {
@@ -106,7 +106,7 @@
                     grddata[8, i].Value = data[i].processeddatetime.ToString("dd/MM/yyyy");
                     grddata[9, i].Value = data[i].payamount;
 
-                    if(data[i].paiddatetime != null)
+                    if (data[i].paiddatetime != null)
                     {
                         grddata[10, i].Value = data[i].paiddatetime.ToString("dd/MM/yyyy");
                     }
@@ -128,7 +128,7 @@
                             }
                         case 2:
                             {
-                                grddata[11, i].Value = "Full paid";
+                                grddata[11, i].Value = "Paid";
                                 grddata[11, i].Style.ForeColor = Color.LimeGreen;
                                 break;
                             }
@@ -166,7 +166,7 @@
                 grddata.Columns[11].Width = 50;
                 grddata.Columns[11].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                if(cmbstatus.SelectedIndex == 3)
+                if (cmbstatus.SelectedIndex == 3)
                 {
                     DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn
                     {
@@ -276,6 +276,20 @@
         private void cmbstatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             initGrdData();
+        }
+
+        private void btnadd_Click(object sender, EventArgs e)
+        {
+            frmCreateDebt frm = new frmCreateDebt();
+            frm.ShowDialog(this);
+
+            initGrdData();
+        }
+
+        private void btnpay_Click(object sender, EventArgs e)
+        {
+            frmPayDebt frm = new frmPayDebt();
+            frm.ShowDialog(this);
         }
     }
 }

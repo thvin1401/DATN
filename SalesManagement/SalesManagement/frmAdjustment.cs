@@ -388,6 +388,7 @@ namespace SalesManagement
             debt.type = 0;
             debt.createdatetime = creationTime;
             debt.updatedatetime = creationTime;
+            debt.paidbeforetime = creationTime.AddDays(7);
             clsController.insertDebtDetail(debt);
         }
 
