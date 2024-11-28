@@ -242,7 +242,7 @@ namespace SalesManagement
         }
 
         // userinfos
-        public static List<mdlUserInfo> getUserByNameAndType(string? name = null, int? type = null)
+        public static List<mdlUserInfo> getUserByNameAndType(string? name = null, int? type = null, int? typeExcept = null)
         {
             try
             {
@@ -544,6 +544,34 @@ namespace SalesManagement
             try
             {
                 clsDebtManagementDM.deleteDebtInfo(id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public static dynamic? getDebtInfoById(string id)
+        {
+            try
+            {
+                return clsDebtManagementDM.getDebtInfoById(id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return null;
+            }
+        }
+
+        public static bool changeDebtStatus(mdlDebtManagement debt)
+        {
+            try
+            {
+                clsDebtManagementDM.changeDebtStatus(debt);
+
                 return true;
             }
             catch (Exception ex)

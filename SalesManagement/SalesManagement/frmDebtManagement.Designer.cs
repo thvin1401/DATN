@@ -45,6 +45,7 @@
             grdheader1 = new DataGridView();
             grdoverviewdata = new DataGridView();
             lbltype = new Label();
+            btndelete = new Button();
             ((System.ComponentModel.ISupportInitialize)grdheader).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grddata).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grdheader1).BeginInit();
@@ -111,14 +112,14 @@
             grddata.RowTemplate.Height = 25;
             grddata.Size = new Size(666, 536);
             grddata.TabIndex = 34;
-            grddata.CellClick += grddata_CellClick;
+            grddata.CellContentClick += grddata_CellContentClick;
             grddata.CellDoubleClick += grddata_CellDoubleClick;
             grddata.CellPainting += grddata_CellPainting;
             // 
             // btnadd
             // 
             btnadd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnadd.Location = new Point(182, 621);
+            btnadd.Location = new Point(154, 621);
             btnadd.Name = "btnadd";
             btnadd.Size = new Size(75, 30);
             btnadd.TabIndex = 35;
@@ -129,7 +130,7 @@
             // btnpay
             // 
             btnpay.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnpay.Location = new Point(312, 621);
+            btnpay.Location = new Point(251, 621);
             btnpay.Name = "btnpay";
             btnpay.Size = new Size(75, 30);
             btnpay.TabIndex = 36;
@@ -257,11 +258,23 @@
             lbltype.TabIndex = 49;
             lbltype.Text = "Lend";
             // 
+            // btndelete
+            // 
+            btndelete.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btndelete.Location = new Point(343, 621);
+            btndelete.Name = "btndelete";
+            btndelete.Size = new Size(75, 30);
+            btndelete.TabIndex = 50;
+            btndelete.Text = "Delete";
+            btndelete.UseVisualStyleBackColor = true;
+            btndelete.Click += btndelete_Click;
+            // 
             // frmDebtManagement
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1258, 676);
+            Controls.Add(btndelete);
             Controls.Add(lbltype);
             Controls.Add(grdoverviewdata);
             Controls.Add(grdheader1);
@@ -312,5 +325,6 @@
         private DataGridView grdheader1;
         private DataGridView grdoverviewdata;
         private Label lbltype;
+        private Button btndelete;
     }
 }

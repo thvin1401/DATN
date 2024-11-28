@@ -50,7 +50,7 @@ namespace SalesManagement
             foreach (var item in listUserInfo)
             {
                 ComboBoxItem cmbItem = new ComboBoxItem();
-                cmbItem.Name = item.name + " - " + item.phone + " - " + item.birthday.ToString("dd/MM/yyyy") + " - " + item.address;
+                cmbItem.Name = clsUtility.getUserTypeString(item.type) + item.name + " - " + item.phone + " - " + item.birthday.ToString("dd/MM/yyyy") + " - " + item.address;
                 cmbItem.Value = item.id.ToString();
                 cmbuserinfoname.Items.Add(cmbItem);
             }

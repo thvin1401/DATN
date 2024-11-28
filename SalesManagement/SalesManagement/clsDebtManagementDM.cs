@@ -109,5 +109,41 @@ namespace SalesManagement
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
+
+        public static dynamic getDebtInfoById(string id)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select dm.id, ");
+            sSQL.AppendLine("dm.receiptnumber, ");
+            sSQL.AppendLine("dm.type, ");
+            sSQL.AppendLine("dm.status, ");
+            sSQL.AppendLine("sum(b.payamount) as totalamount, ");
+            sSQL.AppendLine("coalesce(sum(p.amount), 0) as paidamount ");
+            sSQL.AppendLine("from debtmanager dm ");
+            sSQL.AppendLine("join bill b on dm.receiptnumber = b.receiptnumber ");
+            sSQL.AppendLine("left join payment p on b.receiptnumber = p.receiptnumber ");
+            sSQL.AppendLine($"where dm.id = '{id}' ");
+            sSQL.AppendLine("group by dm.id, dm.receiptnumber, dm.type, dm.status");
+
+            return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).First();
+        }
+
+        public static void changeDebtStatus(mdlDebtManagement debt)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update debtmanager ");
+            sSQL.AppendLine("set ");
+            sSQL.AppendLine($"status = {debt.status}, ");
+
+            if(debt.status == 2)
+            {
+                sSQL.AppendLine($"paiddatetime = '{debt.paiddatetime}', ");
+            }
+
+            sSQL.AppendLine($"updatedatetime = '{debt.updatedatetime}' ");
+            sSQL.AppendLine($"where id = '{debt.id}' ");
+
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
     }
 }

@@ -108,5 +108,36 @@ namespace SalesManagement
                 return string.Empty;
             }
         }
+
+        public static string getUserTypeString(int type)
+        {
+            switch (type)
+            {
+                case 0:
+                    {
+                        return "[Owner] ";
+                    }
+                case 1:
+                    {
+                        return "[Manager] ";
+                    }
+                case 2:
+                    {
+                        return "[Customer] ";
+                    }
+                case 3:
+                    {
+                        return "[Provider] ";
+                    }
+                case 4:
+                    {
+                        return "[Debt owner] ";
+                    }
+                default:
+                    {
+                        return string.Empty;
+                    }
+            }
+        }
     }
 }

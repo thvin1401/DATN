@@ -6,6 +6,8 @@ namespace SalesManagement
     {
         private Guid selectedUserID = Guid.Empty;
 
+        private List<string> listSelectedDebtID;
+
         private int debtType = 0;
 
         public frmDebtManagement()
@@ -16,7 +18,12 @@ namespace SalesManagement
 
             dpkprocessedtimefrom.Value = DateTime.Now.AddMonths(-1);
 
+            listSelectedDebtID = new List<string>();
+
             lbltype.Visible = false;
+
+            btnpay.Enabled = false;
+            btndelete.Enabled = false;
 
             initGrdHeader();
 
@@ -42,7 +49,7 @@ namespace SalesManagement
             grdheader[2, 0].Value = "Paid Amount";
             grdheader[3, 0].Value = "I";
             grdheader[4, 0].Value = "C";
-            grdheader[5, 0].Value = "Processed Time";
+            grdheader[5, 0].Value = "Created Time";
             grdheader[6, 0].Value = "Paid Before";
             grdheader[7, 0].Value = "Paid Time";
             grdheader[8, 0].Value = "Status";
@@ -146,6 +153,10 @@ namespace SalesManagement
 
         private void initGrdData()
         {
+            listSelectedDebtID = new List<string>();
+            btnpay.Enabled = false;
+            btndelete.Enabled = false;
+
             grddata.Rows.Clear();
             grddata.Columns.Clear();
 
@@ -167,7 +178,7 @@ namespace SalesManagement
                     grddata[4, i].Value = data[i].interest;
                     grddata[5, i].Value = data[i].circle;
                     grddata[6, i].Value = data[i].processeddatetime.ToString("dd/MM/yyyy");
-                    grddata[7, i].Value = data[i].paidbeforetime.ToString("dd/MM/yyyy");
+                    grddata[7, i].Value = data[i].paidbeforetime == null ? "" : data[i].paidbeforetime.ToString("dd/MM/yyyy");
                     grddata[8, i].Value = data[i].paiddatetime == null ? "" : data[i].paiddatetime.ToString("dd/MM/yyyy");
 
                     switch (data[i].status)
@@ -220,39 +231,46 @@ namespace SalesManagement
                 grddata.Columns[9].Width = 50;
                 grddata.Columns[9].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                DataGridViewButtonColumn btndelete = new DataGridViewButtonColumn
+                DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn
                 {
-                    Name = "btndelete",
-                    Text = "X",
-                    Width = 50,
-                    UseColumnTextForButtonValue = true
+                    Name = "ckbcolumn",
+                    Width = 50
                 };
 
-                grddata.CellMouseEnter += (s, e) =>
-                {
-                    if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-                    {
-                        if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
-                        {
-                            grddata.Cursor = Cursors.Hand;
-                        }
-                    }
-                };
-
-                grddata.CellMouseLeave += (s, e) =>
-                {
-                    if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-                    {
-                        if (grddata.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
-                        {
-                            grddata.Cursor = Cursors.Default;
-                        }
-                    }
-                };
-
-                grddata.Columns.Add(btndelete);
+                grddata.Columns.Add(checkBoxColumn);
 
                 grddata.ClearSelection();
+            }
+        }
+
+        private void grddata_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == grddata.Columns["ckbcolumn"].Index && e.RowIndex >= 0)
+            {
+                // Toggle checkbox value
+                bool isChecked = Convert.ToBoolean(grddata.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+
+                grddata.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !isChecked;
+
+                if (!isChecked)
+                {
+                    listSelectedDebtID.Add(grddata[0, e.RowIndex].Value.ToString());
+                }
+                else
+                {
+                    listSelectedDebtID.Remove(grddata[0, e.RowIndex].Value.ToString());
+                }
+
+                if(listSelectedDebtID.Count == 1)
+                {
+                    btnpay.Enabled = true;
+                    btndelete.Enabled = true;
+                }
+                else
+                {
+                    btnpay.Enabled = false;
+                    btndelete.Enabled = false;
+                }
             }
         }
 
@@ -279,33 +297,6 @@ namespace SalesManagement
             }
         }
 
-        private void grddata_CellClick(object? sender, DataGridViewCellEventArgs e)
-        {
-            // Check if the click is on a valid row
-            if (e.RowIndex >= 0)
-            {
-                // Get the name of the clicked column
-                string columnName = grddata.Columns[e.ColumnIndex].Name;
-                string? id = grddata[0, e.RowIndex].Value.ToString();
-
-                if (columnName == "btndelete")
-                {
-                    DialogResult result = MessageBox.Show("Do you want to delete? this action cannot be undone", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        if (clsController.deleteDebtInfo(id))
-                        {
-                            mdlMain.updateMDIMainMessage("Note deleted!", Color.LimeGreen);
-                            initGrdData();
-                            return;
-                        }
-                    }
-                    mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
-                }
-            }
-        }
-
         private void grddata_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -318,12 +309,18 @@ namespace SalesManagement
         {
             frmCreateDebt frm = new frmCreateDebt();
             frm.ShowDialog(this);
+
+            initGrdOverviewData();
+            initGrdData();
         }
 
         private void btnpay_Click(object sender, EventArgs e)
         {
             frmPayDebt frm = new frmPayDebt();
+            frm.selectedDebtID = listSelectedDebtID[0];
             frm.ShowDialog(this);
+
+            initGrdData();
         }
 
         private void grdoverviewdata_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -332,7 +329,7 @@ namespace SalesManagement
             {
                 string? id = grdoverviewdata[0, e.RowIndex].Value.ToString();
 
-                if(grdoverviewdata[3, e.RowIndex].Value.ToString() == "LEND")
+                if (grdoverviewdata[3, e.RowIndex].Value.ToString() == "LEND")
                 {
                     debtType = 0;
                     lbltype.Visible = true;
@@ -340,7 +337,7 @@ namespace SalesManagement
                     lbltype.ForeColor = Color.LimeGreen;
                 }
 
-                if(grdoverviewdata[3, e.RowIndex].Value.ToString() == "LOAN")
+                if (grdoverviewdata[3, e.RowIndex].Value.ToString() == "LOAN")
                 {
                     debtType = 1;
                     lbltype.Visible = true;
@@ -354,6 +351,22 @@ namespace SalesManagement
                     initGrdData();
                 }
             }
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to delete? this action cannot be undone", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                if (clsController.deleteDebtInfo(listSelectedDebtID[0]))
+                {
+                    mdlMain.updateMDIMainMessage("Note deleted!", Color.LimeGreen);
+                    initGrdData();
+                    return;
+                }
+            }
+            mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
         }
     }
 }

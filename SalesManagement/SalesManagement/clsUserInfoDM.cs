@@ -60,7 +60,7 @@ namespace SalesManagement
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
 
-        public static List<mdlUserInfo> getAllUsers(string? name = null, int? type = null)
+        public static List<mdlUserInfo> getAllUsers(string? name = null, int? type = null, int? typeExcept = null)
         {
             StringBuilder sSQL = new StringBuilder();
 
@@ -74,6 +74,11 @@ namespace SalesManagement
             if(type != null)
             {
                 sSQL.AppendLine($"and type = {type} ");
+            }
+
+            if (typeExcept != null)
+            {
+                sSQL.AppendLine($"and type != {typeExcept} ");
             }
 
             sSQL.AppendLine("order by name, type");
