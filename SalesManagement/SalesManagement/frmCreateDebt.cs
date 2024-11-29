@@ -95,13 +95,13 @@ namespace SalesManagement
                         createPayment(receiptNumber);
                     }
 
-                    mdlMain.updateMDIMainMessage("Create successfully", Color.LimeGreen);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageCreateSuccessfully, Color.LimeGreen);
                     this.Close();
                 }
             }
             catch (Exception ex)
             {
-                DialogResult result = MessageBox.Show("Process failed, create again ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show(clsConfig.messageErrorTryAgain, "", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
                 if (result == DialogResult.Yes)
                 {
@@ -109,7 +109,7 @@ namespace SalesManagement
                 }
                 else
                 {
-                    mdlMain.updateMDIMainMessage("Process failed", Color.Red);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                     mdlMain.log(ex.Message, ex);
                     this.Close();
                 }

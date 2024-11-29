@@ -18,17 +18,17 @@ namespace SalesManagement
         {
             try
             {
-                var smtpClient = new SmtpClient("smtp.gmail.com")
+                var smtpClient = new SmtpClient(clsConfig.smtpClient)
                 {
                     UseDefaultCredentials = false,
                     Port = 587,
-                    Credentials = new NetworkCredential("vmasster8@gmail.com", "smwwndpjycaiyswi"),
+                    Credentials = new NetworkCredential(clsConfig.systemEmail, clsConfig.systemEmailPassword),
                     EnableSsl = true
                 };
 
                 var mailMessage = new MailMessage
                 {
-                    From = new MailAddress("vmasster8@gmail.com"),
+                    From = new MailAddress(clsConfig.systemEmail),
                     Subject = subject,
                     Body = body + " : " + content,
                     IsBodyHtml = false,

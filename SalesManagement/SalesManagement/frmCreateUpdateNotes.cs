@@ -79,22 +79,22 @@ namespace SalesManagement
 
                 if (clsController.updateNote(note))
                 {
-                    mdlMain.updateMDIMainMessage("Update successfully!", Color.LimeGreen);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageUpdateSuccessfully, Color.LimeGreen);
                 }
                 else
                 {
-                    mdlMain.updateMDIMainMessage("Update failed!", Color.Red);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                 }
             }
             else
             {
                 if (clsController.createNote(note))
                 {
-                    mdlMain.updateMDIMainMessage("Create successfully!", Color.LimeGreen);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageCreateSuccessfully, Color.LimeGreen);
                 }
                 else
                 {
-                    mdlMain.updateMDIMainMessage("Create failed!", Color.Red);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                 }
             }
 

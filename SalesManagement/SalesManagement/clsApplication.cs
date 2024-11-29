@@ -16,6 +16,8 @@ namespace SalesManagement
 
         public mdlAccount currentUser;
 
+        public List<mdlSystemProperty> systemProperty;
+
         public clsApplication()
         {
             if(frmSplash is null)
@@ -48,6 +50,11 @@ namespace SalesManagement
             if(currencyExchange is null)
             {
                 currencyExchange = clsController.getAllCurrencyExchange();
+            }
+
+            if(systemProperty is null)
+            {
+                systemProperty = clsController.getAllSystemProperties();
             }
         }
 

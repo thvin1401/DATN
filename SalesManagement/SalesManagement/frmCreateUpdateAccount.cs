@@ -182,7 +182,7 @@ namespace SalesManagement
                         clsController.updateAccount(account, userinfo, false);
                     }
 
-                    mdlMain.updateMDIMainMessage("Updated successfully!", Color.LimeGreen);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageUpdateSuccessfully, Color.LimeGreen);
                 }
                 else
                 {
@@ -197,14 +197,14 @@ namespace SalesManagement
                         clsController.createAccount(account, userinfo, false);
                     }
 
-                    mdlMain.updateMDIMainMessage("Created successfully!", Color.LimeGreen);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageCreateSuccessfully, Color.LimeGreen);
                 }
 
                 this.Close();
             }
             catch (Exception ex)
             {
-                DialogResult result = MessageBox.Show(ex.Message, "Process failed, do you want to try again ?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show(ex.Message, clsConfig.messageErrorTryAgain, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
                 if (result == DialogResult.Yes)
                 {
@@ -220,7 +220,7 @@ namespace SalesManagement
                 else
                 {
                     mdlMain.log(ex.Message, ex);
-                    mdlMain.updateMDIMainMessage("Process failed!", Color.Red);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                     this.Close();
                 }
             }

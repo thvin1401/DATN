@@ -1,13 +1,26 @@
-﻿using Dapper;
-using SalesManagement.model;
-using System.Text;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using SalesManagement.model;
 
 namespace SalesManagement
 {
     public static class clsController
     {
         public static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(clsController));
+
+        // systemproperty
+        public static List<mdlSystemProperty> getAllSystemProperties()
+        {
+            try
+            {
+                return clsSystemPropertyDM.getAllSystemProperties();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+                return new List<mdlSystemProperty>();
+            }
+        }
+
+        // Account
 
         public static bool getAccountLoggedIn(string username, string password)
         {
