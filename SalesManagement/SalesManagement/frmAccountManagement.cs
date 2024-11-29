@@ -17,7 +17,7 @@
             cmbactivation.Items.Add("Inactive");
             cmbactivation.Items.Add("Active");
 
-            cmbactivation.SelectedIndex = 0;
+            cmbactivation.SelectedIndex = 1;
 
             btndeactive.Enabled = false;
 
@@ -187,16 +187,18 @@
             frmCreateUpdateAccount frm = new frmCreateUpdateAccount();
             frm.isEdit = true;
             frm.username = listSelectedUsername.First();
-            frm.Show();
-            this.Hide();
+            frm.ShowDialog(this);
+
+            initDatagridview();
         }
 
         private void btnregister_Click(object sender, EventArgs e)
         {
             frmCreateUpdateAccount frm = new frmCreateUpdateAccount();
             frm.isEdit = false;
-            frm.Show();
-            this.Hide();
+            frm.ShowDialog(this);
+
+            initDatagridview();
         }
 
         private void btnactivate_Click(object sender, EventArgs e)

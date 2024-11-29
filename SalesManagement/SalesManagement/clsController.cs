@@ -65,11 +65,11 @@ namespace SalesManagement
             }
         }
 
-        public static void createAccount(mdlAccount account, mdlUserInfo userInfo)
+        public static void createAccount(mdlAccount account, mdlUserInfo userInfo, bool isNewUser)
         {
             try
             {
-                clsAccountDM.createAccount(account, userInfo);
+                clsAccountDM.createAccount(account, userInfo, isNewUser);
             }
             catch (Exception ex)
             {
@@ -279,6 +279,19 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return false;
+            }
+        }
+
+        public static List<mdlUserInfo> getAllUserCanCreateAccount()
+        {
+            try
+            {
+                return clsUserInfoDM.getAllUserCanCreateAccount();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlUserInfo>();
             }
         }
 

@@ -312,6 +312,7 @@
             Name = "frmCreateUpdateUserinfo";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
+            Load += frmCreateUpdateUserinfo_Load;
             ResumeLayout(false);
             PerformLayout();
         }

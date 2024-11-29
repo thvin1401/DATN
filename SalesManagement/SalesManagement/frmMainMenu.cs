@@ -206,9 +206,7 @@ namespace SalesManagement
             frm.isEdit = true;
             frm.username = mdlMain.App.currentUser.username;
             frm.isAvatarClick = true;
-            frm.Show();
-
-            this.Hide();
+            frm.ShowDialog(this);
         }
 
         private void ClockTimer_Tick(object? sender, EventArgs e)

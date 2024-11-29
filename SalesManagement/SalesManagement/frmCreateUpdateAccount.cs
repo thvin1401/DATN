@@ -12,17 +12,42 @@ namespace SalesManagement
 
         public bool isAvatarClick = false;
 
+        public List<mdlUserInfo> listUserAvailable;
+
         public frmCreateUpdateAccount()
         {
             InitializeComponent();
 
-            this.MdiParent = mdlMain.frmMDIMain;
+            cmbtype.Items.Clear();
+            cmbtype.Items.Add("Owner");
+            cmbtype.Items.Add("Manager");
 
-            cmbtype.DataSource = new List<string>() { "Owner", "Manager" };
-            cmbtype.DisplayMember = "Name";
+            cmbisactive.Items.Clear();
+            cmbisactive.Items.Add("Inactive");
+            cmbisactive.Items.Add("Active");
 
-            cmbisactive.DataSource = new List<string>() { "Inactive", "Active" };
-            cmbisactive.DisplayMember = "Name";
+            listUserAvailable = clsController.getAllUserCanCreateAccount();
+
+            cmbuserinfo.Items.Clear();
+            cmbuserinfo.Items.Add("");
+
+            foreach (var item in listUserAvailable)
+            {
+                cmbuserinfo.Items.Add(new ComboBoxItem()
+                {
+                    Name = clsUtility.getUserTypeString(item.type) + item.name + " - " + item.phone + " - " + item.address,
+                    Value = item.id.ToString()
+                });
+            }
+
+            cmbuserinfo.DisplayMember = "Name";
+            cmbuserinfo.ValueMember = "Value";
+
+            cmbuserinfo.SelectedIndex = 0;
+            cmbtype.SelectedIndex = 0;
+            cmbisactive.SelectedIndex = 1;
+
+            cmbuserinfo.Enabled = false;
         }
 
         private void FrmCreateUpdateAccount_Load(object sender, EventArgs e)
@@ -48,6 +73,9 @@ namespace SalesManagement
 
                 txtusername.Enabled = false;
 
+                ckbhaveinfo.Visible = false;
+                cmbuserinfo.Visible = false;
+
                 if (!isAvatarClick)
                 {
                     txtpassword.Enabled = false;
@@ -55,7 +83,7 @@ namespace SalesManagement
                     label4.Visible = false;
                     txtpassword2.Visible = false;
                 }
-                
+
                 lbltitle.Text = "Update account screen";
             }
 
@@ -153,33 +181,120 @@ namespace SalesManagement
                     {
                         clsController.updateAccount(account, userinfo, false);
                     }
-                    
+
                     mdlMain.updateMDIMainMessage("Updated successfully!", Color.LimeGreen);
-                    return;
                 }
-                clsController.createAccount(account, userinfo);
-                mdlMain.updateMDIMainMessage("Created successfully!", Color.LimeGreen);
+                else
+                {
+                    if (cmbuserinfo.SelectedIndex != 0)
+                    {
+                        userinfo.id = Guid.Parse(((ComboBoxItem)cmbuserinfo.SelectedItem).Value);
+
+                        clsController.createAccount(account, userinfo, true);
+                    }
+                    else
+                    {
+                        clsController.createAccount(account, userinfo, false);
+                    }
+
+                    mdlMain.updateMDIMainMessage("Created successfully!", Color.LimeGreen);
+                }
+
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                mdlMain.updateMDIMainMessage("Process failed!", Color.Red);
-                return;
+                DialogResult result = MessageBox.Show(ex.Message, "Process failed, do you want to try again ?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+
+                if (result == DialogResult.Yes)
+                {
+                    if (isEdit)
+                    {
+                        FrmCreateUpdateAccount_Load(sender, e);
+                    }
+                    else
+                    {
+                        clearColtrols();
+                    }
+                }
+                else
+                {
+                    mdlMain.log(ex.Message, ex);
+                    mdlMain.updateMDIMainMessage("Process failed!", Color.Red);
+                    this.Close();
+                }
             }
+        }
+
+        private void clearColtrols()
+        {
+            ckbhaveinfo.Checked = false;
+
+            cmbuserinfo.SelectedIndex = 0;
+            cmbtype.SelectedIndex = 0;
+            cmbisactive.SelectedIndex = 1;
+
+            txtfullname.Clear();
+            txtemail.Clear();
+            txtaddress.Clear();
+            txtusername.Clear();
+            txtpassword.Clear();
+            txtpassword2.Clear();
+            txtphone.Clear();
+            dpkbirthday.Value = DateTime.Now;
         }
 
         private void btnback_Click(object sender, EventArgs e)
         {
-            if (isAvatarClick)
+            this.Close();
+        }
+
+        private void ckbhaveinfo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbhaveinfo.Checked)
             {
-                mdlMain.App.frmMainMenu.Show();
+                cmbuserinfo.Enabled = true;
+                txtfullname.ReadOnly = true;
+                txtemail.ReadOnly = true;
+                txtphone.ReadOnly = true;
+                txtaddress.ReadOnly = true;
+                dpkbirthday.Enabled = false;
+                cmbtype.Enabled = false;
             }
             else
             {
-                frmAccountManagement frm = new frmAccountManagement();
-                frm.Show();
+                clearColtrols();
+
+                cmbuserinfo.Enabled = false;
+                txtfullname.ReadOnly = false;
+                txtemail.ReadOnly = false;
+                txtphone.ReadOnly = false;
+                txtaddress.ReadOnly = false;
+                dpkbirthday.Enabled = false;
             }
-            this.Hide();
+        }
+
+        private void cmbuserinfo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbuserinfo.SelectedIndex != 0)
+            {
+                var userInfo = listUserAvailable.First(x => x.id == Guid.Parse(((ComboBoxItem)cmbuserinfo.SelectedItem).Value));
+
+                txtfullname.Text = userInfo.name;
+                txtemail.Text = userInfo.email;
+                txtaddress.Text = userInfo.address;
+                txtphone.Text = userInfo.phone;
+                dpkbirthday.Value = userInfo.birthday;
+                cmbtype.SelectedIndex = userInfo.type;
+            }
+        }
+
+        private void txtnonspace_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (sender is TextBox && e.KeyChar == ' ')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

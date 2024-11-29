@@ -2,6 +2,7 @@
 using SalesManagement.model;
 using System.Text;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace SalesManagement
 {
@@ -93,6 +94,17 @@ namespace SalesManagement
             sSQL.AppendLine($"select * from userinfo where email = '{email}' ");
 
             return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).Any();
+        }
+
+        public static List<mdlUserInfo> getAllUserCanCreateAccount()
+        {
+            StringBuilder sSQL = new StringBuilder();
+
+            sSQL.AppendLine("select * from userinfo ");
+            sSQL.AppendLine("where not exists (select 1 from account where userinfoid = id) ");
+            sSQL.AppendLine("and type in (0, 1) and isactive = true");
+
+            return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).ToList();
         }
     }
 }

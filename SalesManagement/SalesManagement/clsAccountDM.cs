@@ -40,9 +40,12 @@ namespace SalesManagement
             return clsDBConnectionManager.Connection.Query<mdlAccount>(sSQL.ToString()).Any();
         }
 
-        public static void createAccount(mdlAccount account, mdlUserInfo userInfo)
+        public static void createAccount(mdlAccount account, mdlUserInfo userInfo, bool isNewUser)
         {
-            clsController.createUser(userInfo);
+            if (isNewUser)
+            {
+                clsController.createUser(userInfo);
+            }
 
             StringBuilder sSQL = new StringBuilder();
             sSQL.AppendLine("insert into account");

@@ -10,42 +10,6 @@ namespace SalesManagement
         public frmCreateUpdateUserinfo()
         {
             InitializeComponent();
-
-            lbltitle.Text = "User create screen";
-
-            cmbisactive.Items.Clear();
-            cmbisactive.Items.Add("Inactive");
-            cmbisactive.Items.Add("Active");
-
-            cmbrank.Items.Clear();
-
-            var rankData = mdlMain.App.ranks;
-            foreach (var rank in rankData)
-            {
-                cmbrank.Items.Add(new ComboBoxItem()
-                {
-                    Name = rank.name,
-                    Value = rank.id.ToString()
-                });
-            }
-
-            cmbrank.DisplayMember = "Name";
-            cmbrank.ValueMember = "Value";
-
-            cmbtype.Items.Clear();
-            cmbtype.Items.Add("Owner");
-            cmbtype.Items.Add("Manager");
-            cmbtype.Items.Add("Customer");
-            cmbtype.Items.Add("Provider");
-            cmbtype.Items.Add("Debt owner");
-
-            cmbisactive.SelectedIndex = 1;
-            cmbrank.SelectedIndex = 0;
-            cmbtype.SelectedIndex = 3;
-
-            txtpoint.Text = "0";
-            txtpoint.ReadOnly = true;
-            cmbrank.Enabled = false;
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -144,6 +108,46 @@ namespace SalesManagement
             {
                 e.Handled = true;
             }
+        }
+
+        private void frmCreateUpdateUserinfo_Load(object sender, EventArgs e)
+        {
+            lbltitle.Text = "User create screen";
+
+            cmbisactive.Items.Clear();
+            cmbisactive.Items.Add("Inactive");
+            cmbisactive.Items.Add("Active");
+
+            cmbrank.Items.Clear();
+
+            var rankData = mdlMain.App.ranks;
+            foreach (var rank in rankData)
+            {
+                cmbrank.Items.Add(new ComboBoxItem()
+                {
+                    Name = rank.name,
+                    Value = rank.id.ToString()
+                });
+            }
+
+            cmbrank.DisplayMember = "Name";
+            cmbrank.ValueMember = "Value";
+
+            cmbtype.Items.Clear();
+
+            cmbtype.Items.Add("Owner");
+            cmbtype.Items.Add("Manager");
+            cmbtype.Items.Add("Customer");
+            cmbtype.Items.Add("Provider");
+            cmbtype.Items.Add("Debt owner");
+
+            cmbisactive.SelectedIndex = 1;
+            cmbrank.SelectedIndex = 0;
+            cmbtype.SelectedIndex = 2;
+
+            txtpoint.Text = "0";
+            txtpoint.ReadOnly = true;
+            cmbrank.Enabled = false;
         }
     }
 }
