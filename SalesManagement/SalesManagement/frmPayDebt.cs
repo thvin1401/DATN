@@ -80,7 +80,7 @@ namespace SalesManagement
                 }
                 else
                 {
-                    mdlMain.updateMDIMainMessage("Process failed !", Color.Red);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                     this.Close();
                 }
             }
@@ -348,7 +348,7 @@ namespace SalesManagement
             if (data == null)
             {
                 MessageBox.Show("No payment data", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                mdlMain.updateMDIMainMessage("Process failed", Color.Red);
+                mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                 this.Close();
             }
             else

@@ -7,6 +7,9 @@
         public double amount { get; set; }
         public double discount { get; set; }
         public double payamount { get; set; }
+        // 0: sales, 1: return, 2: debt, 3: paydebt
+        public int billtype { get; set; }
+        public bool ispaid { get; set; }
         public bool isdeleted { get; set; }
         public DateTime createdatetime { get; set; }
         public DateTime updatedatetime { get; set; }

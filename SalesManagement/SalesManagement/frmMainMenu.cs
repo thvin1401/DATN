@@ -339,7 +339,7 @@ namespace SalesManagement
                         initGrdNote();
                         return;
                     }
-                    mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);    
                 }
                 else if (columnName == "btndelete")
                 {
@@ -349,7 +349,7 @@ namespace SalesManagement
                         initGrdNote();
                         return;
                     }
-                    mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                 }
             }
         }

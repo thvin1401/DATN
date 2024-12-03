@@ -365,8 +365,11 @@ namespace SalesManagement
                     initGrdData();
                     return;
                 }
+                else
+                {
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
+                }
             }
-            mdlMain.updateMDIMainMessage("Processed failed!", Color.Red);
         }
     }
 }
