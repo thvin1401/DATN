@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMDIMain));
             panel1 = new Panel();
             lblactivestatus = new Label();
             lblactivestatusstring = new Label();
@@ -102,6 +103,7 @@
             // frmMDIMain
             // 
             AutoScaleMode = AutoScaleMode.None;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1264, 711);
             Controls.Add(panel1);
             IsMdiContainer = true;
