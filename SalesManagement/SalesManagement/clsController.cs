@@ -308,6 +308,19 @@ namespace SalesManagement
             }
         }
 
+        public static mdlUserInfo getUserInfoByBillReceiptNumber(int receiptNumber)
+        {
+            try
+            {
+                return clsUserInfoDM.getUserInfoByBillReceiptNumber(receiptNumber);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new mdlUserInfo();
+            }
+        }
+
         public static bool updateUser(mdlUserInfo userInfo)
         {
             try
@@ -461,6 +474,23 @@ namespace SalesManagement
             }
         }
 
+        public static bool updateCanceledProductQuantity(List<mdlProductManagement> listCanceledProduct)
+        {
+            try
+            {
+                foreach(var product in listCanceledProduct)
+                {
+                    clsProductsDM.updateCanceledProductQuantity(product.productid.ToString(), product.quantity);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
         // bill
         public static int getNewReceiptNumber()
         {
@@ -489,6 +519,33 @@ namespace SalesManagement
             }
         }
 
+        public static bool updateBillTypeByReceiptNumber(int receiptNumber, int type)
+        {
+            try
+            {
+                clsBillDM.updateBillTypeByReceiptNumber(receiptNumber, type);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public static mdlBill? getBillByReceiptNumberAndType(int receiptNumber, int billType)
+        {
+            try
+            {
+                return clsBillDM.getBillByReceiptNumberAndType(receiptNumber, billType);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return null;
+            }
+        }
+
         // product management
         public static bool insertData(List<mdlProductManagement> listOrder)
         {
@@ -508,6 +565,19 @@ namespace SalesManagement
             }
         }
 
+        public static List<mdlProductManagement> getListProductManagementByReceiptNumber(int receiptNumber)
+        {
+            try
+            {
+                return clsProductManagementDM.getListProductManagementByReceiptNumber(receiptNumber);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlProductManagement>();
+            }
+        }
+
         // payment
         public static bool insertPaymentData(mdlPayment payment)
         {
@@ -521,6 +591,19 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return false;
+            }
+        }
+
+        public static List<mdlPayment> getListPaymentByReceiptNumber(int receiptNumber)
+        {
+            try
+            {
+                return clsPaymentDM.getListPaymentByReceiptNumber(receiptNumber);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlPayment>();
             }
         }
 

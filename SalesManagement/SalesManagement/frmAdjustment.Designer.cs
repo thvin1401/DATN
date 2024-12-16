@@ -364,6 +364,8 @@
             txtreceiptnumber.Name = "txtreceiptnumber";
             txtreceiptnumber.Size = new Size(218, 29);
             txtreceiptnumber.TabIndex = 35;
+            txtreceiptnumber.KeyDown += txtreceiptnumber_KeyDown;
+            txtreceiptnumber.KeyPress += txtreceiptnumber_KeyPress;
             // 
             // panel1
             // 
@@ -613,17 +615,18 @@
             // btncanceltrans
             // 
             btncanceltrans.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btncanceltrans.Location = new Point(968, 608);
+            btncanceltrans.Location = new Point(836, 608);
             btncanceltrans.Name = "btncanceltrans";
             btncanceltrans.Size = new Size(157, 31);
             btncanceltrans.TabIndex = 38;
             btncanceltrans.Text = "Cancel transaction";
             btncanceltrans.UseVisualStyleBackColor = true;
+            btncanceltrans.Click += btncanceltrans_Click;
             // 
             // btnclear
             // 
             btnclear.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnclear.Location = new Point(848, 608);
+            btnclear.Location = new Point(1042, 608);
             btnclear.Name = "btnclear";
             btnclear.Size = new Size(75, 31);
             btnclear.TabIndex = 39;

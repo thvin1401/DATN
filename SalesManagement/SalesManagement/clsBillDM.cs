@@ -43,9 +43,32 @@ namespace SalesManagement
             sSQL.AppendLine($"{bill.isdeleted}, ");
             sSQL.AppendLine($"'{bill.createdatetime}', ");
             sSQL.AppendLine($"'{bill.updatedatetime}', ");
-            sSQL.AppendLine($"'{bill.userinfoid}')");
+            sSQL.AppendLine($"'{bill.userinfoid}', ");
+            sSQL.AppendLine($"{bill.billtype}, ");
+            sSQL.AppendLine($"{bill.ispaid})");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
+
+        public static void updateBillTypeByReceiptNumber(int receiptNumber, int type)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update bill ");
+            sSQL.AppendLine("set ");
+            sSQL.AppendLine($"billtype = {type} ");
+            sSQL.AppendLine($"where receiptnumber = {receiptNumber} ");
+
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
+
+        public static mdlBill? getBillByReceiptNumberAndType(int receiptNumber, int billType)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select * from bill ");
+            sSQL.AppendLine($"where receiptnumber = {receiptNumber} ");
+            sSQL.AppendLine($"and isdeleted = false and billtype = {billType} ");
+
+            return clsDBConnectionManager.Connection.Query<mdlBill>(sSQL.ToString()).FirstOrDefault();
         }
     }
 }

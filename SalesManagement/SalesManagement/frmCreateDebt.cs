@@ -202,6 +202,8 @@ namespace SalesManagement
             billInfo.payamount = string.IsNullOrEmpty(txtamount.Text) ? 0 : Convert.ToDouble(txtamount.Text.Replace(".", "").Replace(",", ""));
             billInfo.userinfoid = cmbactor.SelectedIndex == 0 ? Guid.NewGuid() : Guid.Parse(((ComboBoxItem)cmbactor.SelectedItem).Value.ToString());
             billInfo.isdeleted = false;
+            billInfo.billtype = 2;
+            billInfo.ispaid = cmbstatus.SelectedIndex == 2 ? true : false;
             billInfo.createdatetime = creationTime;
             billInfo.updatedatetime = creationTime;
 

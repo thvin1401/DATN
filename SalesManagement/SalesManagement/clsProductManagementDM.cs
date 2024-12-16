@@ -33,5 +33,15 @@ namespace SalesManagement
 
             clsDBConnectionManager.Connection.Query<mdlCurrencyExchange>(sSQL.ToString());
         }
+
+        public static List<mdlProductManagement> getListProductManagementByReceiptNumber(int receiptNumber)
+        {
+            // insert data into product manager
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select * from productmanager ");
+            sSQL.AppendLine($"where receiptnumber = {receiptNumber} ");
+
+            return clsDBConnectionManager.Connection.Query<mdlProductManagement>(sSQL.ToString()).ToList();
+        }
     }
 }

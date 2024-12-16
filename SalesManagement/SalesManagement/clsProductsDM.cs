@@ -110,5 +110,16 @@ namespace SalesManagement
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
+
+        public static void updateCanceledProductQuantity(string id, int canceledQuantity)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update products ");
+            sSQL.AppendLine("set ");
+            sSQL.AppendLine($"quantity = quantity + {canceledQuantity} ");
+            sSQL.AppendLine($"where id = '{id}' ");
+
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
     }
 }

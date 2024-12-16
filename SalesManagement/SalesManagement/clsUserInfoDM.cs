@@ -106,5 +106,16 @@ namespace SalesManagement
 
             return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).ToList();
         }
+
+        public static mdlUserInfo getUserInfoByBillReceiptNumber(int receiptNumber)
+        {
+            StringBuilder sSQL = new StringBuilder();
+
+            sSQL.AppendLine("select * from userinfo us");
+            sSQL.AppendLine("join bill b on us.id = b.userinfoid ");
+            sSQL.AppendLine($"where b.receiptnumber = {receiptNumber} ");
+
+            return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).First();
+        }
     }
 }

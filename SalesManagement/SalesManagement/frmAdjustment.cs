@@ -196,12 +196,18 @@ namespace SalesManagement
 
         private void clearControls()
         {
+            cmbpaymentmethod.Enabled = true;
+            txtcashamount.ReadOnly = false;
+            txtbankingpayamount.ReadOnly = false;
+            txtreceiptnumber.Clear();
+            txtreceiptnumber.ReadOnly = false;
             cmbuserinfoname.SelectedIndex = 0;
+            cmbpaymentmethod.SelectedIndex = -1;
             cmbpaymentmethod.SelectedIndex = 0;
             initGrdSales();
             initGrd();
-            txtreceiptnumber.Clear();
             listOrders = new List<mdlProductManagement>();
+            isDebt = false;
         }
 
         private void btnadjustment_Click(object sender, EventArgs e)
@@ -219,7 +225,7 @@ namespace SalesManagement
 
             getListSalesInfo();
 
-            var receiptNumber = createBillInfo();
+            var receiptNumber = createBillInfo(0);
 
             try
             {
@@ -260,7 +266,7 @@ namespace SalesManagement
             }
         }
 
-        private int createBillInfo()
+        private int createBillInfo(int billType)
         {
             DateTime creationTime = DateTime.Now;
 
@@ -270,6 +276,8 @@ namespace SalesManagement
             billInfo.discount = listOrders.Sum(x => x.discount);
             billInfo.payamount = listOrders.Sum(x => x.unitprice) - listOrders.Sum(x => x.discount);
             billInfo.userinfoid = selectedUser == null ? Guid.NewGuid() : selectedUser.id;
+            billInfo.billtype = billType;
+            billInfo.ispaid = isDebt ? false : true;
             billInfo.isdeleted = false;
             billInfo.createdatetime = creationTime;
             billInfo.updatedatetime = creationTime;
@@ -428,6 +436,7 @@ namespace SalesManagement
             else
             {
                 txtbankingpayamount.Text = txttotalprice.Text;
+                txtcashamount.Text = "0";
 
                 var totalprice = Convert.ToDouble(txttotalprice.Text.Replace(".", "").Replace(",", ""));
                 var bankingamount = Convert.ToDouble(txtbankingpayamount.Text.Replace(".", "").Replace(",", ""));
@@ -538,7 +547,6 @@ namespace SalesManagement
                     {
                         txtcashamount.Enabled = false;
                         txtcashamount.Clear();
-
                         txtbankingpayamount.Enabled = true;
                         break;
                     }
@@ -696,6 +704,148 @@ namespace SalesManagement
             frm.ShowDialog(this);
 
             initCmbUserinfo();
+        }
+
+        private void btncanceltrans_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show($"Confirm return {txtchange.Text} ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if(result == DialogResult.Yes)
+            {
+                getListSalesInfo();
+
+                if (clsController.updateBillTypeByReceiptNumber(Convert.ToInt32(txtreceiptnumber.Text), 1)
+                    && clsController.updateCanceledProductQuantity(listOrders))
+                {
+                    mdlMain.updateMDIMainMessage("Cancel successfully!", Color.LimeGreen);
+                }
+                else
+                {
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
+                }
+
+                clearControls();
+            }
+        }
+
+        private void txtreceiptnumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                var receiptNumber = string.IsNullOrEmpty(txtreceiptnumber.Text) ? 0 : Convert.ToInt32(txtreceiptnumber.Text);
+
+                var bill = clsController.getBillByReceiptNumberAndType(receiptNumber, 0);
+
+                if(bill == null)
+                {
+                    MessageBox.Show("Incorrect receiptnumber, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    clearControls();
+                    txtreceiptnumber.Focus();
+                    return;
+                }
+
+                var listProduct = clsController.getListProductManagementByReceiptNumber(receiptNumber);
+                var userInfo = clsController.getUserInfoByBillReceiptNumber(receiptNumber);
+                var listPayment = clsController.getListPaymentByReceiptNumber(receiptNumber);
+
+                bindData(listProduct, userInfo, listPayment);
+
+                txtreceiptnumber.Text = receiptNumber.ToString();
+                txtreceiptnumber.ReadOnly = true;
+            }
+        }
+
+        private void bindData(List<mdlProductManagement> listProduct, mdlUserInfo userInfo, List<mdlPayment> listPayment)
+        {
+            clearControls();
+
+            foreach(var product in listProduct)
+            {
+                var selectedProduct = listSalesProduct.First(x => x.id == product.productid);
+
+                // Create a new row
+                DataGridViewRow row = new DataGridViewRow();
+
+                // Add cells to the row
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = selectedProduct.id });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = grdsales.RowCount + 1 });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = selectedProduct.name });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = product.quantity });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = product.unitprice.ToString("N0", CultureInfo.CurrentCulture) });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = product.discount.ToString("N0", CultureInfo.CurrentCulture) });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = "" });
+
+                for (int i = 0; i < grdsales.RowCount; i++)
+                {
+                    if (grdsales.Rows[i].Cells[0].Value.ToString() == row.Cells[0].Value.ToString())
+                    {
+                        grdsales[3, i].Value = Convert.ToInt32(grdsales[3, i].Value) + 1;
+                        break;
+                    }
+                    if (i == (grdsales.RowCount - 1))
+                    {
+                        grdsales.Rows.Add(row);
+                        break;
+                    }
+                }
+
+                if (grdsales.RowCount == 0)
+                {
+                    grdsales.Rows.Add(row);
+                }
+            }
+
+            cmbuserinfoname.SelectedIndex = getCmbIndex(cmbuserinfoname, userInfo.id.ToString());
+
+            if(listPayment != null && listPayment.Count != 0)
+            {
+                var cashAmount = listPayment.Where(x => x.paymentmethod == 0).Sum(x => x.amount);
+
+                var bankingAmount = listPayment.Where(x => x.paymentmethod == 1).Sum(x => x.amount);
+
+                if(cashAmount != 0 && bankingAmount != 0)
+                {
+                    cmbpaymentmethod.SelectedIndex = 2;
+                }
+                else
+                {
+                    cmbpaymentmethod.SelectedIndex = listPayment.Max(x => x.paymentmethod);
+                }
+
+                cmbpaymentmethod.Enabled = false;
+
+                txtcashamount.Text = cashAmount.ToString("N0", CultureInfo.CurrentCulture);
+
+                txtbankingpayamount.Text = bankingAmount.ToString("N0", CultureInfo.CurrentCulture);
+
+                txtchange.Text = (cashAmount + bankingAmount).ToString("N0", CultureInfo.CurrentCulture);
+
+                txttotalprice.Text = "0";
+            }
+
+            txtcashamount.ReadOnly = true;
+
+            txtbankingpayamount.ReadOnly = true;
+        }
+
+        private int getCmbIndex(ComboBox cmb, string value)
+        {
+            for(int i = 1; i < cmb.Items.Count; i++)
+            {
+                if (((ComboBoxItem)cmb.Items[i]).Value == value)
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
+        private void txtreceiptnumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (sender is TextBox && (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -21,5 +21,14 @@ namespace SalesManagement
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
+
+        public static List<mdlPayment> getListPaymentByReceiptNumber(int receiptNumber)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select * from payment ");
+            sSQL.AppendLine($"where receiptnumber = {receiptNumber} ");
+
+            return clsDBConnectionManager.Connection.Query<mdlPayment>(sSQL.ToString()).ToList();
+        }
     }
 }

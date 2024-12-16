@@ -64,7 +64,7 @@ namespace SalesManagement
             sSQL.AppendLine("join bill b on us.id = b.userinfoid ");
             sSQL.AppendLine("left join payment p on p.receiptnumber = b.receiptnumber ");
             sSQL.AppendLine("join debtmanager dm on b.receiptnumber = dm.receiptnumber ");
-            sSQL.AppendLine("where b.isdeleted = false ");
+            sSQL.AppendLine("where b.isdeleted = false and dm.status != 3");
             sSQL.AppendLine("group by us.id, us.name, dm.type ");
 
             return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
