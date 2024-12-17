@@ -102,21 +102,24 @@ namespace SalesManagement
             if (listSalesProduct.Count > 0)
             {
                 grdproduct.RowCount = listSalesProduct.Count;
-                grdproduct.ColumnCount = 3;
+                grdproduct.ColumnCount = 4;
 
                 for (int i = 0; i < listSalesProduct.Count; i++)
                 {
                     grdproduct[0, i].Value = listSalesProduct[i].id;
                     grdproduct[1, i].Value = i + 1;
                     grdproduct[2, i].Value = listSalesProduct[i].name;
+                    grdproduct[3, i].Value = "QTY : " + listSalesProduct[i].quantity;
                 }
 
                 grdproduct.Columns[1].Width = 45;
-                grdproduct.Columns[2].Width = 450;
+                grdproduct.Columns[2].Width = 350;
+                grdproduct.Columns[3].Width = 100;
 
                 grdproduct.Columns[0].Visible = false;
                 grdproduct.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 grdproduct.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                grdproduct.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 grdproduct.ClearSelection();
             }
