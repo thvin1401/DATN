@@ -53,6 +53,14 @@ namespace SalesManagement
             return clsDBConnectionManager.Connection.Query<mdlProducts>(sSQL.ToString()).ToList();
         }
 
+        public static List<mdlProducts> getAllProducts()
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine($"select * from products");
+
+            return clsDBConnectionManager.Connection.Query<mdlProducts>(sSQL.ToString()).ToList();
+        }
+
         public static List<mdlProducts> getProductEdit(string id)
         {
             StringBuilder sSQL = new StringBuilder();

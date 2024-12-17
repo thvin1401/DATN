@@ -1,4 +1,5 @@
 ﻿using SalesManagement.model;
+using System.Xml.Linq;
 
 namespace SalesManagement
 {
@@ -268,6 +269,19 @@ namespace SalesManagement
             }
         }
 
+        public static List<mdlUserInfo> getAllUsersNoCondition()
+        {
+            try
+            {
+                return clsUserInfoDM.getAllUsersNoCondition();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlUserInfo>();
+            }
+        }
+
         public static bool checkExistEmail(string email)
         {
             try
@@ -400,12 +414,20 @@ namespace SalesManagement
         {
             try
             {
-                var data = clsProductsDM.getAllProductsForSales();
-
-                if (data.Any())
-                    return data;
-
+                return clsProductsDM.getAllProductsForSales();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
                 return new List<mdlProducts>();
+            }
+        }
+
+        public static List<mdlProducts> getAllProducts()
+        {
+            try
+            {
+                return clsProductsDM.getAllProducts();
             }
             catch (Exception ex)
             {
@@ -543,6 +565,19 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return null;
+            }
+        }
+
+        public static List<mdlBill> getAllBills(DateTime billFrom, DateTime billTo, int? costFrom = null, int? costTo = null, int? receiptnumber = null, int? type = null)
+        {
+            try
+            {
+                return clsBillDM.getAllBills(billFrom, billTo, costFrom,costTo, receiptnumber, type);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<mdlBill>();
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using SalesManagement.model;
+using System.ComponentModel.Design;
 using System.Text;
 
 namespace SalesManagement
@@ -69,6 +70,36 @@ namespace SalesManagement
             sSQL.AppendLine($"and isdeleted = false and billtype = {billType} ");
 
             return clsDBConnectionManager.Connection.Query<mdlBill>(sSQL.ToString()).FirstOrDefault();
+        }
+
+        public static List<mdlBill> getAllBills(DateTime billFrom, DateTime billTo, int? costFrom = null, int? costTo = null, int? receiptnumber = null,  int? type = null)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select * from bill ");
+            sSQL.AppendLine("where 1 = 1 ");
+            sSQL.AppendLine($"and (updatedatetime >= '{billFrom.ToString("yyyy-MM-dd 00:00:00")}' ");
+            sSQL.AppendLine($"and updatedatetime <= '{billTo.ToString("yyyy-MM-dd 23:59:59")}') ");
+
+            if(costFrom != null)
+            {
+                sSQL.AppendLine($"and amount >= {costFrom} ");
+            }
+            if(costTo != null)
+            {
+                sSQL.AppendLine($"and amount <= {costTo} ");
+            }
+            if(receiptnumber != null)
+            {
+                sSQL.AppendLine($"and receiptnumber = {receiptnumber} ");
+            }
+            if(type != null)
+            {
+                sSQL.AppendLine($"and billtype = {type} ");
+            }
+
+            sSQL.AppendLine($"order by createdatetime, updatedatetime");
+
+            return clsDBConnectionManager.Connection.Query<mdlBill>(sSQL.ToString()).ToList();
         }
     }
 }

@@ -87,6 +87,17 @@ namespace SalesManagement
             return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).ToList();
         }
 
+        public static List<mdlUserInfo> getAllUsersNoCondition()
+        {
+            StringBuilder sSQL = new StringBuilder();
+
+            sSQL.AppendLine("select * from userinfo");
+
+            sSQL.AppendLine("order by name, type");
+
+            return clsDBConnectionManager.Connection.Query<mdlUserInfo>(sSQL.ToString()).ToList();
+        }
+
         public static bool checkExistEmail(string email)
         {
             StringBuilder sSQL = new StringBuilder();
