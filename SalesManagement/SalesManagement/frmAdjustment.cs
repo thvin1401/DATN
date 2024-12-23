@@ -43,7 +43,7 @@ namespace SalesManagement
 
         private void initCmbUserinfo()
         {
-            listUserInfo = clsController.getUserByNameAndType();
+            listUserInfo = clsController.getUserByNameAndType(typeExcept: 0);
 
             cmbuserinfoname.Items.Clear();
             cmbuserinfoname.Items.Add("");

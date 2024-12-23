@@ -339,7 +339,7 @@ namespace SalesManagement
                         initGrdNote();
                         return;
                     }
-                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);    
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
                 }
                 else if (columnName == "btndelete")
                 {

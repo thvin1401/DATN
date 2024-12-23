@@ -260,7 +260,7 @@ namespace SalesManagement
         {
             try
             {
-                return clsUserInfoDM.getAllUsers(name, type);
+                return clsUserInfoDM.getAllUsers(name, type, typeExcept);
             }
             catch (Exception ex)
             {
@@ -282,11 +282,11 @@ namespace SalesManagement
             }
         }
 
-        public static bool checkExistEmail(string email)
+        public static bool checkExistEmail(string email, string? exceptId = null)
         {
             try
             {
-                return clsUserInfoDM.checkExistEmail(email);
+                return clsUserInfoDM.checkExistEmail(email, exceptId);
             }
             catch (Exception ex)
             {
@@ -332,6 +332,32 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return new mdlUserInfo();
+            }
+        }
+
+        public static mdlUserInfo getUserInfoById(string userId)
+        {
+            try
+            {
+                return clsUserInfoDM.getUserInfoById(userId);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new mdlUserInfo();
+            }
+        }
+
+        public static List<dynamic> getListUserInfoByFullCondition(DateTime birthdayFrom, DateTime birthdayTo, int status, string? fullName = null, string? address = null, string? phone = null)
+        {
+            try
+            {
+                return clsUserInfoDM.getListUserInfoByFullCondition(birthdayFrom, birthdayTo, status, fullName, address, phone);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return new List<dynamic>();
             }
         }
 

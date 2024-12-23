@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnadjustment = new Button();
             btnlogout = new Button();
             btnaccountmanagement = new Button();
             btnsettings = new Button();
@@ -49,7 +50,6 @@
             label2 = new Label();
             lblallnote = new Label();
             btnaddnotes = new Label();
-            btnadjustment = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grdnote).BeginInit();
@@ -72,6 +72,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(332, 679);
             panel1.TabIndex = 0;
+            // 
+            // btnadjustment
+            // 
+            btnadjustment.Cursor = Cursors.Hand;
+            btnadjustment.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnadjustment.Location = new Point(44, 115);
+            btnadjustment.Name = "btnadjustment";
+            btnadjustment.Size = new Size(231, 30);
+            btnadjustment.TabIndex = 9;
+            btnadjustment.Text = "Adjustment";
+            btnadjustment.UseVisualStyleBackColor = true;
+            btnadjustment.Click += btnadjustment_Click;
             // 
             // btnlogout
             // 
@@ -107,6 +119,7 @@
             btnsettings.TabIndex = 6;
             btnsettings.Text = "Settings";
             btnsettings.UseVisualStyleBackColor = true;
+            btnsettings.Visible = false;
             btnsettings.Click += btnsettings_Click;
             // 
             // btnsearchbilljournal
@@ -289,18 +302,6 @@
             btnaddnotes.Text = "+";
             btnaddnotes.TextAlign = ContentAlignment.MiddleCenter;
             btnaddnotes.Click += btnaddnotes_Click;
-            // 
-            // btnadjustment
-            // 
-            btnadjustment.Cursor = Cursors.Hand;
-            btnadjustment.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnadjustment.Location = new Point(44, 115);
-            btnadjustment.Name = "btnadjustment";
-            btnadjustment.Size = new Size(231, 30);
-            btnadjustment.TabIndex = 9;
-            btnadjustment.Text = "Adjustment";
-            btnadjustment.UseVisualStyleBackColor = true;
-            btnadjustment.Click += btnadjustment_Click;
             // 
             // frmMainMenu
             // 

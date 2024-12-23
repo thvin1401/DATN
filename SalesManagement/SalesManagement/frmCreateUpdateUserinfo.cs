@@ -1,4 +1,5 @@
 ﻿using SalesManagement.model;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace SalesManagement
@@ -7,9 +8,46 @@ namespace SalesManagement
     {
         public bool isEdit = false;
 
+        public string userId = string.Empty;
+
         public frmCreateUpdateUserinfo()
         {
             InitializeComponent();
+
+            cmbisactive.Items.Clear();
+            cmbisactive.Items.Add("Inactive");
+            cmbisactive.Items.Add("Active");
+
+            cmbrank.Items.Clear();
+
+            var rankData = mdlMain.App.ranks;
+            foreach (var rank in rankData)
+            {
+                cmbrank.Items.Add(new ComboBoxItem()
+                {
+                    Name = rank.name,
+                    Value = rank.id.ToString()
+                });
+            }
+
+            cmbrank.DisplayMember = "Name";
+            cmbrank.ValueMember = "Value";
+
+            cmbtype.Items.Clear();
+
+            cmbtype.Items.Add("Owner");
+            cmbtype.Items.Add("Manager");
+            cmbtype.Items.Add("Customer");
+            cmbtype.Items.Add("Provider");
+            cmbtype.Items.Add("Debt owner");
+
+            cmbisactive.SelectedIndex = 1;
+            cmbrank.SelectedIndex = 0;
+            cmbtype.SelectedIndex = 2;
+
+            txtpoint.Text = "0";
+            txtpoint.ReadOnly = true;
+            cmbrank.Enabled = false;
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -34,7 +72,12 @@ namespace SalesManagement
                 MessageBox.Show("Input email was incorrect, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            if (clsController.checkExistEmail(txtemail.Text.Trim()))
+            if(isEdit && clsController.checkExistEmail(txtemail.Text.Trim(), userId))
+            {
+                MessageBox.Show("Email is existed, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (!isEdit && clsController.checkExistEmail(txtemail.Text.Trim()))
             {
                 MessageBox.Show("Email is existed, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -81,23 +124,50 @@ namespace SalesManagement
             user.createdatetime = creationTime;
             user.updatedatetime = creationTime;
 
-            if (clsController.createUser(user))
+            if (isEdit)
             {
-                mdlMain.updateMDIMainMessage(clsConfig.messageCreateSuccessfully, Color.LimeGreen);
-                this.Close();
-            }
-            else
-            {
-                DialogResult result = MessageBox.Show(clsConfig.messageErrorTryAgain, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                user.id = Guid.Parse(userId);
 
-                if (result == DialogResult.Yes)
+                if (clsController.updateUser(user))
                 {
-                    clearControls();
+                    mdlMain.updateMDIMainMessage(clsConfig.messageUpdateSuccessfully, Color.LimeGreen);
+                    this.Close();
                 }
                 else
                 {
-                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
+                    DialogResult result = MessageBox.Show(clsConfig.messageErrorTryAgain, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        bindUserData(userId);
+                    }
+                    else
+                    {
+                        mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
+                        this.Close();
+                    }
+                }
+            }
+            else
+            {
+                if (clsController.createUser(user))
+                {
+                    mdlMain.updateMDIMainMessage(clsConfig.messageCreateSuccessfully, Color.LimeGreen);
                     this.Close();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(clsConfig.messageErrorTryAgain, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        clearControls();
+                    }
+                    else
+                    {
+                        mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
+                        this.Close();
+                    }
                 }
             }
         }
@@ -112,42 +182,46 @@ namespace SalesManagement
 
         private void frmCreateUpdateUserinfo_Load(object sender, EventArgs e)
         {
-            lbltitle.Text = "User create screen";
-
-            cmbisactive.Items.Clear();
-            cmbisactive.Items.Add("Inactive");
-            cmbisactive.Items.Add("Active");
-
-            cmbrank.Items.Clear();
-
-            var rankData = mdlMain.App.ranks;
-            foreach (var rank in rankData)
+            if (isEdit)
             {
-                cmbrank.Items.Add(new ComboBoxItem()
+                lbltitle.Text = "User update screen";
+
+                bindUserData(userId);
+            }
+            else
+            {
+                lbltitle.Text = "User create screen";
+            }
+        }
+
+        private void bindUserData(string userId)
+        {
+            var user = clsController.getUserInfoById(userId);
+
+            txtfullname.Text = user.name;
+            txtaddress.Text = user.address;
+            txtphone.Text = user.phone;
+            txtemail.Text = user.email;
+            txtpoint.Text = user.point.ToString("N0", CultureInfo.CurrentCulture);
+
+            dpkbirthday.Value = user.birthday;
+            cmbrank.SelectedIndex = getCmbSelectedIndexByValue(cmbrank, user.rankid.ToString());
+
+            cmbtype.SelectedIndex = user.type;
+            cmbisactive.SelectedIndex = user.isactive ? 1 : 0;
+        }
+
+        private int getCmbSelectedIndexByValue(ComboBox cmb, string value)
+        {
+            foreach(var item in cmb.Items)
+            {
+                if(((ComboBoxItem)item).Value == value)
                 {
-                    Name = rank.name,
-                    Value = rank.id.ToString()
-                });
+                    return cmb.Items.IndexOf(item);
+                }
             }
 
-            cmbrank.DisplayMember = "Name";
-            cmbrank.ValueMember = "Value";
-
-            cmbtype.Items.Clear();
-
-            cmbtype.Items.Add("Owner");
-            cmbtype.Items.Add("Manager");
-            cmbtype.Items.Add("Customer");
-            cmbtype.Items.Add("Provider");
-            cmbtype.Items.Add("Debt owner");
-
-            cmbisactive.SelectedIndex = 1;
-            cmbrank.SelectedIndex = 0;
-            cmbtype.SelectedIndex = 2;
-
-            txtpoint.Text = "0";
-            txtpoint.ReadOnly = true;
-            cmbrank.Enabled = false;
+            return 0;
         }
     }
 }
