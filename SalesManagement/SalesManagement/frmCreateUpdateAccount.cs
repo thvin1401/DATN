@@ -1,4 +1,5 @@
 ﻿using SalesManagement.model;
+using System;
 
 namespace SalesManagement
 {
@@ -186,6 +187,12 @@ namespace SalesManagement
                 }
                 else
                 {
+                    /*Random random = new Random();
+
+                    var uniqueCode = random.Next(1000, 10000);
+
+                    clsUtility.sendMail(txtemail.Text.Trim(), "Verification Code", "Your code is: ", "" + uniqueCode);*/
+
                     if (cmbuserinfo.SelectedIndex != 0)
                     {
                         userinfo.id = Guid.Parse(((ComboBoxItem)cmbuserinfo.SelectedItem).Value);

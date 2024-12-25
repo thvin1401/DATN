@@ -7,7 +7,8 @@ namespace SalesManagement
     {
         public bool isEdit = false;
         public string productId = string.Empty;
-        public int initWeight = 0;
+        private double exchangeRate = 0;
+        private double exchangeRate1 = 0;
         private List<mdlUserInfo> providerList;
         private List<mdlCategories> categoryList;
 
@@ -15,18 +16,15 @@ namespace SalesManagement
         {
             InitializeComponent();
 
-            txtunitprice.KeyPress += txtnumeric_KeyPress;
-            txtquantity.KeyPress += txtnumeric_KeyPress;
-            txtweight.KeyPress += txtnumeric_KeyPress;
-            txtunitpricevnd.KeyPress += txtnumeric_KeyPress;
-
             cmbcurrencytype.Items.Clear();
+            cmbcurrencytype1.Items.Clear();
             cmbprovider.Items.Clear();
             cmbcategory.Items.Clear();
 
             foreach (var item in mdlMain.App.currencyExchange)
             {
                 cmbcurrencytype.Items.Add(item.name);
+                cmbcurrencytype1.Items.Add(item.name);
             }
 
             providerList = clsController.getUserByNameAndType(type: 3);
@@ -66,16 +64,23 @@ namespace SalesManagement
 
         private void FrmCreateUpdateProduct_Load(object sender, EventArgs e)
         {
+            cmbcurrencytype.SelectedIndex = 0;
+            cmbcurrencytype1.SelectedIndex = 0;
+
+            exchangeRate = mdlMain.App.currencyExchange[cmbcurrencytype.SelectedIndex].exchangerate;
+            exchangeRate1 = mdlMain.App.currencyExchange[cmbcurrencytype1.SelectedIndex].exchangerate;
+
             if (isEdit)
             {
                 lbltitle.Text = "Product update screen";
 
                 var data = clsController.getProductEdit(productId);
-
                 txtname.Text = data.name;
-                txtquantity.Text = data.quantity.ToString();
-                txtweight.Text = data.weight.ToString();
-                txtunitpricevnd.Text = data.unitprice.ToString();
+                txtquantity.Text = data.quantity.ToString("N0", CultureInfo.CurrentCulture);
+                txtweight.Text = data.weight.ToString("N0", CultureInfo.CurrentCulture);
+                txtunitpricevnd.Text = data.unitprice.ToString("N0", CultureInfo.CurrentCulture);
+                txtimportprice.Text = (data.importprice / exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+                txtimportpricevnd.Text = data.importprice.ToString("N0", CultureInfo.CurrentCulture);
                 cmbprovider.SelectedValue = data.providerid;
                 cmbcategory.SelectedValue = data.categoryid;
                 dpkimporttime.Value = data.importdatetime;
@@ -87,17 +92,13 @@ namespace SalesManagement
             }
 
             txtunitprice.Enabled = false;
-            txtunitpricevnd.Enabled = false;
             cmbcurrencytype.Enabled = false;
 
             if (!string.IsNullOrEmpty(txtweight.Text))
             {
                 txtunitprice.Enabled = true;
-                txtunitpricevnd.Enabled = true;
                 cmbcurrencytype.Enabled = true;
             }
-
-            cmbcurrencytype.SelectedIndex = 0;
         }
 
         private void btnsave_Click(object sender, EventArgs e)
@@ -149,6 +150,7 @@ namespace SalesManagement
                 product.name = txtname.Text.Trim();
                 product.quantity = Convert.ToInt32(txtquantity.Text.Trim().Replace(".", "").Replace(",", ""));
                 product.unitprice = Convert.ToDouble(txtunitpricevnd.Text.Trim().Replace(".", "").Replace(",", ""));
+                product.importprice = Convert.ToDouble(txtimportpricevnd.Text.Trim().Replace(".", "").Replace(",", ""));
                 product.providerid = ckbisnewprovider.Checked ? providernewguid : Guid.Parse(((ComboBoxItem)cmbprovider.SelectedItem).Value.ToString());
                 product.isdeleted = ckbisdeleted.Checked;
                 product.categoryid = ckbnewcategory.Checked ? categorynewguid : Guid.Parse(((ComboBoxItem)cmbcategory.SelectedItem).Value.ToString());
@@ -169,44 +171,34 @@ namespace SalesManagement
                     mdlMain.updateMDIMainMessage("Create sucessfully", Color.LimeGreen);
                 }
 
-                clearControl();
                 this.Close();
             }
             catch (Exception ex)
             {
-                mdlMain.updateMDIMainMessage("Processed failed", Color.LimeGreen);
                 mdlMain.log(ex.Message, ex);
-                return;
+                var result = MessageBox.Show(clsConfig.messageProcessFailed + ", try again?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    clearControl();
+                    return;
+                }
+                else
+                {
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.LimeGreen);
+                    this.Close();
+                }
             }
         }
 
         private void cmbcurrencytype_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtunitprice.Text) && !string.IsNullOrEmpty(txtunitpricevnd.Text))
-            {
-                double unitPriceVND = Convert.ToDouble(txtunitpricevnd.Text.Trim());
-                var exchangeRate = mdlMain.App.currencyExchange[cmbcurrencytype.SelectedIndex].exchangerate;
+            exchangeRate = mdlMain.App.currencyExchange[cmbcurrencytype.SelectedIndex].exchangerate;
 
-                txtunitprice.Text = (unitPriceVND / exchangeRate).ToString("N0", CultureInfo.CurrentCulture);
-            }
-            if (!string.IsNullOrEmpty(txtunitprice.Text))
-            {
-                double weightUSDPrice = 0;
+            var unitprice = string.IsNullOrEmpty(txtunitprice.Text) ? 0 : Convert.ToDouble(txtunitprice.Text.Replace(".", "").Replace(",", ""));
+            var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
 
-                if (initWeight != Convert.ToInt32(txtweight.Text))
-                {
-                    weightUSDPrice = Convert.ToInt32(txtweight.Text) * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate * 10;
-
-                    initWeight = Convert.ToInt32(txtweight.Text);
-                }
-
-                double unitPrice = Convert.ToDouble(txtunitprice.Text.Trim());
-
-                double exchangeRate = mdlMain.App.currencyExchange[cmbcurrencytype.SelectedIndex].exchangerate;
-
-                txtunitprice.Text = (unitPrice + weightUSDPrice / exchangeRate).ToString("N0", CultureInfo.CurrentCulture);
-                txtunitpricevnd.Text = (exchangeRate * (unitPrice + weightUSDPrice / exchangeRate)).ToString("N0", CultureInfo.CurrentCulture);
-            }
+            txtunitpricevnd.Text = ((unitprice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate)) * exchangeRate).ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void txtnumeric_KeyPress(object? sender, KeyPressEventArgs e)
@@ -232,6 +224,11 @@ namespace SalesManagement
             if (string.IsNullOrEmpty(txtweight.Text))
             {
                 MessageBox.Show("Please enter product weight", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtimportprice.Text))
+            {
+                MessageBox.Show("Please enter product import price", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             if (string.IsNullOrEmpty(txtunitprice.Text))
@@ -285,22 +282,27 @@ namespace SalesManagement
             txtname.Clear();
             txtquantity.Clear();
             txtweight.Clear();
+            txtimportprice.Clear();
             txtunitprice.Clear();
             txtunitpricevnd.Clear();
             txtnewprovidername.Clear();
             txtnewcategoryname.Clear();
-            cmbcurrencytype.Items.Clear();
-            cmbprovider.Items.Clear();
-            cmbcategory.Items.Clear();
             ckbisnewprovider.Checked = false;
             ckbnewcategory.Checked = false;
             dpkimporttime.Value = DateTime.Today;
+
+            cmbcurrencytype.SelectedIndex = 0;
+            cmbcurrencytype1.SelectedIndex = 0;
+
+            cmbprovider.SelectedIndex = 0;
+            cmbcategory.SelectedIndex = 0;
+
+            exchangeRate = mdlMain.App.currencyExchange[cmbcurrencytype.SelectedIndex].exchangerate;
+            exchangeRate1 = mdlMain.App.currencyExchange[cmbcurrencytype1.SelectedIndex].exchangerate;
         }
 
         private void btnback_Click(object sender, EventArgs e)
         {
-            clearControl();
-
             this.Close();
         }
 
@@ -308,16 +310,71 @@ namespace SalesManagement
         {
             if (!string.IsNullOrEmpty(txtweight.Text))
             {
+                txtweight.Text = Convert.ToInt32(txtweight.Text).ToString("N0", CultureInfo.CurrentCulture);
+
                 txtunitprice.Enabled = true;
-                txtunitpricevnd.Enabled = true;
                 cmbcurrencytype.Enabled = true;
             }
             else
             {
                 txtunitprice.Enabled = false;
-                txtunitpricevnd.Enabled = false;
                 cmbcurrencytype.Enabled = false;
             }
+        }
+
+        private void txtweight_TextChanged(object sender, EventArgs e)
+        {
+            var unitprice = string.IsNullOrEmpty(txtunitprice.Text) ? 0 : Convert.ToDouble(txtunitprice.Text.Replace(".", "").Replace(",", ""));
+            var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
+
+            txtunitpricevnd.Text = ((unitprice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate)) * exchangeRate).ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void txtimportprice_TextChanged(object sender, EventArgs e)
+        {
+            var importPrice = string.IsNullOrEmpty(txtimportprice.Text) ? 0 : Convert.ToDouble(txtimportprice.Text.Replace(".", "").Replace(",", ""));
+
+            txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void txtunitprice_TextChanged(object sender, EventArgs e)
+        {
+            var unitprice = string.IsNullOrEmpty(txtunitprice.Text) ? 0 : Convert.ToDouble(txtunitprice.Text.Replace(".", "").Replace(",", ""));
+            var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
+
+            txtunitpricevnd.Text = ((unitprice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate)) * exchangeRate).ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void txtimportprice_Leave(object sender, EventArgs e)
+        {
+            txtimportprice.Text = string.IsNullOrEmpty(txtimportprice.Text) ? "0" : Convert.ToInt32(txtimportprice.Text.Replace(".", "").Replace(",", "")).ToString("N0", CultureInfo.CurrentCulture);
+
+            var importPrice = string.IsNullOrEmpty(txtimportprice.Text) ? 0 : Convert.ToDouble(txtimportprice.Text.Replace(".", "").Replace(",", ""));
+
+            txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void txtunitprice_Leave(object sender, EventArgs e)
+        {
+            txtunitprice.Text = string.IsNullOrEmpty(txtunitprice.Text) ? "0" : Convert.ToInt32(txtunitprice.Text.Replace(".", "").Replace(",", "")).ToString("N0", CultureInfo.CurrentCulture);
+
+            var unitprice = string.IsNullOrEmpty(txtunitprice.Text) ? 0 : Convert.ToDouble(txtunitprice.Text.Replace(".", "").Replace(",", ""));
+            var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
+
+            txtunitpricevnd.Text = ((unitprice + weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate) * exchangeRate).ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void cmbcurrencytype1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            exchangeRate1 = mdlMain.App.currencyExchange[cmbcurrencytype1.SelectedIndex].exchangerate;
+            var importPrice = string.IsNullOrEmpty(txtimportprice.Text) ? 0 : Convert.ToDouble(txtimportprice.Text.Replace(".", "").Replace(",", ""));
+
+            txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+        }
+
+        private void txtquantity_Leave(object sender, EventArgs e)
+        {
+            txtquantity.Text = string.IsNullOrEmpty(txtquantity.Text) ? "0" : Convert.ToInt32(txtquantity.Text.Replace(".", "").Replace(",", "")).ToString("N0", CultureInfo.CurrentCulture);
         }
     }
 }

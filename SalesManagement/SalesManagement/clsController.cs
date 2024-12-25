@@ -389,6 +389,23 @@ namespace SalesManagement
             }
         }
 
+        public static bool deactiveOrActivateUser(List<string> listUserId, bool isActivate)
+        {
+            try
+            {
+                foreach (var item in listUserId)
+                {
+                    clsUserInfoDM.deactiveOrActivateUser(item.Trim(), isActivate);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+                return false;
+            }
+        }
+
         // category
         public static List<mdlCategories> getAllCategories()
         {

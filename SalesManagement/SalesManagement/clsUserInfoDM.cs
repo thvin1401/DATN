@@ -201,5 +201,15 @@ namespace SalesManagement
 
             return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
         }
+
+        public static void deactiveOrActivateUser(string id, bool isActivate)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("update userinfo ");
+            sSQL.AppendLine($"set isactive = {isActivate} ");
+            sSQL.AppendLine($"where id = '{id}' ");
+
+            clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace SalesManagement
             }
             else
             {
-                sSQL.AppendLine($"and importdatetime >= '{importFrom.ToString("yyyy-MM-dd")}' ");
+                sSQL.AppendLine($"and importdatetime >= '{importFrom.ToString("yyyy-MM-dd 00:00:00")}' ");
                 sSQL.AppendLine($"and importdatetime <= '{importTo.ToString("yyyy-MM-dd 23:59:59")}' ");
             }
             if (!string.IsNullOrEmpty(name))
@@ -48,7 +48,7 @@ namespace SalesManagement
         public static List<mdlProducts> getAllProductsForSales()
         {
             StringBuilder sSQL = new StringBuilder();
-            sSQL.AppendLine($"select * from products where isdeleted = false and quantity > 0 ");
+            sSQL.AppendLine($"select * from products where isdeleted = false and quantity > 0 order by name, unitprice");
 
             return clsDBConnectionManager.Connection.Query<mdlProducts>(sSQL.ToString()).ToList();
         }
@@ -84,7 +84,8 @@ namespace SalesManagement
             sSQL.AppendLine($"'{product.createdatetime}', ");
             sSQL.AppendLine($"'{product.updatedatetime}', ");
             sSQL.AppendLine($"'{product.importdatetime}', ");
-            sSQL.AppendLine($"{product.weight})");
+            sSQL.AppendLine($"{product.weight}, ");
+            sSQL.AppendLine($"{product.importprice})");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
         }
@@ -97,6 +98,7 @@ namespace SalesManagement
             sSQL.AppendLine($"name = '{product.name}', ");
             sSQL.AppendLine($"quantity = {product.quantity}, ");
             sSQL.AppendLine($"unitprice = {product.unitprice}, ");
+            sSQL.AppendLine($"importprice = {product.importprice}, ");
             sSQL.AppendLine($"providerid = '{product.providerid}', ");
             sSQL.AppendLine($"isdeleted = {product.isdeleted}, ");
             sSQL.AppendLine($"categoryid = '{product.categoryid}', ");

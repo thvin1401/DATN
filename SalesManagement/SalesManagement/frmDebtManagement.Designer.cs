@@ -34,7 +34,6 @@
             grddata = new DataGridView();
             btnadd = new Button();
             btnpay = new Button();
-            btnexcelreport = new Button();
             dpkprocessedtimefrom = new DateTimePicker();
             dpkprocessedtimeto = new DateTimePicker();
             txtreceiptnumber = new TextBox();
@@ -137,16 +136,6 @@
             btnpay.Text = "Pay";
             btnpay.UseVisualStyleBackColor = true;
             btnpay.Click += btnpay_Click;
-            // 
-            // btnexcelreport
-            // 
-            btnexcelreport.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnexcelreport.Location = new Point(27, 621);
-            btnexcelreport.Name = "btnexcelreport";
-            btnexcelreport.Size = new Size(103, 30);
-            btnexcelreport.TabIndex = 37;
-            btnexcelreport.Text = "Excel report";
-            btnexcelreport.UseVisualStyleBackColor = true;
             // 
             // dpkprocessedtimefrom
             // 
@@ -289,7 +278,6 @@
             Controls.Add(txtreceiptnumber);
             Controls.Add(dpkprocessedtimeto);
             Controls.Add(dpkprocessedtimefrom);
-            Controls.Add(btnexcelreport);
             Controls.Add(btnpay);
             Controls.Add(btnadd);
             Controls.Add(grddata);
@@ -318,7 +306,6 @@
         private DataGridView grddata;
         private Button btnadd;
         private Button btnpay;
-        private Button btnexcelreport;
         private DateTimePicker dpkprocessedtimefrom;
         private DateTimePicker dpkprocessedtimeto;
         private TextBox txtreceiptnumber;

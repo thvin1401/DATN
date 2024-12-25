@@ -39,10 +39,8 @@
             label2 = new Label();
             label3 = new Label();
             btnadd = new Button();
-            btnimport = new Button();
             btnviewdeleteditems = new Button();
             lbldeletedstatus = new Label();
-            btnexcelreport = new Button();
             ((System.ComponentModel.ISupportInitialize)grdheader).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grddata).BeginInit();
             SuspendLayout();
@@ -166,23 +164,13 @@
             // btnadd
             // 
             btnadd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnadd.Location = new Point(763, 623);
+            btnadd.Location = new Point(860, 623);
             btnadd.Name = "btnadd";
             btnadd.Size = new Size(75, 30);
             btnadd.TabIndex = 40;
             btnadd.Text = "Add";
             btnadd.UseVisualStyleBackColor = true;
             btnadd.Click += btnadd_Click;
-            // 
-            // btnimport
-            // 
-            btnimport.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnimport.Location = new Point(872, 623);
-            btnimport.Name = "btnimport";
-            btnimport.Size = new Size(75, 30);
-            btnimport.TabIndex = 41;
-            btnimport.Text = "Import";
-            btnimport.UseVisualStyleBackColor = true;
             // 
             // btnviewdeleteditems
             // 
@@ -206,25 +194,13 @@
             lbldeletedstatus.Text = "D";
             lbldeletedstatus.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnexcelreport
-            // 
-            btnexcelreport.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnexcelreport.Location = new Point(31, 623);
-            btnexcelreport.Name = "btnexcelreport";
-            btnexcelreport.Size = new Size(117, 30);
-            btnexcelreport.TabIndex = 44;
-            btnexcelreport.Text = "Excel Report";
-            btnexcelreport.UseVisualStyleBackColor = true;
-            // 
             // frmProductManagement
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1258, 676);
-            Controls.Add(btnexcelreport);
             Controls.Add(lbldeletedstatus);
             Controls.Add(btnviewdeleteditems);
-            Controls.Add(btnimport);
             Controls.Add(btnadd);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -263,9 +239,7 @@
         private Label label2;
         private Label label3;
         private Button btnadd;
-        private Button btnimport;
         private Button btnviewdeleteditems;
         private Label lbldeletedstatus;
-        private Button btnexcelreport;
     }
 }

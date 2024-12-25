@@ -203,11 +203,29 @@ namespace SalesManagement
 
         private void btndeactivate_Click(object sender, EventArgs e)
         {
+            if (clsController.deactiveOrActivateUser(listSelectedUserID, false))
+            {
+                mdlMain.updateMDIMainMessage("Deactivated successfully!", Color.LimeGreen);
+            }
+            else
+            {
+                mdlMain.updateMDIMainMessage("Deactivated failed!", Color.Red);
+            }
+
             initGrdData();
         }
 
         private void btnactivate_Click(object sender, EventArgs e)
         {
+            if (clsController.deactiveOrActivateUser(listSelectedUserID, true))
+            {
+                mdlMain.updateMDIMainMessage("Activated successfully!", Color.LimeGreen);
+            }
+            else
+            {
+                mdlMain.updateMDIMainMessage("Activated failed!", Color.Red);
+            }
+
             initGrdData();
         }
 

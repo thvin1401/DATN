@@ -592,7 +592,7 @@ namespace SalesManagement
             {
                 isDebt = false;
             }
-            txtchange.Text = isDebt ? "0" : (bankingAmount + cashAmount - total).ToString();
+            txtchange.Text = isDebt ? "0" : (bankingAmount + cashAmount - total).ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void txtbankingpayamount_TextChanged(object sender, EventArgs e)
@@ -609,7 +609,7 @@ namespace SalesManagement
             {
                 isDebt = false;
             }
-            txtchange.Text = isDebt ? "0" : (bankingAmount + cashAmount - total).ToString();
+            txtchange.Text = isDebt ? "0" : (bankingAmount + cashAmount - total).ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void cmbuserinfoname_SelectedIndexChanged(object sender, EventArgs e)

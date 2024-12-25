@@ -55,6 +55,12 @@
             txtweight = new TextBox();
             label10 = new Label();
             ckbisdeleted = new CheckBox();
+            label11 = new Label();
+            txtimportprice = new TextBox();
+            cmbcurrencytype1 = new ComboBox();
+            label12 = new Label();
+            txtimportpricevnd = new TextBox();
+            label13 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -80,7 +86,7 @@
             // 
             cmbprovider.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbprovider.FormattingEnabled = true;
-            cmbprovider.Location = new Point(174, 260);
+            cmbprovider.Location = new Point(174, 300);
             cmbprovider.Name = "cmbprovider";
             cmbprovider.Size = new Size(121, 29);
             cmbprovider.TabIndex = 2;
@@ -89,7 +95,7 @@
             // 
             cmbcategory.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbcategory.FormattingEnabled = true;
-            cmbcategory.Location = new Point(174, 320);
+            cmbcategory.Location = new Point(174, 352);
             cmbcategory.Name = "cmbcategory";
             cmbcategory.Size = new Size(121, 29);
             cmbcategory.TabIndex = 3;
@@ -97,7 +103,7 @@
             // dpkimporttime
             // 
             dpkimporttime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dpkimporttime.Location = new Point(174, 375);
+            dpkimporttime.Location = new Point(174, 405);
             dpkimporttime.Name = "dpkimporttime";
             dpkimporttime.Size = new Size(271, 29);
             dpkimporttime.TabIndex = 4;
@@ -116,7 +122,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(30, 205);
+            label3.Location = new Point(30, 249);
             label3.Name = "label3";
             label3.Size = new Size(85, 21);
             label3.TabIndex = 6;
@@ -126,7 +132,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(30, 263);
+            label4.Location = new Point(30, 305);
             label4.Name = "label4";
             label4.Size = new Size(75, 21);
             label4.TabIndex = 7;
@@ -136,7 +142,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(30, 323);
+            label5.Location = new Point(30, 355);
             label5.Name = "label5";
             label5.Size = new Size(80, 21);
             label5.TabIndex = 8;
@@ -146,7 +152,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(30, 381);
+            label6.Location = new Point(30, 411);
             label6.Name = "label6";
             label6.Size = new Size(101, 21);
             label6.TabIndex = 9;
@@ -168,7 +174,7 @@
             // 
             ckbisnewprovider.AutoSize = true;
             ckbisnewprovider.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ckbisnewprovider.Location = new Point(301, 263);
+            ckbisnewprovider.Location = new Point(297, 302);
             ckbisnewprovider.Name = "ckbisnewprovider";
             ckbisnewprovider.Size = new Size(75, 25);
             ckbisnewprovider.TabIndex = 32;
@@ -184,13 +190,16 @@
             txtquantity.Name = "txtquantity";
             txtquantity.Size = new Size(121, 29);
             txtquantity.TabIndex = 33;
+            txtquantity.KeyPress += txtnumeric_KeyPress;
+            txtquantity.Leave += txtquantity_Leave;
             // 
             // txtunitpricevnd
             // 
             txtunitpricevnd.BorderStyle = BorderStyle.FixedSingle;
             txtunitpricevnd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtunitpricevnd.Location = new Point(382, 205);
+            txtunitpricevnd.Location = new Point(380, 248);
             txtunitpricevnd.Name = "txtunitpricevnd";
+            txtunitpricevnd.ReadOnly = true;
             txtunitpricevnd.Size = new Size(146, 29);
             txtunitpricevnd.TabIndex = 34;
             // 
@@ -198,7 +207,7 @@
             // 
             txtnewprovidername.BorderStyle = BorderStyle.FixedSingle;
             txtnewprovidername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtnewprovidername.Location = new Point(382, 260);
+            txtnewprovidername.Location = new Point(372, 300);
             txtnewprovidername.Name = "txtnewprovidername";
             txtnewprovidername.Size = new Size(183, 29);
             txtnewprovidername.TabIndex = 35;
@@ -206,7 +215,7 @@
             // btnsave
             // 
             btnsave.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnsave.Location = new Point(382, 436);
+            btnsave.Location = new Point(382, 454);
             btnsave.Name = "btnsave";
             btnsave.Size = new Size(75, 31);
             btnsave.TabIndex = 36;
@@ -217,7 +226,7 @@
             // btnback
             // 
             btnback.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnback.Location = new Point(490, 436);
+            btnback.Location = new Point(490, 454);
             btnback.Name = "btnback";
             btnback.Size = new Size(75, 31);
             btnback.TabIndex = 37;
@@ -228,7 +237,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(534, 219);
+            label7.Location = new Point(532, 262);
             label7.Name = "label7";
             label7.Size = new Size(31, 15);
             label7.TabIndex = 38;
@@ -240,7 +249,7 @@
             cmbcurrencytype.FlatStyle = FlatStyle.Flat;
             cmbcurrencytype.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbcurrencytype.FormattingEnabled = true;
-            cmbcurrencytype.Location = new Point(294, 205);
+            cmbcurrencytype.Location = new Point(295, 247);
             cmbcurrencytype.Name = "cmbcurrencytype";
             cmbcurrencytype.Size = new Size(58, 29);
             cmbcurrencytype.TabIndex = 39;
@@ -250,15 +259,18 @@
             // 
             txtunitprice.BorderStyle = BorderStyle.FixedSingle;
             txtunitprice.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtunitprice.Location = new Point(174, 205);
+            txtunitprice.Location = new Point(174, 247);
             txtunitprice.Name = "txtunitprice";
             txtunitprice.Size = new Size(121, 29);
             txtunitprice.TabIndex = 40;
+            txtunitprice.TextChanged += txtunitprice_TextChanged;
+            txtunitprice.KeyPress += txtnumeric_KeyPress;
+            txtunitprice.Leave += txtunitprice_Leave;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(359, 213);
+            label8.Location = new Point(359, 255);
             label8.Name = "label8";
             label8.Size = new Size(15, 15);
             label8.TabIndex = 41;
@@ -269,7 +281,7 @@
             // 
             ckbnewcategory.AutoSize = true;
             ckbnewcategory.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ckbnewcategory.Location = new Point(301, 323);
+            ckbnewcategory.Location = new Point(297, 354);
             ckbnewcategory.Name = "ckbnewcategory";
             ckbnewcategory.Size = new Size(75, 25);
             ckbnewcategory.TabIndex = 42;
@@ -281,7 +293,7 @@
             // 
             txtnewcategoryname.BorderStyle = BorderStyle.FixedSingle;
             txtnewcategoryname.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtnewcategoryname.Location = new Point(382, 320);
+            txtnewcategoryname.Location = new Point(372, 353);
             txtnewcategoryname.Name = "txtnewcategoryname";
             txtnewcategoryname.Size = new Size(183, 29);
             txtnewcategoryname.TabIndex = 43;
@@ -304,6 +316,8 @@
             txtweight.Name = "txtweight";
             txtweight.Size = new Size(146, 29);
             txtweight.TabIndex = 45;
+            txtweight.TextChanged += txtweight_TextChanged;
+            txtweight.KeyPress += txtnumeric_KeyPress;
             txtweight.Leave += txtweight_Leave;
             // 
             // label10
@@ -319,18 +333,87 @@
             // 
             ckbisdeleted.AutoSize = true;
             ckbisdeleted.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ckbisdeleted.Location = new Point(451, 377);
+            ckbisdeleted.Location = new Point(449, 407);
             ckbisdeleted.Name = "ckbisdeleted";
             ckbisdeleted.Size = new Size(114, 25);
             ckbisdeleted.TabIndex = 47;
             ckbisdeleted.Text = "Is deleted ?";
             ckbisdeleted.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label11.Location = new Point(30, 199);
+            label11.Name = "label11";
+            label11.Size = new Size(104, 21);
+            label11.TabIndex = 48;
+            label11.Text = "Import price";
+            // 
+            // txtimportprice
+            // 
+            txtimportprice.BorderStyle = BorderStyle.FixedSingle;
+            txtimportprice.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtimportprice.Location = new Point(174, 197);
+            txtimportprice.Name = "txtimportprice";
+            txtimportprice.Size = new Size(121, 29);
+            txtimportprice.TabIndex = 49;
+            txtimportprice.TextChanged += txtimportprice_TextChanged;
+            txtimportprice.KeyPress += txtnumeric_KeyPress;
+            txtimportprice.Leave += txtimportprice_Leave;
+            // 
+            // cmbcurrencytype1
+            // 
+            cmbcurrencytype1.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbcurrencytype1.FlatStyle = FlatStyle.Flat;
+            cmbcurrencytype1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            cmbcurrencytype1.FormattingEnabled = true;
+            cmbcurrencytype1.Location = new Point(295, 197);
+            cmbcurrencytype1.Name = "cmbcurrencytype1";
+            cmbcurrencytype1.Size = new Size(58, 29);
+            cmbcurrencytype1.TabIndex = 50;
+            cmbcurrencytype1.SelectedIndexChanged += cmbcurrencytype1_SelectedIndexChanged;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(359, 204);
+            label12.Name = "label12";
+            label12.Size = new Size(15, 15);
+            label12.TabIndex = 51;
+            label12.Text = "=";
+            label12.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // txtimportpricevnd
+            // 
+            txtimportpricevnd.BorderStyle = BorderStyle.FixedSingle;
+            txtimportpricevnd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtimportpricevnd.Location = new Point(380, 197);
+            txtimportpricevnd.Name = "txtimportpricevnd";
+            txtimportpricevnd.ReadOnly = true;
+            txtimportpricevnd.Size = new Size(146, 29);
+            txtimportpricevnd.TabIndex = 52;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(532, 211);
+            label13.Name = "label13";
+            label13.Size = new Size(31, 15);
+            label13.TabIndex = 53;
+            label13.Text = "VND";
+            // 
             // frmCreateUpdateProduct
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(595, 491);
+            ClientSize = new Size(593, 511);
             ControlBox = false;
+            Controls.Add(label13);
+            Controls.Add(txtimportpricevnd);
+            Controls.Add(label12);
+            Controls.Add(cmbcurrencytype1);
+            Controls.Add(txtimportprice);
+            Controls.Add(label11);
             Controls.Add(ckbisdeleted);
             Controls.Add(label10);
             Controls.Add(txtweight);
@@ -358,7 +441,7 @@
             Controls.Add(cmbprovider);
             Controls.Add(txtname);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmCreateUpdateProduct";
@@ -397,5 +480,11 @@
         private TextBox txtweight;
         private Label label10;
         private CheckBox ckbisdeleted;
+        private Label label11;
+        private TextBox txtimportprice;
+        private ComboBox cmbcurrencytype1;
+        private Label label12;
+        private TextBox txtimportpricevnd;
+        private Label label13;
     }
 }
