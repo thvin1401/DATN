@@ -87,6 +87,7 @@
             // cmbpaymentmethod
             // 
             cmbpaymentmethod.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbpaymentmethod.FlatStyle = FlatStyle.Flat;
             cmbpaymentmethod.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbpaymentmethod.FormattingEnabled = true;
             cmbpaymentmethod.Location = new Point(131, 302);
@@ -120,6 +121,7 @@
             // cmbpayee
             // 
             cmbpayee.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbpayee.FlatStyle = FlatStyle.Flat;
             cmbpayee.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbpayee.FormattingEnabled = true;
             cmbpayee.Location = new Point(131, 92);

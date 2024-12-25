@@ -48,9 +48,10 @@
             // 
             // btnback
             // 
-            btnback.Location = new Point(1146, 625);
+            btnback.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnback.Location = new Point(1146, 617);
             btnback.Name = "btnback";
-            btnback.Size = new Size(75, 23);
+            btnback.Size = new Size(75, 31);
             btnback.TabIndex = 0;
             btnback.Text = "Back";
             btnback.UseVisualStyleBackColor = true;
@@ -98,17 +99,19 @@
             // txtsearch
             // 
             txtsearch.BorderStyle = BorderStyle.FixedSingle;
-            txtsearch.Location = new Point(912, 44);
+            txtsearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtsearch.Location = new Point(843, 38);
             txtsearch.Name = "txtsearch";
             txtsearch.PlaceholderText = "Search name, username, email...";
-            txtsearch.Size = new Size(206, 23);
+            txtsearch.Size = new Size(275, 29);
             txtsearch.TabIndex = 5;
             // 
             // btnsearch
             // 
-            btnsearch.Location = new Point(1146, 44);
+            btnsearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnsearch.Location = new Point(1146, 38);
             btnsearch.Name = "btnsearch";
-            btnsearch.Size = new Size(75, 23);
+            btnsearch.Size = new Size(75, 29);
             btnsearch.TabIndex = 6;
             btnsearch.Text = "Search";
             btnsearch.UseVisualStyleBackColor = true;
@@ -117,7 +120,7 @@
             // label12
             // 
             label12.BackColor = Color.Blue;
-            label12.Font = new Font("MS Gothic", 15.57F, FontStyle.Bold, GraphicsUnit.Point);
+            label12.Font = new Font("Segoe UI", 15.57F, FontStyle.Bold, GraphicsUnit.Point);
             label12.ForeColor = Color.Aqua;
             label12.Location = new Point(35, 13);
             label12.Name = "label12";
@@ -129,46 +132,53 @@
             // cmbtype
             // 
             cmbtype.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbtype.FlatStyle = FlatStyle.Flat;
+            cmbtype.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbtype.FormattingEnabled = true;
-            cmbtype.Location = new Point(454, 44);
+            cmbtype.Location = new Point(439, 37);
             cmbtype.Name = "cmbtype";
-            cmbtype.Size = new Size(121, 23);
+            cmbtype.Size = new Size(135, 29);
             cmbtype.TabIndex = 17;
             cmbtype.SelectedIndexChanged += cmbtype_SelectedIndexChanged;
             // 
             // cmbactivation
             // 
             cmbactivation.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbactivation.FlatStyle = FlatStyle.Flat;
+            cmbactivation.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbactivation.FormattingEnabled = true;
-            cmbactivation.Location = new Point(709, 44);
+            cmbactivation.Location = new Point(665, 37);
             cmbactivation.Name = "cmbactivation";
-            cmbactivation.Size = new Size(121, 23);
+            cmbactivation.Size = new Size(145, 29);
             cmbactivation.TabIndex = 18;
             cmbactivation.SelectedIndexChanged += cmbactivation_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(417, 47);
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(391, 41);
             label1.Name = "label1";
-            label1.Size = new Size(31, 15);
+            label1.Size = new Size(42, 21);
             label1.TabIndex = 19;
             label1.Text = "Type";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(642, 47);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(580, 41);
             label2.Name = "label2";
-            label2.Size = new Size(61, 15);
+            label2.Size = new Size(79, 21);
             label2.TabIndex = 20;
             label2.Text = "Activation";
             // 
             // btnedit
             // 
-            btnedit.Location = new Point(843, 625);
+            btnedit.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnedit.Location = new Point(819, 617);
             btnedit.Name = "btnedit";
-            btnedit.Size = new Size(75, 23);
+            btnedit.Size = new Size(75, 32);
             btnedit.TabIndex = 22;
             btnedit.Text = "Edit";
             btnedit.UseVisualStyleBackColor = true;
@@ -176,9 +186,10 @@
             // 
             // btnregister
             // 
-            btnregister.Location = new Point(744, 625);
+            btnregister.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnregister.Location = new Point(709, 617);
             btnregister.Name = "btnregister";
-            btnregister.Size = new Size(75, 23);
+            btnregister.Size = new Size(84, 31);
             btnregister.TabIndex = 23;
             btnregister.Text = "Register";
             btnregister.UseVisualStyleBackColor = true;
@@ -186,9 +197,10 @@
             // 
             // btndeactive
             // 
-            btndeactive.Location = new Point(941, 625);
+            btndeactive.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btndeactive.Location = new Point(922, 617);
             btndeactive.Name = "btndeactive";
-            btndeactive.Size = new Size(75, 23);
+            btndeactive.Size = new Size(86, 31);
             btndeactive.TabIndex = 24;
             btndeactive.Text = "Deactive";
             btndeactive.UseVisualStyleBackColor = true;
@@ -196,9 +208,10 @@
             // 
             // btnactivate
             // 
-            btnactivate.Location = new Point(1043, 625);
+            btnactivate.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnactivate.Location = new Point(1037, 617);
             btnactivate.Name = "btnactivate";
-            btnactivate.Size = new Size(75, 23);
+            btnactivate.Size = new Size(81, 31);
             btnactivate.TabIndex = 25;
             btnactivate.Text = "Activate";
             btnactivate.UseVisualStyleBackColor = true;

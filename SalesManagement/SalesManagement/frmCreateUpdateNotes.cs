@@ -120,7 +120,7 @@ namespace SalesManagement
 
         private void cmbisdone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cmbisdone.SelectedIndex == 1)
+            if (cmbisdone.SelectedIndex == 1)
             {
                 cmbisdeleted.Enabled = false;
             }

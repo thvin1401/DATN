@@ -261,7 +261,7 @@ namespace SalesManagement
                     listSelectedDebtID.Remove(grddata[0, e.RowIndex].Value.ToString());
                 }
 
-                if(listSelectedDebtID.Count == 1)
+                if (listSelectedDebtID.Count == 1)
                 {
                     btnpay.Enabled = true;
                     btndelete.Enabled = true;

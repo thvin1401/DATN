@@ -713,7 +713,7 @@ namespace SalesManagement
         {
             DialogResult result = MessageBox.Show($"Confirm return {txtchange.Text} ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 getListSalesInfo();
 
@@ -739,7 +739,7 @@ namespace SalesManagement
 
                 var bill = clsController.getBillByReceiptNumberAndType(receiptNumber, 0);
 
-                if(bill == null)
+                if (bill == null)
                 {
                     MessageBox.Show("Incorrect receiptnumber, please try again", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     clearControls();
@@ -762,7 +762,7 @@ namespace SalesManagement
         {
             clearControls();
 
-            foreach(var product in listProduct)
+            foreach (var product in listProduct)
             {
                 var selectedProduct = listSalesProduct.First(x => x.id == product.productid);
 
@@ -800,13 +800,13 @@ namespace SalesManagement
 
             cmbuserinfoname.SelectedIndex = getCmbIndex(cmbuserinfoname, userInfo.id.ToString());
 
-            if(listPayment != null && listPayment.Count != 0)
+            if (listPayment != null && listPayment.Count != 0)
             {
                 var cashAmount = listPayment.Where(x => x.paymentmethod == 0).Sum(x => x.amount);
 
                 var bankingAmount = listPayment.Where(x => x.paymentmethod == 1).Sum(x => x.amount);
 
-                if(cashAmount != 0 && bankingAmount != 0)
+                if (cashAmount != 0 && bankingAmount != 0)
                 {
                     cmbpaymentmethod.SelectedIndex = 2;
                 }
@@ -833,7 +833,7 @@ namespace SalesManagement
 
         private int getCmbIndex(ComboBox cmb, string value)
         {
-            for(int i = 1; i < cmb.Items.Count; i++)
+            for (int i = 1; i < cmb.Items.Count; i++)
             {
                 if (((ComboBoxItem)cmb.Items[i]).Value == value)
                 {

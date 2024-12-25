@@ -44,17 +44,17 @@ namespace SalesManagement
 
         private void btnpay_Click(object sender, EventArgs e)
         {
-            if(cmbpayee.Items.Count > 1 && cmbpayee.SelectedIndex == 0)
+            if (cmbpayee.Items.Count > 1 && cmbpayee.SelectedIndex == 0)
             {
                 MessageBox.Show("No payee selected", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if(txtbankingamount.Text == "0" && txtcashamount.Text == "0")
+            if (txtbankingamount.Text == "0" && txtcashamount.Text == "0")
             {
                 MessageBox.Show("Please enter payment amount", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             try
             {
                 var userId = Guid.Parse(((ComboBoxItem)cmbpayee.SelectedItem).Value);
@@ -69,12 +69,12 @@ namespace SalesManagement
 
                 this.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 mdlMain.log(ex.Message, ex);
                 DialogResult result = MessageBox.Show("An error occur, pay again ?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     clearControls();
                 }
@@ -143,7 +143,7 @@ namespace SalesManagement
                     var payAmount = i == 0 ? Convert.ToDouble(txtcashamount.Text.Replace(".", "").Replace(",", "")) :
                         Convert.ToDouble(txtbankingamount.Text.Replace(".", "").Replace(",", ""));
 
-                    amount += payAmount; 
+                    amount += payAmount;
 
                     paymentInfo = new mdlPayment()
                     {
@@ -276,7 +276,7 @@ namespace SalesManagement
             var total = string.IsNullOrEmpty(txttotal.Text) ? 0 : Convert.ToDouble(txttotal.Text.Replace(".", "").Replace(",", ""));
             txtbankingamount.Text = total - bankingAmount < 0 ? txttotal.Text : bankingAmount.ToString("N0", CultureInfo.CurrentCulture);
 
-            if(txtbankingamount.Text == txttotal.Text)
+            if (txtbankingamount.Text == txttotal.Text)
             {
                 ckbisfullpaid.Checked = true;
             }

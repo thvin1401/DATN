@@ -237,6 +237,7 @@
             // cmbcurrencytype
             // 
             cmbcurrencytype.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbcurrencytype.FlatStyle = FlatStyle.Flat;
             cmbcurrencytype.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbcurrencytype.FormattingEnabled = true;
             cmbcurrencytype.Location = new Point(294, 205);

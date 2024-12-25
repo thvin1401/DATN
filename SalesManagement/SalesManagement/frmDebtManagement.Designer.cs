@@ -150,7 +150,7 @@
             // 
             // dpkprocessedtimefrom
             // 
-            dpkprocessedtimefrom.Location = new Point(410, 49);
+            dpkprocessedtimefrom.Location = new Point(422, 49);
             dpkprocessedtimefrom.Name = "dpkprocessedtimefrom";
             dpkprocessedtimefrom.Size = new Size(208, 23);
             dpkprocessedtimefrom.TabIndex = 39;
@@ -165,17 +165,19 @@
             // txtreceiptnumber
             // 
             txtreceiptnumber.BorderStyle = BorderStyle.FixedSingle;
-            txtreceiptnumber.Location = new Point(1012, 50);
+            txtreceiptnumber.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtreceiptnumber.Location = new Point(1003, 48);
             txtreceiptnumber.Name = "txtreceiptnumber";
             txtreceiptnumber.PlaceholderText = "Receipt number";
-            txtreceiptnumber.Size = new Size(134, 23);
+            txtreceiptnumber.Size = new Size(143, 29);
             txtreceiptnumber.TabIndex = 42;
             // 
             // btnsearch
             // 
-            btnsearch.Location = new Point(1152, 51);
+            btnsearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnsearch.Location = new Point(1152, 48);
             btnsearch.Name = "btnsearch";
-            btnsearch.Size = new Size(75, 23);
+            btnsearch.Size = new Size(75, 29);
             btnsearch.TabIndex = 43;
             btnsearch.Text = "Search";
             btnsearch.UseVisualStyleBackColor = true;
@@ -183,18 +185,20 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(360, 55);
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(358, 50);
             label1.Name = "label1";
-            label1.Size = new Size(44, 15);
+            label1.Size = new Size(58, 21);
             label1.TabIndex = 44;
             label1.Text = "From : ";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(644, 52);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(636, 50);
             label2.Name = "label2";
-            label2.Size = new Size(28, 15);
+            label2.Size = new Size(36, 21);
             label2.TabIndex = 45;
             label2.Text = "To : ";
             // 

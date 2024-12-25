@@ -197,6 +197,7 @@
             // cmbpaymentmethod
             // 
             cmbpaymentmethod.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbpaymentmethod.FlatStyle = FlatStyle.Flat;
             cmbpaymentmethod.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbpaymentmethod.FormattingEnabled = true;
             cmbpaymentmethod.Location = new Point(120, 206);
@@ -293,6 +294,7 @@
             // cmbpaymenttype
             // 
             cmbpaymenttype.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbpaymenttype.FlatStyle = FlatStyle.Flat;
             cmbpaymenttype.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbpaymenttype.FormattingEnabled = true;
             cmbpaymenttype.Location = new Point(120, 254);
@@ -594,6 +596,7 @@
             // cmbuserinfoname
             // 
             cmbuserinfoname.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbuserinfoname.FlatStyle = FlatStyle.Flat;
             cmbuserinfoname.FormattingEnabled = true;
             cmbuserinfoname.Location = new Point(193, 12);
             cmbuserinfoname.Name = "cmbuserinfoname";

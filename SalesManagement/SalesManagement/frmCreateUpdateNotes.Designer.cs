@@ -78,6 +78,7 @@
             // cmbisdone
             // 
             cmbisdone.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbisdone.FlatStyle = FlatStyle.Flat;
             cmbisdone.FormattingEnabled = true;
             cmbisdone.Location = new Point(123, 130);
             cmbisdone.Name = "cmbisdone";
@@ -88,6 +89,7 @@
             // cmbisdeleted
             // 
             cmbisdeleted.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbisdeleted.FlatStyle = FlatStyle.Flat;
             cmbisdeleted.FormattingEnabled = true;
             cmbisdeleted.Location = new Point(231, 130);
             cmbisdeleted.Name = "cmbisdeleted";
