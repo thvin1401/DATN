@@ -1,5 +1,4 @@
 ﻿using SalesManagement.model;
-using System;
 
 namespace SalesManagement
 {
@@ -170,6 +169,35 @@ namespace SalesManagement
 
             try
             {
+                Random random = new Random();
+
+                var uniqueCode = random.Next(1000, 10000);
+
+                if(clsUtility.sendMail(txtemail.Text.Trim(), "Verification Code", "Your code is: ", "" + uniqueCode))
+                {
+                    frmEmailVeryfication frm = new frmEmailVeryfication();
+                    frm.code = uniqueCode;
+                    frm.txtEmail = txtemail.Text;
+                    frm.message = "Please enter the verification code sent to your email!";
+                    frm.ShowDialog(this);
+
+                    if (frm.DialogResult != DialogResult.OK)
+                    {
+                        MessageBox.Show("Email verification failed, please try again!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
+
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Verification code sent failed, please try again later!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    mdlMain.updateMDIMainMessage(clsConfig.messageProcessFailed, Color.Red);
+
+                    return;
+                }
+                
+
                 if (isEdit)
                 {
                     userinfo.id = userid;
@@ -187,12 +215,6 @@ namespace SalesManagement
                 }
                 else
                 {
-                    /*Random random = new Random();
-
-                    var uniqueCode = random.Next(1000, 10000);
-
-                    clsUtility.sendMail(txtemail.Text.Trim(), "Verification Code", "Your code is: ", "" + uniqueCode);*/
-
                     if (cmbuserinfo.SelectedIndex != 0)
                     {
                         userinfo.id = Guid.Parse(((ComboBoxItem)cmbuserinfo.SelectedItem).Value);
