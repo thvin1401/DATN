@@ -25,7 +25,7 @@ namespace SalesManagement
             frmCreateUpdateProduct frm = new frmCreateUpdateProduct();
             frm.ShowDialog(this);
 
-            initGrdHeader();
+            initGrdData();
         }
 
         private void initGrdHeader()

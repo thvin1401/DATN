@@ -556,6 +556,19 @@ namespace SalesManagement
             }
         }
 
+        public static double getTotalAssetTo(DateTime timeTo)
+        {
+            try
+            {
+                return clsProductsDM.getTotalAssetTo(timeTo);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return 0;
+            }
+        }
+
         // bill
         public static int getNewReceiptNumber()
         {
@@ -656,6 +669,32 @@ namespace SalesManagement
             }
         }
 
+        public static double getTotalSalesAsset(DateTime timeTo)
+        {
+            try
+            {
+                return clsProductManagementDM.getTotalSalesAsset(timeTo);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return 0;
+            }
+        }
+
+        public static double getTotalSales(DateTime timeTo)
+        {
+            try
+            {
+                return clsProductManagementDM.getTotalSales(timeTo);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return 0;
+            }
+        }
+
         // payment
         public static bool insertPaymentData(mdlPayment payment)
         {
@@ -682,6 +721,20 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return new List<mdlPayment>();
+            }
+        }
+
+        
+        public static double getTotalPaymentFor(DateTime timeTo, int? paymentMethod = null)
+        {
+            try
+            {
+                return clsPaymentDM.getTotalPaymentFor(timeTo, paymentMethod);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return 0;
             }
         }
 
@@ -765,6 +818,19 @@ namespace SalesManagement
             {
                 logger.Error(ex.Message);
                 return false;
+            }
+        }
+
+        public static double getTotalDebt(DateTime timeTo, int? debtType)
+        {
+            try
+            {
+                return clsDebtManagementDM.getTotalDebt(timeTo, debtType);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+                return 0;
             }
         }
     }

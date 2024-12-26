@@ -325,16 +325,20 @@ namespace SalesManagement
         private void txtweight_TextChanged(object sender, EventArgs e)
         {
             var unitprice = string.IsNullOrEmpty(txtunitprice.Text) ? 0 : Convert.ToDouble(txtunitprice.Text.Replace(".", "").Replace(",", ""));
+            var importPrice = string.IsNullOrEmpty(txtimportprice.Text) ? 0 : Convert.ToDouble(txtimportprice.Text.Replace(".", "").Replace(",", ""));
             var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
 
             txtunitpricevnd.Text = ((unitprice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate)) * exchangeRate).ToString("N0", CultureInfo.CurrentCulture);
+            txtimportpricevnd.Text = ((importPrice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate1)) * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void txtimportprice_TextChanged(object sender, EventArgs e)
         {
             var importPrice = string.IsNullOrEmpty(txtimportprice.Text) ? 0 : Convert.ToDouble(txtimportprice.Text.Replace(".", "").Replace(",", ""));
+            var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
 
-            txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+            //txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+            txtimportpricevnd.Text = ((importPrice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate1)) * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void txtunitprice_TextChanged(object sender, EventArgs e)
@@ -350,8 +354,10 @@ namespace SalesManagement
             txtimportprice.Text = string.IsNullOrEmpty(txtimportprice.Text) ? "0" : Convert.ToInt32(txtimportprice.Text.Replace(".", "").Replace(",", "")).ToString("N0", CultureInfo.CurrentCulture);
 
             var importPrice = string.IsNullOrEmpty(txtimportprice.Text) ? 0 : Convert.ToDouble(txtimportprice.Text.Replace(".", "").Replace(",", ""));
+            var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
 
-            txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+            //txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+            txtimportpricevnd.Text = ((importPrice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate1)) * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void txtunitprice_Leave(object sender, EventArgs e)
@@ -368,8 +374,10 @@ namespace SalesManagement
         {
             exchangeRate1 = mdlMain.App.currencyExchange[cmbcurrencytype1.SelectedIndex].exchangerate;
             var importPrice = string.IsNullOrEmpty(txtimportprice.Text) ? 0 : Convert.ToDouble(txtimportprice.Text.Replace(".", "").Replace(",", ""));
+            var weightUSD = string.IsNullOrEmpty(txtweight.Text) ? 0 : Convert.ToDouble(txtweight.Text.Replace(".", "").Replace(",", ""));
 
-            txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+            //txtimportpricevnd.Text = (importPrice * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
+            txtimportpricevnd.Text = ((importPrice + (weightUSD * 10 * mdlMain.App.currencyExchange.First(x => x.name == "USD").exchangerate / exchangeRate1)) * exchangeRate1).ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void txtquantity_Leave(object sender, EventArgs e)

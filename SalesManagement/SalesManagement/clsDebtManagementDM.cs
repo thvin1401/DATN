@@ -64,7 +64,7 @@ namespace SalesManagement
             sSQL.AppendLine("join bill b on us.id = b.userinfoid ");
             sSQL.AppendLine("left join payment p on p.receiptnumber = b.receiptnumber ");
             sSQL.AppendLine("join debtmanager dm on b.receiptnumber = dm.receiptnumber ");
-            sSQL.AppendLine("where b.isdeleted = false and dm.status != 3");
+            sSQL.AppendLine("where b.isdeleted = false and dm.status != 3 and b.ispaid = false");
             sSQL.AppendLine("group by us.id, us.name, dm.type ");
 
             return clsDBConnectionManager.Connection.Query<dynamic>(sSQL.ToString()).ToList();
@@ -144,6 +144,27 @@ namespace SalesManagement
             sSQL.AppendLine($"where id = '{debt.id}' ");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
+
+        public static double getTotalDebt(DateTime timeTo, int? debtType)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select COALESCE(SUM(remaining_amount), 0) AS sum ");
+            sSQL.AppendLine("FROM ( ");
+            sSQL.AppendLine("SELECT b.payamount - COALESCE(SUM(p.amount), 0) AS remaining_amount ");
+            sSQL.AppendLine("from debtmanager dm join bill b on dm.receiptnumber = b.receiptnumber ");
+            sSQL.AppendLine("left join payment p on p.receiptnumber = b.receiptnumber ");
+            sSQL.AppendLine($"where b.updatedatetime <= '{timeTo.ToString("yyyy-MM-dd 23:59:59")}' AND b.isdeleted = false ");
+
+            if (debtType != null)
+            {
+                sSQL.AppendLine($"AND dm.type = {debtType} ");
+            }
+
+            sSQL.AppendLine("GROUP BY b.receiptnumber, b.payamount ");
+            sSQL.AppendLine(")subquery; ");
+
+            return clsDBConnectionManager.Connection.Query<double>(sSQL.ToString()).First();
         }
     }
 }

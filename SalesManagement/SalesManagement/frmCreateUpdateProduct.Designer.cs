@@ -84,6 +84,8 @@
             // 
             // cmbprovider
             // 
+            cmbprovider.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbprovider.FlatStyle = FlatStyle.Flat;
             cmbprovider.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbprovider.FormattingEnabled = true;
             cmbprovider.Location = new Point(174, 300);
@@ -93,6 +95,8 @@
             // 
             // cmbcategory
             // 
+            cmbcategory.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbcategory.FlatStyle = FlatStyle.Flat;
             cmbcategory.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbcategory.FormattingEnabled = true;
             cmbcategory.Location = new Point(174, 352);

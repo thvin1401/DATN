@@ -1,10 +1,6 @@
 ﻿using Dapper;
 using SalesManagement.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SalesManagement
 {
@@ -130,6 +126,22 @@ namespace SalesManagement
             sSQL.AppendLine($"where id = '{id}' ");
 
             clsDBConnectionManager.Connection.Query(sSQL.ToString());
+        }
+
+        public static double getTotalAssetTo(DateTime timeTo)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("SELECT ");
+            sSQL.AppendLine("SUM(p.importprice * (p.quantity + COALESCE(sp.total_sold_quantity, 0))) AS total_asset ");
+            sSQL.AppendLine("FROM products p ");
+            sSQL.AppendLine("LEFT JOIN ( ");
+            sSQL.AppendLine("SELECT productmanager.productid, ");
+            sSQL.AppendLine("SUM(productmanager.quantity) AS total_sold_quantity ");
+            sSQL.AppendLine("FROM productmanager ");
+            sSQL.AppendLine("GROUP BY productmanager.productid ");
+            sSQL.AppendLine($") sp ON p.id = sp.productid and p.importdatetime <= '{timeTo.ToString("yyyy-MM-dd 23:59:59")}' ");
+
+            return clsDBConnectionManager.Connection.Query<double>(sSQL.ToString()).First();
         }
     }
 }

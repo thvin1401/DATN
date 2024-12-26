@@ -316,13 +316,16 @@ namespace SalesManagement
 
             if (cmbpaymentmethod.SelectedIndex != 2)
             {
+                var paymentMethod = cmbpaymentmethod.SelectedIndex;
+
                 paymentInfo = new mdlPayment()
                 {
                     id = Guid.NewGuid(),
                     receiptnumber = receiptNumber,
-                    amount = Convert.ToDouble(txtcashamount.Text.Replace(".", "").Replace(",", "")),
+                    amount = paymentMethod == 0 ? Convert.ToDouble(txtcashamount.Text.Replace(".", "").Replace(",", "")) 
+                    : Convert.ToDouble(txtbankingpayamount.Text.Replace(".", "").Replace(",", "")),
                     userinfoid = userinfoId,
-                    paymentmethod = cmbpaymentmethod.SelectedIndex,
+                    paymentmethod = paymentMethod,
                     paydatetime = creationTime,
                     createdatetime = creationTime
                 };

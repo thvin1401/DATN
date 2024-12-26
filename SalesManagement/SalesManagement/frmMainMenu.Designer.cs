@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnsalessumary = new Button();
             btnadjustment = new Button();
             btnlogout = new Button();
             btnaccountmanagement = new Button();
@@ -59,6 +60,7 @@
             // 
             panel1.BackColor = Color.LightGray;
             panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(btnsalessumary);
             panel1.Controls.Add(btnadjustment);
             panel1.Controls.Add(btnlogout);
             panel1.Controls.Add(btnaccountmanagement);
@@ -72,6 +74,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(332, 679);
             panel1.TabIndex = 0;
+            // 
+            // btnsalessumary
+            // 
+            btnsalessumary.Cursor = Cursors.Hand;
+            btnsalessumary.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnsalessumary.Location = new Point(44, 560);
+            btnsalessumary.Name = "btnsalessumary";
+            btnsalessumary.Size = new Size(231, 30);
+            btnsalessumary.TabIndex = 10;
+            btnsalessumary.Text = "Sales Summary";
+            btnsalessumary.UseVisualStyleBackColor = true;
+            btnsalessumary.Click += btnsalessumary_Click;
             // 
             // btnadjustment
             // 
@@ -359,5 +373,6 @@
         private Label lblallnote;
         private Label btnaddnotes;
         private Button btnadjustment;
+        private Button btnsalessumary;
     }
 }

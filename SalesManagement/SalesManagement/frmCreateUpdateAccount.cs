@@ -178,7 +178,7 @@ namespace SalesManagement
                     frmEmailVeryfication frm = new frmEmailVeryfication();
                     frm.code = uniqueCode;
                     frm.txtEmail = txtemail.Text;
-                    frm.message = "Please enter the verification code sent to your email!";
+                    frm.message = "Please enter the code sent to your email!";
                     frm.ShowDialog(this);
 
                     if (frm.DialogResult != DialogResult.OK)

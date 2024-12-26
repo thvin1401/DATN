@@ -1,0 +1,35 @@
+select us.id, 
+us.name, 
+us.address, 
+us.phone, 
+us.email, 
+us.isactive, 
+us.point, 
+us.type, 
+us.birthday, 
+r.name as rank, 
+COALESCE(SUM(CASE WHEN B.BILLTYPE = 0 THEN B.PAYAMOUNT END), 0) AS TOTALPURCHASE, 
+COALESCE(SUM(CASE WHEN B.BILLTYPE = 2 and dm.type = 0 THEN B.PAYAMOUNT ELSE 0 END) - COALESCE(SUM(CASE WHEN B.BILLTYPE = 2 and dm.type = 0 THEN p.AMOUNT ELSE 0 END), 0)) AS TOTALDEBT, 
+COALESCE(SUM(CASE WHEN B.BILLTYPE = 2 and dm.type = 1 THEN B.PAYAMOUNT ELSE 0 END) - COALESCE(SUM(CASE WHEN B.BILLTYPE = 2 and dm.type = 1 THEN p.AMOUNT ELSE 0 END), 0)) AS TOTALLEND 
+from userinfo us 
+join ranking r on us.rankid = r.id 
+left join bill b on us.id = b.userinfoid 
+left join debtmanager dm on dm.receiptnumber = b.receiptnumber 
+left join payment p on p.receiptnumber = b.receiptnumber 
+where 
+us.type != 0 
+and b.isdeleted = false and billtype != 1 
+and (birthday >= '1968-12-26 00:00:00' 
+and birthday <= '2024-12-26 23:59:59') 
+and us.isactive = True 
+group by us.id, 
+us.name, 
+us.address, 
+us.phone, 
+us.email, 
+us.isactive, 
+us.point, 
+us.type, 
+us.birthday, 
+r.name 
+order by point, name 

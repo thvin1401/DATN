@@ -384,5 +384,11 @@ namespace SalesManagement
 
             this.Hide();
         }
+
+        private void btnsalessumary_Click(object sender, EventArgs e)
+        {
+            frmSalesSummary frm = new frmSalesSummary();
+            frm.ShowDialog(this);
+        }
     }
 }

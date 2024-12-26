@@ -79,7 +79,7 @@ namespace SalesManagement
             grdheader1[0, 0].Value = "#";
             grdheader1[1, 0].Value = "Actor";
             grdheader1[2, 0].Value = "Type";
-            grdheader1[3, 0].Value = "Paid Amount";
+            grdheader1[3, 0].Value = "Total Amount";
             grdheader1[4, 0].Value = "Paid Amount";
 
             grdheader1.Columns[0].Width = 35;

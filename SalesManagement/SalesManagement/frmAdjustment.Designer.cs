@@ -156,6 +156,7 @@
             grdproduct.ReadOnly = true;
             grdproduct.RowHeadersVisible = false;
             grdproduct.RowTemplate.Height = 25;
+            grdproduct.ScrollBars = ScrollBars.Vertical;
             grdproduct.Size = new Size(498, 210);
             grdproduct.TabIndex = 3;
             grdproduct.CellDoubleClick += grdproduct_CellDoubleClick;

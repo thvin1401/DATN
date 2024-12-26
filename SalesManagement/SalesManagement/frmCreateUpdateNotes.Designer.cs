@@ -156,7 +156,7 @@
             Controls.Add(label1);
             Controls.Add(dpkreminddatetime);
             Controls.Add(txtmessage);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmCreateUpdateNotes";

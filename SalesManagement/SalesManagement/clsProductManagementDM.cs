@@ -43,5 +43,33 @@ namespace SalesManagement
 
             return clsDBConnectionManager.Connection.Query<mdlProductManagement>(sSQL.ToString()).ToList();
         }
+
+        public static double getTotalSalesAsset(DateTime timeTo)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("SELECT ");
+            sSQL.AppendLine("SUM(p.importprice * COALESCE(sp.total_sold_quantity, 0)) AS total_asset ");
+            sSQL.AppendLine("FROM products p ");
+            sSQL.AppendLine("JOIN ( ");
+            sSQL.AppendLine("SELECT pm.productid,  ");
+            sSQL.AppendLine("SUM(pm.quantity) AS total_sold_quantity ");
+            sSQL.AppendLine("FROM productmanager pm ");
+            sSQL.AppendLine("JOIN bill b on pm.receiptnumber = b.receiptnumber ");
+            sSQL.AppendLine($"WHERE b.updatedatetime <= '{timeTo.ToString("yyyy-MM-dd 23:59:59")}' AND b.isdeleted = false ");
+            sSQL.AppendLine("GROUP BY pm.productid ");
+            sSQL.AppendLine(") sp ON p.id = sp.productid; ");
+
+            return clsDBConnectionManager.Connection.Query<double>(sSQL.ToString()).First();
+        }
+
+        public static double getTotalSales(DateTime timeTo)
+        {
+            StringBuilder sSQL = new StringBuilder();
+            sSQL.AppendLine("select coalesce(sum(quantity * unitprice), 0) from bill b ");
+            sSQL.AppendLine("join productmanager pm on pm.receiptnumber = b.receiptnumber ");
+            sSQL.AppendLine($"where b.updatedatetime <= '{timeTo.ToString("yyyy-MM-dd 23:59:59")}' and b.isdeleted = false ");
+
+            return clsDBConnectionManager.Connection.Query<double>(sSQL.ToString()).First();
+        }
     }
 }
